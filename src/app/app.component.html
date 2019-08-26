@@ -18,16 +18,7 @@
           </ion-menu-toggle>
         </ion-list>
       </ion-content>
-    </ion-menu>
-
-    <ul>
-      <li class="text" *ngFor="let item of items | async">
-        {{item.name}}
-      </li>
-    </ul>
-
-    <ion-button expand="block" (click)="create({name: 'Test'})">Create</ion-button>
-    
+    </ion-menu>  
     <ion-router-outlet main></ion-router-outlet>
   </ion-split-pane>
 </ion-app>
