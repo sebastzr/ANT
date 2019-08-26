@@ -3,6 +3,12 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+
+export interface Item {
+  name: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -23,12 +29,18 @@ export class AppComponent {
     }
   ];
 
+  private itemsCollection: AngularFirestoreCollection<Item>;
+  items: Observable<any[]>;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    db: AngularFirestore
   ) {
     this.initializeApp();
+    this.itemsCollection = db.collection<Item>('items');
+    this.items = db.collection('items').valueChanges();
   }
 
   initializeApp() {
@@ -37,4 +49,9 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   }
+
+  create (item: Item) {
+    this.itemsCollection.add(item);
+  }
+
 }
