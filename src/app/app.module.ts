@@ -17,9 +17,16 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { LoginComponent } from './login/login.component';
+
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -29,7 +36,7 @@ import { FormGroup, FormControl } from '@angular/forms';
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
-    ReactiveFormsModule
+    ReactiveFormsModule, BrowserAnimationsModule
   ],
   providers: [
     StatusBar,

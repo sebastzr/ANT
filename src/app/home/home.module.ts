@@ -7,6 +7,12 @@ import { RouterModule } from '@angular/router';
 import { HomePage } from './home.page';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material';
+import {MatSelectModule} from '@angular/material/select';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +24,12 @@ import { ReactiveFormsModule } from '@angular/forms';
         component: HomePage
       }
     ]),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatExpansionModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
   ],
   declarations: [HomePage]
 })
