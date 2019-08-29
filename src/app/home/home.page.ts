@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 export interface Item {
   name: string;
@@ -14,12 +15,26 @@ export interface Item {
 })
 export class HomePage {
 
+  loginForm = this.fb.group({
+    email: [''],
+    password: ['']
+  });
+
   antForm = this.fb.group({
-    chapterOne: this.fb.group({
-      name: [''],
+    capituloUno: this.fb.group({
+      departamento: [''],
+      municipio: [''],
+      tipoTerritorio: [''],
+      nombreTerritorio: [''],
+      nombrePredio: [''],
+      latitud: [''],
+      longitud: [''],
+      direccionNotificaciones: [''],
+      telefonoContacto: [''],
+      observacionesCapituloUno: [''],
     }),
-    chapterTwo: this.fb.group({
-      lastname: [''],
+    capituloDos: this.fb.group({
+      prueba: [''],
     })
   });
 
@@ -28,7 +43,8 @@ export class HomePage {
 
   constructor(
     db: AngularFirestore,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public auth: AuthService
   ) {
     this.itemsCollection = db.collection<Item>('items');
     this.items = db.collection('items').valueChanges();
@@ -36,6 +52,15 @@ export class HomePage {
 
   create (item: Item) {
     this.itemsCollection.add(item);
+  }
+
+  updateModel() {
+    //this.antForm.setValue(this.antForm.value);
+    console.log(this.antForm.value);
+  }
+
+  onLogin() {
+    this.auth.emailSignin(this.loginForm.value.email, this.loginForm.value.password);
   }
 
   onSubmit() {

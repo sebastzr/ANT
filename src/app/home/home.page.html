@@ -12,143 +12,175 @@
 <ion-content>
     <ion-card class="welcome-card">
       <img src="/assets/shapes.svg" alt="" />
-      <ion-card-header>
-        <ion-card-subtitle>ANT</ion-card-subtitle>
-        <ion-card-title>Formularios</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>                          
-        <mat-accordion>            
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              Capitulo 1. Identificación del Predio
-            </mat-expansion-panel-header>
-            <ion-grid>
 
-              <ion-row>
-                <ion-col>
-                  <mat-form-field>
-                    <mat-label>Departamento</mat-label>
-                    <mat-select>
-                      <mat-option value=""></mat-option>
-                    </mat-select>
-                  </mat-form-field>                
-                </ion-col>
-                <ion-col>
-                  <mat-form-field>
-                    <mat-label>Municipio</mat-label>
-                    <mat-select>                    
-                      <mat-option value=""></mat-option>
-                    </mat-select>
-                  </mat-form-field>                
-                </ion-col>
-              </ion-row>                            
+      <div *ngIf="auth.user$ | async as user; else login">
+        <ion-card-header>
+          <button (click)="auth.signOut()">Cerrar Sesión</button>
+          <ion-card-subtitle>ANT</ion-card-subtitle>
+          <ion-card-title>Formularios</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <form [formGroup]="antForm" (ngSubmit)="onSubmit()">
+            <mat-accordion>   
 
-              <ion-row>
-                <ion-col>
-                  <mat-form-field>
-                    <mat-label>Tipo de Territorio</mat-label>
-                    <mat-select>
-                      <mat-option value=""></mat-option>
-                      <mat-option value="vereda">Vereda</mat-option>
-                      <mat-option value="corregimiento">Corregimiento</mat-option>
-                      <mat-option value="municipal">Cabecera Municipal</mat-option>
-                      <mat-option value="na">N/A</mat-option>
-                      <mat-option value="otros">Otros</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </ion-col>
-                <ion-col>
-                  <mat-form-field>
-                    <input matInput placeholder="Nombre de Territorio">
-                  </mat-form-field>
-                </ion-col>
-              </ion-row>
-              
-              <ion-row>
-                <mat-form-field>
-                  <input matInput placeholder="Nombre del predio">
-                </mat-form-field>
-              </ion-row>
+              <div formGroupName="capituloUno">
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    Capitulo 1. Identificación del Predio
+                  </mat-expansion-panel-header>
 
-              <h3>Coordenadas del Predio</h3>
-              <ion-row>                  
-                <ion-col>
-                  <mat-form-field>
-                    <input matInput placeholder="Latitud">
-                  </mat-form-field>
-                </ion-col>    
-                <ion-col>
-                  <mat-form-field>
-                    <input matInput placeholder="Longitud">
-                  </mat-form-field>
-                </ion-col>
-              </ion-row>
-              
-              <ion-row>
-                <ion-col>
-                  <mat-form-field>
-                    <input matInput placeholder="Direccón de Notificaciones">
-                  </mat-form-field>
-                </ion-col>
-                <ion-col>
-                  <mat-form-field>
-                    <input matInput placeholder="Teléfono de Contacto">
-                  </mat-form-field>              
-                </ion-col>
-              </ion-row>                       
-  
-              <ion-row>
-                <mat-form-field>
-                  <input matInput placeholder="Observaciones Capitulo 1">
-                </mat-form-field>
-              </ion-row>
+                    <ion-grid>
+      
+                    <ion-row>
+                      <ion-col>
+                        <mat-form-field>
+                          <mat-label>Departamento</mat-label>
+                          <mat-select formControlName="departamento">
+                            <mat-option value=""></mat-option>
+                            <mat-option value="prueba">Prueba</mat-option>
+                          </mat-select>
+                        </mat-form-field>                
+                      </ion-col>
+                      <ion-col>
+                        <mat-form-field>
+                          <mat-label>Municipio</mat-label>
+                          <mat-select formControlName="municipio">                    
+                            <mat-option value=""></mat-option>
+                            <mat-option value="prueba">Prueba</mat-option>
+                          </mat-select>
+                        </mat-form-field>                
+                      </ion-col>
+                    </ion-row>                                         
+      
+                    <ion-row>
+                      <ion-col>
+                        <mat-form-field>
+                          <mat-label>Tipo de Territorio</mat-label>
+                          <mat-select formControlName="tipoTerritorio">
+                            <mat-option value=""></mat-option>
+                            <mat-option value="vereda">Vereda</mat-option>
+                            <mat-option value="corregimiento">Corregimiento</mat-option>
+                            <mat-option value="municipal">Cabecera Municipal</mat-option>
+                            <mat-option value="na">N/A</mat-option>
+                            <mat-option value="otros">Otros</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </ion-col>
+                      <ion-col>
+                        <mat-form-field>
+                          <input formControlName="nombreTerritorio" matInput placeholder="Nombre de Territorio">
+                        </mat-form-field>
+                      </ion-col>
+                    </ion-row>
+                    
+                    <ion-row>
+                      <mat-form-field>
+                        <input formControlName="nombrePredio" matInput placeholder="Nombre del predio">
+                      </mat-form-field>
+                    </ion-row>
+      
+                    <h3>Coordenadas del Predio</h3>
+                    <ion-row>                  
+                      <ion-col>
+                        <mat-form-field>
+                          <input formControlName="latitud" matInput placeholder="Latitud">
+                        </mat-form-field>
+                      </ion-col>    
+                      <ion-col>
+                        <mat-form-field>
+                          <input formControlName="longitud" matInput placeholder="Longitud">
+                        </mat-form-field>
+                      </ion-col>
+                    </ion-row>
+                    
+                    <ion-row>
+                      <ion-col>
+                        <mat-form-field>
+                          <input formControlName="direccionNotificaciones" matInput placeholder="Direccón de Notificaciones">
+                        </mat-form-field>
+                      </ion-col>
+                      <ion-col>
+                        <mat-form-field>
+                          <input formControlName="telefonoContacto" matInput placeholder="Teléfono de Contacto">
+                        </mat-form-field>              
+                      </ion-col>
+                    </ion-row>                       
+        
+                    <ion-row>
+                      <mat-form-field>
+                        <input formControlName="observacionesCapituloUno" matInput placeholder="Observaciones Capitulo 1">
+                      </mat-form-field>
+                    </ion-row>
 
-            </ion-grid>
+                    <ion-row>
+                      <button (click)="updateModel()" >Guardar Capitulo 1</button>
+                    </ion-row>
+      
+                  </ion-grid>
+
+                </mat-expansion-panel>
+              </div>
             
-
-        
-        
-          </mat-expansion-panel>
-        
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              Capitulo 2. Información del Predio
-            </mat-expansion-panel-header>
-        
-            Formulario
-        
-          </mat-expansion-panel>
-        
-        </mat-accordion>
-        
-        <!--
-        <h3>Firebase Database</h3>
-        <ul>
-          <li class="text" *ngFor="let item of items | async">
-            {{item.name}}
-          </li>
-        </ul>    
-        <ion-button (click)="create({name: 'Test'})">Create</ion-button>
-
-        <h3>Reactive Form</h3>
-        <form [formGroup]="antForm" (ngSubmit)="onSubmit()">
+              <div formGroupName="capituloDos">
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    Capitulo 2. Información del Predio
+                  </mat-expansion-panel-header>
+              
+                  <ion-row>
+                    <mat-form-field>
+                      <input formControlName="prueba" matInput placeholder="Prueba">
+                    </mat-form-field>
+                  </ion-row>
+              
+                </mat-expansion-panel>
+              </div>
+            
+            </mat-accordion>
+          </form>                   
           
-          <div formGroupName="chapterOne">
-            <label>
-              Name:
-              <input type="text" formControlName="name">
-            </label>
-          </div>
-          
-          <p>
-            Value
-          </p>
-          
-          <button type="submit" [disabled]="!antForm.valid">Submit</button>
-        </form>
-        -->
+          <!--
+          <h3>Firebase Database</h3>
+          <ul>
+            <li class="text" *ngFor="let item of items | async">
+              {{item.name}}
+            </li>
+          </ul>    
+          <ion-button (click)="create({name: 'Test'})">Create</ion-button>
+  
+          <h3>Reactive Form</h3>
+          <form [formGroup]="antForm" (ngSubmit)="onSubmit()">
+            
+            <div formGroupName="chapterOne">
+              <label>
+                Name:
+                <input type="text" formControlName="name">
+              </label>
+            </div>
+            
+            <p>
+              Value
+            </p>
+            
+            <button type="submit" [disabled]="!antForm.valid">Submit</button>
+          </form>
+          -->
+  
+        </ion-card-content>
+      </div>
 
-      </ion-card-content>
+      <ng-template #login>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <mat-form-field>
+            <input formControlName="email" matInput placeholder="Correo Electrónico" type="email">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="password" matInput placeholder="Contraseña" type="password">
+          </mat-form-field>
+
+          <button mat-raised-button color="primary">Iniciar Sesión</button>
+        </form>        
+      </ng-template>
     </ion-card>
     
 </ion-content>
