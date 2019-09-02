@@ -17,8 +17,8 @@
                 </ion-label>
               </ion-item>
             </div>
-            <ion-item *ngIf="auth.user$ | async as user" (click)="auth.signOut()">
-              <ion-icon slot="start" [name]="log-out"></ion-icon>
+            <ion-item button *ngIf="auth.user$ | async as user" (click)="auth.signOut()">
+              <ion-icon slot="start" name="log-out"></ion-icon>
               <ion-label>
                 Cerrar Sesión
               </ion-label>

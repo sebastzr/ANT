@@ -18,12 +18,6 @@ export class AppComponent {
       icon: 'home',
       click: ''
     },
-    {
-      title: 'Cerrar Sesion',
-      url: '/home',
-      icon: 'logout',
-      click: 'signout()'
-    }
   ];
 
   constructor(
