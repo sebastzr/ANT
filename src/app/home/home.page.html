@@ -206,7 +206,7 @@
 									</ion-row>
 
 									<h3>¿Que documento de propiedad posse del predio?</h3>
-									<span>Resolución de adjudicación registrada ante la ofician de Registros de Instrumentos Públicos</span>
+									<span>Resolución de adjudicación registrada ante la oficina de Registros de Instrumentos Públicos</span>
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
@@ -233,10 +233,9 @@
 											</mat-form-field>
 										</ion-col>
 										<ion-col>
-											<ion-label>Otro</ion-label>
-											<ion-checkbox></ion-checkbox>
+                      <mat-checkbox formControlName="checkbox" ng-true-value="Test" [(ngModel)]="checkbox">Otro</mat-checkbox>                      
 										</ion-col>
-										<ion-col>
+										<ion-col *ngIf="checkbox == Si">
 											<mat-form-field>
 												<input formControlName="norte" matInput placeholder="¿Cual?">
 											</mat-form-field>
@@ -336,7 +335,7 @@
 									<span>¿El predio se encuentra en estado de abandono?</span>
 									<ion-row>
 										<ion-col>
-											<mat-select formControlName="medida">
+											<mat-select formControlName="estadoAbandono" [(ngModel)]="estadoAbandono">
 												<mat-option value="">Abandono</mat-option>
 												<mat-option value="si">Si</mat-option>
 												<mat-option value="no">No</mat-option>
@@ -346,10 +345,10 @@
 										<ion-col></ion-col>
 									</ion-row>
 
-									<span>Razón por la cual es predio se encuentra en estado de abandono</span>
-									<ion-row>
+									<ion-row *ngIf="estadoAbandono == 'si'">
+                    <span>Razón por la cual el predio se encuentra en estado de abandono</span>
 										<ion-col>
-											<mat-select formControlName="medida">
+											<mat-select formControlName="estadoAbandono">
 												<mat-option value="">Abandono</mat-option>
 												<mat-option value="orden publico">Orden Publico</mat-option>
 												<mat-option value="falta recursos">Falta de Recursos</mat-option>
@@ -358,11 +357,10 @@
 											</mat-select>
 										</ion-col>
 										<ion-col>
-												<ion-label>Otro</ion-label>
-												<ion-checkbox></ion-checkbox>
+												<mat-checkbox formControlName="razonAbandonoOtro" [(ngModel)]="razonAbandonoOtro">Otro</mat-checkbox>
 											</ion-col>
 											<ion-col>
-												<mat-form-field>
+												<mat-form-field *ngIf="razonAbandonoOtro">
 													<input formControlName="norte" matInput placeholder="¿Cual?">
 												</mat-form-field>
 											</ion-col> 
