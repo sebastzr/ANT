@@ -1,19 +1,19 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Inicio
-    </ion-title>
-  </ion-toolbar>
+	<ion-toolbar>
+    	<ion-buttons slot="start">
+      		<ion-menu-button></ion-menu-button>
+    	</ion-buttons>
+		<ion-title>
+			Inicio
+		</ion-title>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card class="welcome-card">
-      <img src="/assets/shapes.svg" alt="" />
-
-      <div *ngIf="auth.user$ | async as user; else login">
+    <ion-card>
+		<img src="/assets/shapes.svg" alt="" />
+		
+		<div *ngIf="auth.user$ | async as user; else login">
         <ion-card-header>
           <button (click)="auth.signOut()">Cerrar Sesión</button>
           <ion-card-subtitle>ANT</ion-card-subtitle>
@@ -294,20 +294,37 @@
           -->
   
         </ion-card-content>
-      </div>
+    </div>
 
-      <ng-template #login>
-        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-          <mat-form-field>
-            <input formControlName="email" matInput placeholder="Correo Electrónico" type="email">
-          </mat-form-field>
-          <mat-form-field>
-            <input formControlName="password" matInput placeholder="Contraseña" type="password">
-          </mat-form-field>
+		<ng-template #login>
 
-          <button mat-raised-button color="primary">Iniciar Sesión</button>
-        </form>        
-      </ng-template>
+			<ion-card-header>
+				<ion-card-title>Inicio de Sesion</ion-card-title>
+			</ion-card-header>
+					
+			<ion-card-content>
+				<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+					<ion-row>
+						<ion-col>
+							<mat-form-field>
+								<input formControlName="email" matInput placeholder="Correo Electrónico" type="email">
+							</mat-form-field>
+						</ion-col>
+						<ion-col>
+							<mat-form-field>
+								<input formControlName="password" matInput placeholder="Contraseña" type="password">
+							</mat-form-field>
+						</ion-col>
+					</ion-row>
+					<ion-row>
+						<ion-col></ion-col>
+						<ion-col>
+							<ion-button color="primary">Iniciar Sesión</ion-button>
+						</ion-col>
+						<ion-col></ion-col>
+					</ion-row>	
+				</form>
+			</ion-card-content>     
+		</ng-template>
     </ion-card>
-    
 </ion-content>
