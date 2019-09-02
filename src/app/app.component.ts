@@ -15,8 +15,15 @@ export class AppComponent {
     {
       title: 'Inicio',
       url: '/home',
-      icon: 'home'
+      icon: 'home',
+      click: ''
     },
+    {
+      title: 'Cerrar Sesion',
+      url: '/home',
+      icon: 'logout',
+      click: 'signout()'
+    }
   ];
 
   constructor(
@@ -33,5 +40,9 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  signout() {
+    this.auth.signOut();
   }
 }

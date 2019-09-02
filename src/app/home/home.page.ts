@@ -21,20 +21,27 @@ export class HomePage {
   });
 
   antForm = this.fb.group({
+    soliciudEDP: this.fb.group({
+      numeroSolicitudEDP: ['']
+    }),
     capituloUno: this.fb.group({
       departamento: [''],
       municipio: [''],
       tipoTerritorio: [''],
+      zonaManejo:[''],
       nombreTerritorio: [''],
       nombrePredio: [''],
       latitud: [''],
       longitud: [''],
-      direccionNotificaciones: [''],
-      telefonoContacto: [''],
       observacionesCapituloUno: [''],
     }),
     capituloDos: this.fb.group({
-      prueba: [''],
+      areaPredio: [''],
+      medida: [''],
+      norte: [''],
+      sur: [''],
+      este: [''],
+      oeste: ['']
     })
   });
 

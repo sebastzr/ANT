@@ -8,6 +8,7 @@
       </ion-header>
       <ion-content>
         <ion-list>
+<<<<<<< HEAD
           <ion-menu-toggle auto-hide="false">
             <div *ngFor="let p of appPages">
               <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
@@ -19,6 +20,11 @@
             </div>
             <ion-item *ngIf="auth.user$ | async as user" (click)="auth.signOut()">
               <ion-icon slot="start" [name]="log-out"></ion-icon>
+=======
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" (click)="[p.click]">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+>>>>>>> c2b87e3109780a90e6bb95befbfb18c70100fc57
               <ion-label>
                 Cerrar Sesión
               </ion-label>
