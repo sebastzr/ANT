@@ -14,13 +14,14 @@
 		<img src="/assets/shapes.svg" alt="" />
 		
 		<div *ngIf="auth.user$ | async as user; else login">
-			<ion-card-header>
+			
+			<ion-card-header [hidden]="success">
 				<ion-card-title>FORMULARIO DE SEGUIMIENTO</ion-card-title>
 				<ion-card-subtitle>Adjudicaciones Entidades de Derecho Publico</ion-card-subtitle>
 			</ion-card-header>
 
         	<ion-card-content>
-          		<form [formGroup]="antForm" (ngSubmit)="submitHandler()">
+          		<form [formGroup]="antForm" (ngSubmit)="submitHandler()" [hidden]="success">
             		<mat-accordion>
 						<div formGroupName="soliciudEDP">
 							<mat-expansion-panel>
@@ -231,9 +232,9 @@
 										</ion-col>
 										<ion-col>
 											<mat-label>Otro</mat-label>
-		                      				<mat-checkbox formControlName="resolucionAdjudicacionOtro" [(ngModel)]="resolucionAdjudicacionOtro"></mat-checkbox>                      
+		                      				<mat-checkbox formControlName="resolucionAdjudicacionOtro"></mat-checkbox>                      
 										</ion-col>
-										<ion-col *ngIf="resolucionAdjudicacionOtro">
+										<ion-col *ngIf="antForm.value.capituloDos.resolucionAdjudicacionOtro">
 											<mat-form-field>
 												<input formControlName="resolucionAdjudicacionOtroCual" matInput placeholder="¿Cual?">
 											</mat-form-field>
@@ -272,16 +273,16 @@
 										<ion-col>
 											<mat-form-field>
 												<mat-label>¿Actividad Diferente?</mat-label>
-												<mat-select formControlName="actividadDiferente" [(ngModel)]="actividadDiferente">
-													<mat-option value=""></mat-option>
-													<mat-option value="si">Si</mat-option>
+												<mat-select formControlName="actividadDiferente">
+													<mat-option value=""></mat-option>												
 													<mat-option value="no">No</mat-option>
+													<mat-option value="si">Si</mat-option>
 												</mat-select>
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
 
-									<ion-row *ngIf="actividadDiferente == 'si'">
+									<ion-row *ngIf="antForm.value.capituloDos.actividadDiferente == 'si'">
 										<ion-col>
 											<mat-form-field>
 												<textarea formControlName="actividadDiferenteCual" matInput placeholder="¿Cual?"></textarea>
@@ -338,7 +339,7 @@
 										<ion-col>
 											<mat-form-field>
 												<mat-label>Abandono</mat-label>
-												<mat-select formControlName="estadoAbandono" [(ngModel)]="estadoAbandono">
+												<mat-select formControlName="estadoAbandono">
 													<mat-option value=""></mat-option>
 													<mat-option value="si">Si</mat-option>
 													<mat-option value="no">No</mat-option>
@@ -347,7 +348,7 @@
 										</ion-col>
 									</ion-row>
 
-									<div *ngIf="estadoAbandono == 'si'">
+									<div *ngIf="antForm.value.capituloDos.estadoAbandono == 'si'">
 										<ion-row>
 										<span>2.10.1 - Razón por la cual el predio se encuentra en estado de abandono</span>
 											<ion-col>
@@ -364,10 +365,10 @@
 											</ion-col>
 											<ion-col>
 												<mat-label>Otro</mat-label>
-												<mat-checkbox formControlName="razonAbandonoOtro" [(ngModel)]="razonAbandonoOtro"></mat-checkbox>
+												<mat-checkbox formControlName="razonAbandonoOtro"></mat-checkbox>
 											</ion-col>
 											<ion-col>
-												<mat-form-field *ngIf="razonAbandonoOtro">
+												<mat-form-field *ngIf="antForm.value.capituloDos.razonAbandonoOtro">
 													<input formControlName="razonAbandonoOtroCual" matInput placeholder="¿Cual?">
 												</mat-form-field>
 											</ion-col> 
@@ -413,7 +414,7 @@
 											<ion-col>
 												<mat-form-field>
 													<mat-label>Infraestructura</mat-label>
-													<mat-select formControlName="infraestructuraInstalada" [(ngModel)]="infraestructuraInstalada">
+													<mat-select formControlName="infraestructuraInstalada">
 														<mat-option value=""></mat-option>
 														<mat-option value="si">Si</mat-option>
 														<mat-option value="no">No</mat-option>
@@ -423,7 +424,7 @@
 											</ion-col>
 										</ion-row>
 										
-										<div *ngIf="infraestructuraInstalada == 'si'">
+										<div *ngIf="antForm.value.capituloTres.infraestructuraInstalada == 'si'">
 											<span>3.1.1 - ¿Que tipo de infraestructura instala tiene el predio?</span>
 											<ion-row>
 												<ion-col>
@@ -450,6 +451,8 @@
 		  
 			<div *ngIf="success" class="notification is-success">
 				Guardado correctamente.
+
+				<ion-button color="success" (click)="success=false">Nuevo Formulario</ion-button>
 			</div>
           
           <!--

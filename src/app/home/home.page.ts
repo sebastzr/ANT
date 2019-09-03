@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { tap, first } from 'rxjs/operators';
@@ -20,8 +20,13 @@ export class HomePage implements OnInit {
   success = false;
 
   loginForm = this.fb.group({
-    email: [''],
-    password: ['']
+    email: ['', [
+      Validators.required,
+      Validators.email
+    ]],
+    password: ['', [
+      Validators.required,
+    ]]
   });
 
   antForm = this.fb.group({
@@ -50,7 +55,7 @@ export class HomePage implements OnInit {
       fechaAdjudicacionRegistrada:[''],
       numeroAjudicacionSinRegistrar: [''],
       fechaAjudicacionSinRegistrar: [''],
-      resolucionAdjudicacionOtro: [''],
+      resolucionAdjudicacionOtro: [false],
       resolucionAdjudicacionOtroCual: [''],
       entidadAdjudicada: [''],
       servicioActividad: [''],
@@ -63,7 +68,7 @@ export class HomePage implements OnInit {
       grupoEtario: [''],
       estadoAbandono: [''],
       estadoAbandonoRazon: [''],
-      razonAbandonoOtro: [''],
+      razonAbandonoOtro: [false],
       razonAbandonoOtroCual: [''],
       ocupacionAdministracion: [''],
       observacionesCapituloDos: [''],
@@ -107,9 +112,13 @@ export class HomePage implements OnInit {
   }
 
   async submitHandler() {
-    this.loading = true;
 
+    
+    this.loading = true;
+    
     const antValue = this.antForm.value;
+    
+    console.log(antValue);
 
     try {
       await this.afs.collection('forms').add(antValue);
