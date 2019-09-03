@@ -46,10 +46,32 @@ export class HomePage implements OnInit {
       sur: [''],
       este: [''],
       oeste: [''],
-      checkbox: [''],
+      numeroAjudicacionRegistrada: [''],
+      fechaAdjudicacionRegistrada:[''],
+      numeroAjudicacionSinRegistrar: [''],
+      fechaAjudicacionSinRegistrar: [''],
+      resolucionAdjudicacionOtro: [''],
+      resolucionAdjudicacionOtroCual: [''],
+      entidadAdjudicada: [''],
+      servicioActividad: [''],
+      tiempoActividad: [''],
+      actividadDiferente: [''],
+      actividadDiferenteCual: [''],
+      actividadDiferenteTiempo: [''],
+      personasBeneficiadas: [''],
+      poblacionBeneficiaria: [''],
+      grupoEtario: [''],
       estadoAbandono: [''],
-      razonAbandonoOtro: ['']
-    })
+      estadoAbandonoRazon: [''],
+      razonAbandonoOtro: [''],
+      razonAbandonoOtroCual: [''],
+      ocupacionAdministracion: [''],
+      observacionesCapituloDos: [''],
+    }),
+    capituloTres: this.fb.group({
+      infraestructuraInstalada: [''],
+      tipoInfraestructura: ['']
+    }),
   });
 
   private itemsCollection: AngularFirestoreCollection<Item>;
