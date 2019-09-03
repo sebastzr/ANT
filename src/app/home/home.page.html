@@ -29,7 +29,7 @@
 			</ion-card-header>
 
         	<ion-card-content>
-          		<form [formGroup]="antForm" (ngSubmit)="onSubmit()">
+          		<form [formGroup]="antForm" (ngSubmit)="submitHandler()">
             		<mat-accordion>
 						<div formGroupName="soliciudEDP">
 							<mat-expansion-panel>
@@ -153,6 +153,7 @@
 				
 								</ion-grid>
 							</mat-expansion-panel>
+							
 						</div>
 
 						<br>
@@ -395,7 +396,13 @@
 						</div>
             
             </mat-accordion>
-          </form>                   
+			<ion-button color="success" type="submit">Guardar</ion-button>
+		  </form>        
+		  
+		  
+			<div *ngIf="success" class="notification is-success">
+				Guardado correctamente.
+			</div>
           
           <!--
           <h3>Firebase Database</h3>
