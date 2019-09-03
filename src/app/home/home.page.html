@@ -395,6 +395,52 @@
 								</ion-grid>
 							</mat-expansion-panel>
 						</div>
+
+						<br>
+
+						<div formGroupName="capituloTres">
+							<mat-expansion-panel>
+									
+								<mat-expansion-panel-header>
+										Capitulo 3. Infraestructura, Servicios y Estado del Predio
+									</mat-expansion-panel-header>
+									
+									<ion-grid>
+										
+										<span>3.1 - ¿El predio cuenta con infraestructura instalada?</span>
+										<ion-row>
+											<ion-col>
+												<mat-form-field>
+													<mat-label>Infraestructura</mat-label>
+													<mat-select formControlName="infraestructuraInstalada" [(ngModel)]="infraestructuraInstalada">
+														<mat-option value=""></mat-option>
+														<mat-option value="si">Si</mat-option>
+														<mat-option value="no">No</mat-option>
+														<mat-option value="n/a">N/A</mat-option>
+													</mat-select>
+												</mat-form-field>
+											</ion-col>
+										</ion-row>
+										
+										<div *ngIf="infraestructuraInstalada == 'si'">
+											<span>3.1.1 - ¿Que tipo de infraestructura instala tiene el predio?</span>
+											<ion-row>
+												<ion-col>
+													<mat-form-field>
+														<textarea formControlName="tipoInfraestructura" matInput placeholder="Descripcion"></textarea>
+													</mat-form-field>
+												</ion-col> 
+											</ion-row>
+										</div>
+
+	
+										<ion-row>
+											<ion-button color="success" (click)="updateModel()">Guardar</ion-button>
+										</ion-row>
+	
+									</ion-grid>
+								</mat-expansion-panel>
+						</div>
             
             </mat-accordion>
           </form>                   

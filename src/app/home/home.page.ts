@@ -63,7 +63,11 @@ export class HomePage {
       razonAbandonoOtroCual: [''],
       ocupacionAdministracion: [''],
       observacionesCapituloDos: [''],
-    })
+    }),
+    capituloTres: this.fb.group({
+      infraestructuraInstalada: [''],
+      tipoInfraestructura: ['']
+    }),
   });
 
   private itemsCollection: AngularFirestoreCollection<Item>;
