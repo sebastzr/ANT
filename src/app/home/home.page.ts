@@ -41,7 +41,10 @@ export class HomePage {
       norte: [''],
       sur: [''],
       este: [''],
-      oeste: ['']
+      oeste: [''],
+      checkbox: [''],
+      estadoAbandono: [''],
+      razonAbandonoOtro: ['']
     })
   });
 
@@ -72,6 +75,10 @@ export class HomePage {
 
   onSubmit() {
     console.warn(this.antForm.value.chapterOne.name);
+  }
+
+  testLog() {
+    console.log('test');
   }
 
 }
