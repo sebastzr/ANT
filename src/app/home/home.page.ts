@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
@@ -156,6 +156,13 @@ export class HomePage implements OnInit {
   private itemsCollection: AngularFirestoreCollection<Item>;
   items: Observable<any[]>;
 
+  isDirty$: Observable<boolean>;
+
+  @HostListener('window:beforeunload', ['$event'])
+  onbeforeunload(event) {
+    return confirm('Es posible que los cambios que implementaste no se puedan guardar.');
+  }
+
   constructor(
     private afs: AngularFirestore,
     private fb: FormBuilder,
@@ -164,8 +171,8 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.antForm.valueChanges.subscribe( () => {
-      this.success = false
-    });
+      this.success = false;
+    });    
   }
 
   create (item: Item) {
