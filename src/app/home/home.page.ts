@@ -45,12 +45,10 @@ export class HomePage implements OnInit {
       tipoTerritorio: ['',[
         Validators.required,
       ]],
-      tipoTerritorioOtro: [''],
       tipoTerritorioOtroCual: [''],
       zonaManejo:['',[
         Validators.required,
       ]],
-      zonaManejoOtra: [''],
       zonaManejoOtraCual: [''],
       nombreTerritorio: ['',[
         Validators.required,
@@ -86,6 +84,9 @@ export class HomePage implements OnInit {
       oeste: ['',[
         Validators.required,
       ]],
+      documentoPropiedad:['',[
+        Validators.required,
+      ]],
       numeroAjudicacionRegistrada: ['',[
         
       ]],
@@ -98,7 +99,6 @@ export class HomePage implements OnInit {
       fechaAjudicacionSinRegistrar: ['',[
         
       ]],
-      resolucionAdjudicacionOtro: [false],
       resolucionAdjudicacionOtroCual: ['',[
         
       ]],
@@ -135,7 +135,6 @@ export class HomePage implements OnInit {
       estadoAbandonoRazon: ['',[
         
       ]],
-      razonAbandonoOtro: [false],
       razonAbandonoOtroCual: ['',[
         
       ]],
@@ -171,6 +170,7 @@ export class HomePage implements OnInit {
       institucionOtroCual: [''],
       cargoInstitucion: [''],
       actividadAdjudicada: [''],
+      estadoActual: [''],
       calidadServicioPrestado: [''],
       inversionActividades: [''],
       inversionActividadesTiempo: [''],
