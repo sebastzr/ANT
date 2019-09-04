@@ -27,7 +27,12 @@
 							<mat-expansion-panel>
 								
 								<mat-expansion-panel-header>
-									Numero de Solicitud EDP
+									<mat-panel-title>
+										Numero de Solicitud EDP										
+									</mat-panel-title>
+									<mat-panel-description *ngIf="antForm.controls.soliciudEDP.valid">																			
+										<ion-icon name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
+									</mat-panel-description>
 								</mat-expansion-panel-header>
 								
 								<ion-grid>
@@ -52,7 +57,12 @@
 							<mat-expansion-panel>
 								
 								<mat-expansion-panel-header>
-									Capitulo 1. Identificación del Predio
+									<mat-panel-title>
+										Capitulo 1. Identificación del Predio
+									</mat-panel-title>
+									<mat-panel-description *ngIf="antForm.controls.capituloUno.valid">																			
+										<ion-icon name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
+									</mat-panel-description>
 								</mat-expansion-panel-header>
 								<ion-grid>
 									
@@ -154,7 +164,12 @@
 						<div formGroupName="capituloDos">
 							<mat-expansion-panel>
 								<mat-expansion-panel-header>
-									Capitulo 2. Información del Predio
+									<mat-panel-title>										
+										Capitulo 2. Información del Predio
+									</mat-panel-title>
+									<mat-panel-description *ngIf="antForm.controls.capituloDos.valid">																			
+										<ion-icon name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
+									</mat-panel-description>
 								</mat-expansion-panel-header>
 								
 								<ion-grid>
@@ -400,7 +415,12 @@
 							<mat-expansion-panel>
 									
 								<mat-expansion-panel-header>
+									<mat-panel-title>										
 										Capitulo 3. Infraestructura, Servicios y Estado del Predio
+									</mat-panel-title>
+									<mat-panel-description *ngIf="antForm.controls.capituloTres.valid">																			
+										<ion-icon name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
+									</mat-panel-description>
 									</mat-expansion-panel-header>
 									
 									<ion-grid>
@@ -441,7 +461,7 @@
 						</div>
             
             </mat-accordion>
-			<ion-button color="success" type="submit">Guardar</ion-button>
+			<ion-button [disabled]="antForm.invalid" color="success" type="submit">Enviar Formulario</ion-button>
 		  </form>        
 		  
 		  
@@ -504,7 +524,7 @@
 					<ion-row>
 						<ion-col></ion-col>
 						<ion-col>
-							<ion-button type="submit" color="primary">Iniciar Sesión</ion-button>
+							<ion-button [disabled]="loginForm.invalid" type="submit" color="primary">Iniciar Sesión</ion-button>
 						</ion-col>
 						<ion-col></ion-col>
 					</ion-row>	

@@ -31,51 +31,125 @@ export class HomePage implements OnInit {
 
   antForm = this.fb.group({
     soliciudEDP: this.fb.group({
-      numeroSolicitudEDP: ['']
+      numeroSolicitudEDP: ['',[
+        Validators.required,
+      ]]
     }),
     capituloUno: this.fb.group({
-      departamento: [''],
-      municipio: [''],
-      tipoTerritorio: [''],
-      zonaManejo:[''],
-      nombreTerritorio: [''],
-      nombrePredio: [''],
-      latitud: [''],
-      longitud: [''],
-      observacionesCapituloUno: [''],
+      departamento: ['',[
+        Validators.required,
+      ]],
+      municipio: ['',[
+        Validators.required,
+      ]],
+      tipoTerritorio: ['',[
+        Validators.required,
+      ]],
+      zonaManejo:['',[
+        Validators.required,
+      ]],
+      nombreTerritorio: ['',[
+        Validators.required,
+      ]],
+      nombrePredio: ['',[
+        Validators.required,
+      ]],
+      latitud: ['',[
+        Validators.required,
+      ]],
+      longitud: ['',[
+        Validators.required,
+      ]],
+      observacionesCapituloUno: ['',[
+        
+      ]],
     }),
     capituloDos: this.fb.group({
-      areaPredio: [''],
-      medida: [''],
-      norte: [''],
-      sur: [''],
-      este: [''],
-      oeste: [''],
-      numeroAjudicacionRegistrada: [''],
-      fechaAdjudicacionRegistrada:[''],
-      numeroAjudicacionSinRegistrar: [''],
-      fechaAjudicacionSinRegistrar: [''],
+      areaPredio: ['',[
+        Validators.required,
+      ]],
+      medida: ['',[
+        Validators.required,
+      ]],
+      norte: ['',[
+        Validators.required,
+      ]],
+      sur: ['',[
+        Validators.required,
+      ]],
+      este: ['',[
+        Validators.required,
+      ]],
+      oeste: ['',[
+        Validators.required,
+      ]],
+      numeroAjudicacionRegistrada: ['',[
+        
+      ]],
+      fechaAdjudicacionRegistrada:['',[
+        
+      ]],
+      numeroAjudicacionSinRegistrar: ['',[
+        
+      ]],
+      fechaAjudicacionSinRegistrar: ['',[
+        
+      ]],
       resolucionAdjudicacionOtro: [false],
-      resolucionAdjudicacionOtroCual: [''],
-      entidadAdjudicada: [''],
-      servicioActividad: [''],
-      tiempoActividad: [''],
-      actividadDiferente: [''],
-      actividadDiferenteCual: [''],
-      actividadDiferenteTiempo: [''],
-      personasBeneficiadas: [''],
-      poblacionBeneficiaria: [''],
-      grupoEtario: [''],
-      estadoAbandono: [''],
-      estadoAbandonoRazon: [''],
+      resolucionAdjudicacionOtroCual: ['',[
+        
+      ]],
+      entidadAdjudicada: ['',[
+        Validators.required,
+      ]],
+      servicioActividad: ['',[
+        Validators.required,
+      ]],
+      tiempoActividad: ['',[
+        Validators.required,
+      ]],
+      actividadDiferente: ['',[
+        
+      ]],
+      actividadDiferenteCual: ['',[
+        
+      ]],
+      actividadDiferenteTiempo: ['',[
+        
+      ]],
+      personasBeneficiadas: ['',[
+        Validators.required,
+      ]],
+      poblacionBeneficiaria: ['',[
+        Validators.required,
+      ]],
+      grupoEtario: ['',[
+        Validators.required,
+      ]],
+      estadoAbandono: ['',[
+        
+      ]],
+      estadoAbandonoRazon: ['',[
+        
+      ]],
       razonAbandonoOtro: [false],
-      razonAbandonoOtroCual: [''],
-      ocupacionAdministracion: [''],
-      observacionesCapituloDos: [''],
+      razonAbandonoOtroCual: ['',[
+        
+      ]],
+      ocupacionAdministracion: ['',[
+        Validators.required,
+      ]],
+      observacionesCapituloDos: ['',[
+        
+      ]],
     }),
     capituloTres: this.fb.group({
-      infraestructuraInstalada: [''],
-      tipoInfraestructura: ['']
+      infraestructuraInstalada: ['',[
+        
+      ]],
+      tipoInfraestructura: ['',[
+        
+      ]]
     }),
   });
 
@@ -100,7 +174,7 @@ export class HomePage implements OnInit {
 
   updateModel() {
     //this.antForm.setValue(this.antForm.value);
-    console.log(this.antForm.value);
+    console.log(this.antForm.controls);
   }
 
   onLogin() {
