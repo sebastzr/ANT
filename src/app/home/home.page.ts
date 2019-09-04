@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
@@ -31,51 +31,120 @@ export class HomePage implements OnInit {
 
   antForm = this.fb.group({
     soliciudEDP: this.fb.group({
-      numeroSolicitudEDP: ['']
+      numeroSolicitudEDP: ['',[
+        Validators.required,
+      ]]
     }),
     capituloUno: this.fb.group({
-      departamento: [''],
-      municipio: [''],
-      tipoTerritorio: [''],
+      departamento: ['',[
+        Validators.required,
+      ]],
+      municipio: ['',[
+        Validators.required,
+      ]],
+      tipoTerritorio: ['',[
+        Validators.required,
+      ]],
       tipoTerritorioOtro: [''],
       tipoTerritorioOtroCual: [''],
-      zonaManejo:[''],
+      zonaManejo:['',[
+        Validators.required,
+      ]],
       zonaManejoOtra: [''],
       zonaManejoOtraCual: [''],
-      nombreTerritorio: [''],
-      nombrePredio: [''],
-      latitud: [''],
-      longitud: [''],
-      observacionesCapituloUno: [''],
+      nombreTerritorio: ['',[
+        Validators.required,
+      ]],
+      nombrePredio: ['',[
+        Validators.required,
+      ]],
+      latitud: ['',[
+        Validators.required,
+      ]],
+      longitud: ['',[
+        Validators.required,
+      ]],
+      observacionesCapituloUno: ['',[
+      ]],
     }),
     capituloDos: this.fb.group({
-      areaPredio: [''],
-      medida: [''],
-      norte: [''],
-      sur: [''],
-      este: [''],
-      oeste: [''],
-      numeroAjudicacionRegistrada: [''],
-      fechaAdjudicacionRegistrada:[''],
-      numeroAjudicacionSinRegistrar: [''],
-      fechaAjudicacionSinRegistrar: [''],
+      areaPredio: ['',[
+        Validators.required,
+      ]],
+      medida: ['',[
+        Validators.required,
+      ]],
+      norte: ['',[
+        Validators.required,
+      ]],
+      sur: ['',[
+        Validators.required,
+      ]],
+      este: ['',[
+        Validators.required,
+      ]],
+      oeste: ['',[
+        Validators.required,
+      ]],
+      numeroAjudicacionRegistrada: ['',[
+        
+      ]],
+      fechaAdjudicacionRegistrada:['',[
+        
+      ]],
+      numeroAjudicacionSinRegistrar: ['',[
+        
+      ]],
+      fechaAjudicacionSinRegistrar: ['',[
+        
+      ]],
       resolucionAdjudicacionOtro: [false],
-      resolucionAdjudicacionOtroCual: [''],
-      entidadAdjudicada: [''],
-      servicioActividad: [''],
-      tiempoActividad: [''],
-      actividadDiferente: [''],
-      actividadDiferenteCual: [''],
-      actividadDiferenteTiempo: [''],
-      personasBeneficiadas: [''],
-      poblacionBeneficiaria: [''],
-      grupoEtario: [''],
-      estadoAbandono: [''],
-      estadoAbandonoRazon: [''],
+      resolucionAdjudicacionOtroCual: ['',[
+        
+      ]],
+      entidadAdjudicada: ['',[
+        Validators.required,
+      ]],
+      servicioActividad: ['',[
+        Validators.required,
+      ]],
+      tiempoActividad: ['',[
+        Validators.required,
+      ]],
+      actividadDiferente: ['',[
+        
+      ]],
+      actividadDiferenteCual: ['',[
+        
+      ]],
+      actividadDiferenteTiempo: ['',[
+        
+      ]],
+      personasBeneficiadas: ['',[
+        Validators.required,
+      ]],
+      poblacionBeneficiaria: ['',[
+        Validators.required,
+      ]],
+      grupoEtario: ['',[
+        Validators.required,
+      ]],
+      estadoAbandono: ['',[
+        
+      ]],
+      estadoAbandonoRazon: ['',[
+        
+      ]],
       razonAbandonoOtro: [false],
-      razonAbandonoOtroCual: [''],
-      ocupacionAdministracion: [''],
-      observacionesCapituloDos: [''],
+      razonAbandonoOtroCual: ['',[
+        
+      ]],
+      ocupacionAdministracion: ['',[
+        Validators.required,
+      ]],
+      observacionesCapituloDos: ['',[
+        
+      ]],
     }),
     capituloTres: this.fb.group({
       infraestructuraInstalada: [''],
@@ -112,6 +181,13 @@ export class HomePage implements OnInit {
   private itemsCollection: AngularFirestoreCollection<Item>;
   items: Observable<any[]>;
 
+  isDirty$: Observable<boolean>;
+
+  @HostListener('window:beforeunload', ['$event'])
+  onbeforeunload(event) {
+    return confirm('Es posible que los cambios que implementaste no se puedan guardar.');
+  }
+
   constructor(
     private afs: AngularFirestore,
     private fb: FormBuilder,
@@ -120,8 +196,8 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.antForm.valueChanges.subscribe( () => {
-      this.success = false
-    });
+      this.success = false;
+    });    
   }
 
   create (item: Item) {
@@ -130,7 +206,7 @@ export class HomePage implements OnInit {
 
   updateModel() {
     //this.antForm.setValue(this.antForm.value);
-    console.log(this.antForm.value);
+    console.log(this.antForm.controls);
   }
 
   onLogin() {
