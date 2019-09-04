@@ -421,7 +421,7 @@
 												</mat-form-field>
 											</ion-col>
 										</ion-row>
-										
+
 										<div *ngIf="infraestructuraInstalada == 'si'">
 											<span>3.1.1 - ¿Que tipo de infraestructura instala tiene el predio?</span>
 											<ion-row>
@@ -431,7 +431,59 @@
 													</mat-form-field>
 												</ion-col> 
 											</ion-row>
+											
+											<span>3.1.2 - ¿Cuenta con baterias sanitarias?</span>
+											<ion-row>
+												<ion-col>
+													<mat-form-fiel>
+														<mat-label>Baterias Sanitarias</mat-label>
+														<mat-select formControlName="infraestructuraInstalada">
+															<mat-option value=""></mat-option>
+																<mat-option value="si">Si</mat-option>
+																<mat-option value="no">No</mat-option>
+																<mat-option value="n/a">N/A</mat-option>
+														</mat-select>
+													</mat-form-fiel>
+												</ion-col>
+											</ion-row>
 										</div>
+
+										<span>3.2 - Estado general de toda la infraestructura</span>
+										<ion-row>
+												<ion-col>
+													<mat-form-fiel>
+														<mat-label>Estado</mat-label>
+														<mat-select formControlName="infraestructuraInstalada">
+															<mat-option value=""></mat-option>
+																<mat-option value="pesimo">Pesimo</mat-option>
+																<mat-option value="malo">Malo</mat-option>
+																<mat-option value="regular">Regular</mat-option>
+																<mat-option value="buena">Buena</mat-option>
+														</mat-select>
+													</mat-form-fiel>
+												</ion-col>
+											</ion-row>
+
+
+
+
+										<span>3.2 - ¿La infraestructura existía antes de la adjudicación del predio?</span>
+										<ion-row>
+											<ion-col>
+												<mat-form-fiel>
+													<mat-label>Existia</mat-label>
+													<mat-select formControlName="infraestructuraInstalada">
+														<mat-option value=""></mat-option>
+															<mat-option value="si">Si</mat-option>
+															<mat-option value="no">No</mat-option>
+													</mat-select>
+												</mat-form-fiel>
+											</ion-col>
+										</ion-row>
+
+										<ion-row>
+
+										</ion-row>
 
 	
 										<ion-row>
