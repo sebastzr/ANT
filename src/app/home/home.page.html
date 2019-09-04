@@ -270,15 +270,11 @@
 
 									<span>2.6 - ¿Dentro del predio adjudicado se desarrolla una activdad diferente a la establecida en el acto administrativo de adjudicación?</span>
 									<ion-row>
-										<ion-col>
-											<mat-form-field>
-												<mat-label>¿Actividad Diferente?</mat-label>
-												<mat-select formControlName="actividadDiferente">
-													<mat-option value=""></mat-option>												
-													<mat-option value="no">No</mat-option>
-													<mat-option value="si">Si</mat-option>
-												</mat-select>
-											</mat-form-field>
+										<ion-col>										
+											<mat-radio-group formControlName="actividadDiferente" aria-label="Selecciona">
+												<mat-radio-button value="si">SI</mat-radio-button>
+												<mat-radio-button value="no">NO</mat-radio-button>
+											</mat-radio-group>
 										</ion-col>
 									</ion-row>
 
