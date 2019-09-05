@@ -70,20 +70,22 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<mat-label>1.1 - Departamento</mat-label>
-												<mat-select formControlName="departamento">
+												<input formControlName="departamento" matInput placeholder="1.1 - Departamento">
+												<!-- <mat-label>1.1 - Departamento</mat-label> -->
+												<!-- <mat-select formControlName="departamento">
 													<mat-option value=""></mat-option>
 													<mat-option value="prueba">Prueba</mat-option>
-												</mat-select>
+												</mat-select> -->
 											</mat-form-field>                
 										</ion-col>
 										<ion-col>
 											<mat-form-field>
-												<mat-label>1.2 - Municipio</mat-label>
+												<input formControlName="departamento" matInput placeholder="1.2 - Municipio">
+												<!-- <mat-label>1.2 - Municipio</mat-label>
 												<mat-select formControlName="municipio">                    
 													<mat-option value=""></mat-option>
 													<mat-option value="prueba">Prueba</mat-option>
-												</mat-select>
+												</mat-select> -->
 											</mat-form-field>                
 										</ion-col>
 									</ion-row>                                         
@@ -98,14 +100,11 @@
 													<mat-option value="corregimiento">Corregimiento</mat-option>
 													<mat-option value="municipal">Cabecera Municipal</mat-option>
 													<mat-option value="na">N/A</mat-option>
+													<mat-option value="otro">Otro</mat-option>
 												</mat-select>
 											</mat-form-field>
 										</ion-col>
-										<ion-col>
-											<mat-label>Otro</mat-label>
-		                      				<mat-checkbox formControlName="tipoTerritorioOtro"></mat-checkbox>                      
-										</ion-col>
-										<ion-col *ngIf="antForm.value.capituloUno.tipoTerritorioOtro">
+										<ion-col *ngIf="antForm.value.capituloUno.tipoTerritorio == 'otro'">
 											<mat-form-field>
 												<input formControlName="tipoTerritorioOtroCual" matInput placeholder="¿Cual?">
 											</mat-form-field>
@@ -122,14 +121,11 @@
 													<mat-option value="zrc">ZRC</mat-option>
 													<mat-option value="zvc">Zona Veredales de Concetración</mat-option>
 													<mat-option value="na">N/A</mat-option>
+													<mat-option value="otro">Otro</mat-option>
 												</mat-select>
 											</mat-form-field>
 										</ion-col>
-										<ion-col>
-											<mat-label>Otro</mat-label>
-											<mat-checkbox formControlName="zonaManejoOtra"></mat-checkbox>
-										</ion-col>
-										<ion-col *ngIf="antForm.value.capituloUno.zonaManejoOtra">
+										<ion-col *ngIf="antForm.value.capituloUno.zonaManejo == 'otro'">
 											<mat-form-field>
 												<input formControlName="zonaManejoOtraCual" matInput placeholder="¿Cual?">
 											</mat-form-field>
@@ -239,7 +235,26 @@
 
 									<h3>2.3 - ¿Que documento de propiedad posse del predio?</h3>
 									<ion-row>
-										<mat-label>2.3.1 - Resolución de adjudicación registrada ante la oficina de Registros de Instrumentos Públicos</mat-label>
+										<ion-col>
+											<mat-form-field>
+												<mat-label>Documento de Propiedad</mat-label>
+												<mat-select formControlName="documentoPropiedad">
+													<mat-option value=""></mat-option>
+													<mat-option value="registrada">Resolución de adjudicación registrada</mat-option>
+													<mat-option value="sin registrar">Resolución de adjudicación sin registrar</mat-option>
+													<mat-option value="otro">Otro</mat-option>
+												</mat-select>
+											</mat-form-field>
+										</ion-col>
+										<ion-col *ngIf="antForm.value.capituloDos.documentoPropiedad == 'otro'">
+											<mat-form-field>
+												<input formControlName="resolucionAdjudicacionOtroCual" matInput placeholder="¿Cual?">
+											</mat-form-field>
+										</ion-col>
+									</ion-row>
+
+									<div *ngIf="antForm.value.capituloDos.documentoPropiedad == 'registrada'">
+										<h3>2.3.1 - Resolución de adjudicación registrada ante la oficina de Registros de Instrumentos Públicos</h3>
 										<ion-col>
 											<mat-form-field>
 												<input formControlName="numeroAjudicacionRegistrada" matInput placeholder="Numero">
@@ -250,30 +265,23 @@
 												<input formControlName="fechaAdjudicacionRegistrada" matInput placeholder="Fecha">
 											</mat-form-field>
 										</ion-col> 
-									</ion-row>
+									</div>
 
-									<h3>2.3.2 - Resolución de adjudicación sin registrar</h3>
-									<ion-row>
-										<ion-col>
-											<mat-form-field>
-												<input formControlName="numeroAjudicacionSinRegistrar" matInput placeholder="Numero">
-											</mat-form-field>
-										</ion-col>
-										<ion-col>
-											<mat-form-field>
-												<input formControlName="fechaAjudicacionSinRegistrar" matInput placeholder="Fecha">
-											</mat-form-field>
-										</ion-col>
-										<ion-col>
-											<mat-label>Otro</mat-label>
-		                      				<mat-checkbox formControlName="resolucionAdjudicacionOtro"></mat-checkbox>                      
-										</ion-col>
-										<ion-col *ngIf="antForm.value.capituloDos.resolucionAdjudicacionOtro">
-											<mat-form-field>
-												<input formControlName="resolucionAdjudicacionOtroCual" matInput placeholder="¿Cual?">
-											</mat-form-field>
-										</ion-col> 
-									</ion-row>
+									<div *ngIf="antForm.value.capituloDos.documentoPropiedad == 'sin registrar'">
+										<h3>2.3.1 - Resolución de adjudicación sin registrar</h3>
+										<ion-row>
+											<ion-col>
+												<mat-form-field>
+													<input formControlName="numeroAjudicacionSinRegistrar" matInput placeholder="Numero">
+												</mat-form-field>
+											</ion-col>
+											<ion-col>
+												<mat-form-field>
+													<input formControlName="fechaAjudicacionSinRegistrar" matInput placeholder="Fecha">
+												</mat-form-field>
+											</ion-col>
+										</ion-row>
+									</div>
 
 									<span>2.4 - Entidad de Derecho Publico a la cual fue Adjudicado el predio</span>
 									<ion-row>
@@ -391,15 +399,12 @@
 														<mat-option value="falta recursos">Falta de Recursos</mat-option>
 														<mat-option value="desastre natural">Desastre Natural</mat-option>
 														<mat-option value="no adjudicacion">No era necesario esa adjudicacion</mat-option>
+														<mat-option value="otro">Otro</mat-option>
 													</mat-select>
 												</mat-form-field>
 											</ion-col>
-											<ion-col>
-												<mat-label>Otro</mat-label>
-												<mat-checkbox formControlName="razonAbandonoOtro"></mat-checkbox>
-											</ion-col>
-											<ion-col>
-												<mat-form-field *ngIf="antForm.value.capituloDos.razonAbandonoOtro">
+											<ion-col *ngIf="antForm.value.capituloDos.estadoAbandonoRazon">
+												<mat-form-field>
 													<input formControlName="razonAbandonoOtroCual" matInput placeholder="¿Cual?">
 												</mat-form-field>
 											</ion-col> 
@@ -484,17 +489,19 @@
 											<mat-form-field>
 												<mat-label>Estado</mat-label>
 												<mat-select formControlName="estadoInfraestructura">
-													<mat-option value=""></mat-option>
-														<mat-option value="pesimo">Pesimo</mat-option>
-														<mat-option value="malo">Malo</mat-option>
+														<mat-option value=""></mat-option>
+														<mat-option value="exelente">Exelente</mat-option>
+														<mat-option value="muy bueno">Muy Bueno</mat-option>
+														<mat-option value="bueno">Bueno</mat-option>
 														<mat-option value="regular">Regular</mat-option>
-														<mat-option value="buena">Buena</mat-option>
+														<mat-option value="malo">Malo</mat-option>
+														<mat-option value="pesimo">Pesimo</mat-option>
 												</mat-select>
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
 
-									<span>3.2 - ¿La infraestructura existía antes de la adjudicación del predio?</span>
+									<span>3.3 - ¿La infraestructura existía antes de la adjudicación del predio?</span>
 									<ion-row>
 										<ion-col>
 											<mat-radio-group formControlName="tipoInfraestructura" aria-label="Selecciona">
@@ -504,7 +511,7 @@
 										</ion-col>
 									</ion-row>
 
-									<span>3.3 - ¿La infraestructura ha sido objeto de inversiones o mejoras posteriores a la adjudicación?</span>
+									<span>3.4 - ¿La infraestructura ha sido objeto de inversiones o mejoras posteriores a la adjudicación?</span>
 									<ion-row>
 										<ion-col>
 											<mat-radio-group formControlName="inversionInfraestructura" aria-label="Selecciona">
@@ -515,7 +522,7 @@
 									</ion-row>
 
 									<div *ngIf="antForm.value.capituloTres.inversionInfraestructura == 'si'">
-										<span>3.3.1 - Cuantificación en pesos de estas mejoras</span>
+										<span>3.4.1 - Cuantificación en pesos de estas mejoras</span>
 										<ion-row>
 											<ion-col>
 												<mat-form-field>
@@ -525,7 +532,7 @@
 										</ion-row>
 									</div>
 										
-									<span>3.4 - ¿El predio cuenta con energía eléctrica?</span>
+									<span>3.5 - ¿El predio cuenta con energía eléctrica?</span>
 									<ion-row>
 										<ion-col>
 											<mat-radio-group formControlName="energiaElectrica" aria-label="Selecciona">
@@ -536,7 +543,7 @@
 										</ion-col>
 									</ion-row>
 
-									<span>3.5 - ¿El predio cuenta con abasteciomiento de agua?</span>
+									<span>3.6 - ¿El predio cuenta con abasteciomiento de agua?</span>
 									<ion-row>
 										<ion-col>
 											<mat-radio-group formControlName="abasteciomientoAgua" aria-label="Selecciona">
@@ -548,7 +555,7 @@
 									</ion-row>
 
 									<div *ngIf="antForm.value.capituloTres.abasteciomientoAgua == 'si'">
-										<span>3.5.1 - ¿El agua del predio es potable?</span>
+										<span>3.6.1 - ¿El agua del predio es potable?</span>
 										<ion-row>
 											<ion-col>
 												<mat-radio-group formControlName="aguaPotable" aria-label="Selecciona">
@@ -558,7 +565,7 @@
 											</ion-col>
 										</ion-row>
 
-										<span>3.5.2 - ¿El predio cuenta con tanques de almacenamiento de agua?</span>
+										<span>3.6.2 - ¿El predio cuenta con tanques de almacenamiento de agua?</span>
 										<ion-row>
 											<ion-col>
 												<mat-radio-group formControlName="tanquesAlmacenamiento" aria-label="Selecciona">
@@ -569,7 +576,7 @@
 										</ion-row>
 									</div>
 
-									<h3>3.6 - Observaciones Capitulo 3</h3>
+									<h3>3.7 - Observaciones Capitulo 3</h3>
 									<ion-row>
 										<mat-form-field>
 											<textarea formControlName="observacionesCapituloTres" matInput placeholder="Observaciones Capitulo 3"></textarea>
@@ -652,17 +659,18 @@
 									<span>4.5 - ¿A qué institucion pertenece?</span>
 									<ion-row>
 										<ion-col>
-											<mat-radio-group formControlName="institucion" aria-label="Selecciona">
-												<mat-radio-button value="jac">JAC</mat-radio-button>
-												<mat-radio-button value="institucion educativa">Institucion Educativa</mat-radio-button>
-												<mat-radio-button value="comunidad territorio">Comunidad</mat-radio-button>
-												<mat-radio-button value="otro">Otro</mat-radio-button>
-											</mat-radio-group>
+											<mat-form-field>
+												<mat-label>Institución</mat-label>
+												<mat-select formControlName="institucion">
+													<mat-option value=""></mat-option>
+													<mat-option value="jac">JAC</mat-option>
+													<mat-option value="institucion educativa">Institucion Educativa</mat-option>
+													<mat-option value="comunidad territorio">Comunidad</mat-option>
+													<mat-option value="otro">Otro</mat-option>
+												</mat-select>
+											</mat-form-field>
 										</ion-col>
-									</ion-row>
-
-									<ion-row *ngIf="antForm.value.capituloCuatro.institucion == 'otro'">
-										<ion-col>
+										<ion-col *ngIf="antForm.value.capituloCuatro.institucion == 'otro'">
 											<mat-form-field>
 												<input formControlName="institucionOtroCual" matInput placeholder="¿Cual?">
 											</mat-form-field>
@@ -691,23 +699,45 @@
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
-
-									<span>4.8 - El servicio que se presta en el predio adjudicado es</span>
+									
+									<span>4.8 - El estado actual de la infraestructura es</span>
 									<ion-row>
 										<ion-col>
-											<mat-radio-group formControlName="calidadServicioPrestado" aria-label="Selecciona">
-												<mat-radio-button value="exelente">Exelente</mat-radio-button>
-												<mat-radio-button value="muy bueno">Muy Bueno</mat-radio-button>
-												<mat-radio-button value="bueno">Bueno</mat-radio-button>
-												<mat-radio-button value="regular">Regular</mat-radio-button>
-												<mat-radio-button value="malo">Malo</mat-radio-button>
-												<mat-radio-button value="pésimo">Pésimo</mat-radio-button>
-											</mat-radio-group>
+											<mat-form-field>
+												<mat-label>Estado Actual</mat-label>		
+												<mat-select formControlName="estadoActual">
+													<mat-option value=""></mat-option>
+													<mat-option value="exelente">Exelente</mat-option>
+													<mat-option value="muy bueno">Muy Bueno</mat-option>
+													<mat-option value="bueno">Bueno</mat-option>
+													<mat-option value="regular">Regular</mat-option>
+													<mat-option value="malo">Malo</mat-option>
+													<mat-option value="pesimo">Pesimo</mat-option>
+												</mat-select>
+											</mat-form-field>
+										</ion-col>
+									</ion-row>
+
+									<span>4.9 - El servicio que se presta en el predio adjudicado es</span>
+									<ion-row>
+										<ion-col>
+											<mat-form-field>
+												<mat-label>Activiadad Adjudicada</mat-label>		
+												<mat-select formControlName="calidadServicioPrestado">
+													<mat-option value=""></mat-option>
+													<mat-option value="exelente">Exelente</mat-option>
+													<mat-option value="muy bueno">Muy Bueno</mat-option>
+													<mat-option value="bueno">Bueno</mat-option>
+													<mat-option value="regular">Regular</mat-option>
+													<mat-option value="malo">Malo</mat-option>
+													<mat-option value="pesimo">Pesimo</mat-option>
+												</mat-select>
+											</mat-form-field>
 										</ion-col>
 									</ion-row>
 									
 									
-									<span>4.9 - ¿Se han invertido recursos para mejorar la calidad de los servicios o actividades desarrolladas dentro del predio?</span>
+									<span>4.10 - ¿Se han invertido recursos para mejorar la calidad de los servicios o actividades desarrolladas dentro del predio?</span>
 									<ion-row>
 										<ion-col>
 											<mat-radio-group formControlName="inversionActividades" aria-label="Selecciona">
@@ -718,7 +748,7 @@
 									</ion-row>
 
 									<div *ngIf="antForm.value.capituloCuatro.inversionActividades == 'si'">
-										<span>4.9.1 - Hace cuánto tiempo se realizó la inversión</span>
+										<span>4.10.1 - Hace cuánto tiempo se realizó la inversión</span>
 										<ion-row>
 											<ion-col>
 												<mat-form-field>
@@ -728,7 +758,7 @@
 										</ion-row>
 									</div>
 
-									<h3>4.10 - Observaciones Capitulo 4</h3>
+									<h3>4.11 - Observaciones Capitulo 4</h3>
 									<ion-row>
 										<mat-form-field>
 											<textarea formControlName="observacionesCapituloCuatro" matInput placeholder="Observaciones Capitulo 4"></textarea>
