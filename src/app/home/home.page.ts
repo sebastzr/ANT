@@ -17,6 +17,8 @@ export interface Item {
 })
 export class HomePage implements OnInit {
 
+  user: string;
+
   loading = false;
   success = false;
   error   = false;
@@ -32,6 +34,7 @@ export class HomePage implements OnInit {
   });
 
   antForm = this.fb.group({
+    user: [this.user],
     soliciudEDP: this.fb.group({
       numeroSolicitudEDP: ['',[
         Validators.required,
@@ -249,21 +252,26 @@ export class HomePage implements OnInit {
     private fb: FormBuilder,
     public auth: AuthService,
     private router: Router
-  ) {}
-
-  ngOnInit() {
-    this.antForm.valueChanges.subscribe( () => {
-      this.success = false;
-    });    
-  }
-
-  create (item: Item) {
-    //this.itemsCollection.add(item);
+    ) {
+    }
+    
+    ngOnInit() {
+      this.antForm.valueChanges.subscribe( () => {
+        this.success = false;
+      });    
+      
+      this.auth.user$.subscribe( (user) => {
+        this.antForm.controls.user.setValue(user.email);
+      });
+    
   }
 
   updateModel() {
-    //this.antForm.setValue(this.antForm.value);
-    console.log(this.antForm.controls);
+    console.log(this.antForm.value);
+    this.auth.user$.subscribe( (user) => {
+      console.log(user.email);
+    });
+    console.log(this.user);    
   }
 
   onLogin() {
