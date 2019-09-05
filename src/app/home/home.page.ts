@@ -19,6 +19,7 @@ export class HomePage implements OnInit {
 
   loading = false;
   success = false;
+  error   = false;
 
   loginForm = this.fb.group({
     email: ['', [
@@ -290,10 +291,12 @@ export class HomePage implements OnInit {
       
       this.success = true;
     } catch(err) {
+      this.success = false;
+      this.error = true;
       console.error(err);
     }
-
     this.loading = false;
+
   }
 
 }
