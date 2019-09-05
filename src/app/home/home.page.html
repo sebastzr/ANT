@@ -443,9 +443,9 @@
 									<mat-panel-title>										
 										Capitulo 3. Infraestructura, Servicios y Estado del Predio
 									</mat-panel-title>
-									<!-- <mat-panel-description *ngIf="antForm.controls.capituloTres.valid">																			
+									<mat-panel-description *ngIf="antForm.controls.capituloTres.valid">																			
 										<ion-icon name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
-									</mat-panel-description> -->
+									</mat-panel-description>
 								</mat-expansion-panel-header>
 									
 								<ion-grid>
@@ -594,9 +594,14 @@
 						<br>
 
 						<div formGroupName="capituloCuatro">
-							<mat-expansion-panel>
+							<mat-expansion-panel>								
 								<mat-expansion-panel-header>
-									Capitulo 4. Datos y encuesta de quien administra
+									<mat-panel-title>										
+										Capitulo 4. Datos y encuesta de quien administra										
+									</mat-panel-title>
+									<mat-panel-description *ngIf="antForm.controls.capituloCuatro.valid">																			
+										<ion-icon name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
+									</mat-panel-description>
 								</mat-expansion-panel-header>
 										
 								<ion-grid>
@@ -773,6 +778,7 @@
 				<br>
 
 				<ion-button [disabled]="antForm.invalid" color="success" type="submit">Enviar Formulario</ion-button>
+				<!--<ion-button color="success" type="submit">Enviar Formulario (pruebas)</ion-button>-->
 		  	</form>        
 		  
 		  
