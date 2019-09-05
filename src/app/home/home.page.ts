@@ -285,8 +285,8 @@ export class HomePage implements OnInit {
     console.log(antValue);
 
     try {
-      await this.afs.collection('forms').add(antValue);
-      //await this.afs.collection('forms').doc(id).set(antValue);
+      //await this.afs.collection('forms').add(antValue);
+      await this.afs.collection('forms').doc(id).set(antValue);
       this.antForm.reset();
       
       this.success = true;
