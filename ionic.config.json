@@ -1,5 +1,7 @@
 {
   "name": "antApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
