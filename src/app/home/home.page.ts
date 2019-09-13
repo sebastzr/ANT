@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder, Validators } 
 import { AuthService } from '../services/auth.service';
 import { tap, first } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import colombia from './../../assets/colombia.json'; 
 
 export interface Item {
   name: string;
@@ -22,6 +23,9 @@ export class HomePage implements OnInit {
   loading = false;
   success = false;
   error   = false;
+
+  colombiaJson: any;
+  cities: any;
 
   loginForm = this.fb.group({
     email: ['', [
@@ -257,12 +261,17 @@ export class HomePage implements OnInit {
     
     ngOnInit() {
       this.antForm.valueChanges.subscribe( () => {
-        this.success = false;
+        this.success = false;        
       });    
+
+      
       
       this.auth.user$.subscribe( (user) => {
         this.antForm.controls.user.setValue(user.email);
       });
+
+
+      this.colombiaJson = colombia;
     
   }
 
@@ -279,7 +288,7 @@ export class HomePage implements OnInit {
   }
 
   onSubmit() {
-    console.warn(this.antForm.value.chapterOne.name);
+    
   }
 
   async submitHandler() {
@@ -306,5 +315,14 @@ export class HomePage implements OnInit {
     this.loading = false;
 
   }
+
+  updateSelect() {
+    colombia.forEach( (key) => {
+      if (key.departamento == this.antForm.value.capituloUno.departamento) {
+        this.cities = key.ciudades;
+      }
+    });
+  }
+
 
 }

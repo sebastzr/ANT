@@ -77,23 +77,21 @@
 									
 									<ion-row>
 										<ion-col>
-											<mat-form-field>
-												<input formControlName="departamento" matInput placeholder="1.1 - Departamento">
-												<!-- <mat-label>1.1 - Departamento</mat-label> -->
-												<!-- <mat-select formControlName="departamento">
-													<mat-option value=""></mat-option>
-													<mat-option value="prueba">Prueba</mat-option>
-												</mat-select> -->
+											<mat-form-field>												
+												<mat-label>1.1 - Departamento</mat-label>
+												<mat-select formControlName="departamento" (selectionChange)="updateSelect()">
+													<mat-option value=""></mat-option>												
+													<mat-option *ngFor="let key of colombiaJson" value="{{ key.departamento }}">{{ key.departamento }}</mat-option>
+												</mat-select>
 											</mat-form-field>                
 										</ion-col>
 										<ion-col>
-											<mat-form-field>
-												<input formControlName="departamento" matInput placeholder="1.2 - Municipio">
-												<!-- <mat-label>1.2 - Municipio</mat-label>
+											<mat-form-field>												
+												<mat-label>1.2 - Municipio</mat-label>
 												<mat-select formControlName="municipio">                    
 													<mat-option value=""></mat-option>
-													<mat-option value="prueba">Prueba</mat-option>
-												</mat-select> -->
+													<mat-option *ngFor="let city of cities" value="{{ city }}">{{ city }}</mat-option>
+												</mat-select>
 											</mat-form-field>                
 										</ion-col>
 									</ion-row>                                         
