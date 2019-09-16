@@ -776,9 +776,23 @@
 										</mat-form-field>
 									</ion-row>
 
+									
 								</ion-grid>
 							</mat-expansion-panel>
-						</div>            
+						</div>   
+						
+						<br>
+
+						<h3>Imágenes</h3>
+						<div formArrayName="fotos">
+							<div *ngFor="let foto of fotoForms.controls; let i=index" [formGroupName]="i">
+								<input type="file" placeholder="Foto" formControlName="file" (change)="uploadFoto($event, i)">
+								<ion-button color="danger" (click)="deleteFoto(i)">Eliminar</ion-button>
+							</div>
+						</div>
+
+						<ion-button color="primary" (click)="addFoto()">Añadir Imagen</ion-button>
+
 				</mat-accordion>
 			
 				<br>
