@@ -1,10 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { tap, first } from 'rxjs/operators';
+import { tap, first, finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import colombia from './../../assets/colombia.json'; 
+import { AngularFireStorage } from '@angular/fire/storage';
 
 export interface Item {
   name: string;
@@ -18,10 +20,16 @@ export interface Item {
 export class HomePage implements OnInit {
 
   user: string;
+  imgFakeUrl: any;
+  file: any;
+  downloadURL: Observable<string>;
 
   loading = false;
   success = false;
   error   = false;
+
+  colombiaJson: any;
+  cities: any;
 
   loginForm = this.fb.group({
     email: ['', [
@@ -33,209 +41,7 @@ export class HomePage implements OnInit {
     ]]
   });
 
-  antForm = this.fb.group({
-    user: [this.user],
-    soliciudEDP: this.fb.group({
-      numeroSolicitudEDP: ['',[
-        Validators.required,
-      ]]
-    }),
-    capituloUno: this.fb.group({
-      departamento: ['',[
-        Validators.required,
-      ]],
-      municipio: ['',[
-        Validators.required,
-      ]],
-      tipoTerritorio: ['',[
-        Validators.required,
-      ]],
-      tipoTerritorioOtroCual: [''],
-      zonaManejo:['',[
-        Validators.required,
-      ]],
-      zonaManejoOtraCual: [''],
-      nombreTerritorio: ['',[
-        Validators.required,
-      ]],
-      nombrePredio: ['',[
-        Validators.required,
-      ]],
-      latitud: ['',[
-        Validators.required,
-      ]],
-      longitud: ['',[
-        Validators.required,
-      ]],
-      observacionesCapituloUno: ['',[
-      ]],
-    }),
-    capituloDos: this.fb.group({
-      areaPredio: ['',[
-        Validators.required,
-      ]],
-      medida: ['',[
-        Validators.required,
-      ]],
-      norte: ['',[
-        Validators.required,
-      ]],
-      sur: ['',[
-        Validators.required,
-      ]],
-      este: ['',[
-        Validators.required,
-      ]],
-      oeste: ['',[
-        Validators.required,
-      ]],
-      documentoPropiedad:['',[
-        Validators.required,
-      ]],
-      numeroAjudicacionRegistrada: ['',[
-        
-      ]],
-      fechaAdjudicacionRegistrada:['',[
-        
-      ]],
-      numeroAjudicacionSinRegistrar: ['',[
-        
-      ]],
-      fechaAjudicacionSinRegistrar: ['',[
-        
-      ]],
-      resolucionAdjudicacionOtroCual: ['',[
-        
-      ]],
-      entidadAdjudicada: ['',[
-        Validators.required,
-      ]],
-      servicioActividad: ['',[
-        Validators.required,
-      ]],
-      tiempoActividad: ['',[
-        Validators.required,
-      ]],
-      actividadDiferente: ['',[
-        
-      ]],
-      actividadDiferenteCual: ['',[
-        
-      ]],
-      actividadDiferenteTiempo: ['',[
-        
-      ]],
-      personasBeneficiadas: ['',[
-        Validators.required,
-      ]],
-      poblacionBeneficiaria: ['',[
-        Validators.required,
-      ]],
-      grupoEtario: ['',[
-        Validators.required,
-      ]],
-      estadoAbandono: ['',[
-        
-      ]],
-      estadoAbandonoRazon: ['',[
-        
-      ]],
-      razonAbandonoOtroCual: ['',[
-        
-      ]],
-      ocupacionAdministracion: ['',[
-        Validators.required,
-      ]],
-      observacionesCapituloDos: ['',[
-        
-      ]],
-    }),
-    capituloTres: this.fb.group({
-      infraestructuraInstalada: ['' , [
-        Validators.required,
-      ]],
-      tipoInfraestructura: ['' , [
-        
-      ]],
-      bateriasSanitarias:['' , [
-        Validators.required,
-      ]],
-      estadoInfraestructura: ['' , [
-        Validators.required,
-      ]],
-      inversionInfraestructura: ['' , [
-        Validators.required,
-      ]],
-      inversionInfraestructuraValor: ['' , [
-        
-      ]],
-      energiaElectrica: ['' , [
-        Validators.required,
-      ]],
-      abasteciomientoAgua: ['' , [
-        Validators.required,
-      ]],
-      aguaPotable: ['' , [
-        
-      ]],
-      tanquesAlmacenamiento: ['' , [
-        
-      ]],
-      observacionesCapituloTres: ['' , [
-        
-      ]]
-    }),
-    capituloCuatro: this.fb.group({
-      nombre:['' , [
-        Validators.required,
-      ]],
-      tipoIdentificacion: ['' , [
-        Validators.required,
-      ]],
-      tipoIdentificacionOtroCual: ['' , [
-        
-      ]],
-      numeroIdentificacion:['' , [
-        Validators.required,
-      ]],
-      numeroCelular:['' , [
-        Validators.required,
-      ]],
-      tieneEmail: ['' , [
-        Validators.required,
-      ]],
-      correoElectronico: ['' , [
-        
-      ]],
-      institucion: ['' , [
-        Validators.required,
-      ]],
-      institucionOtroCual: ['' , [
-        
-      ]],
-      cargoInstitucion: ['' , [
-        
-      ]],
-      actividadAdjudicada: ['' , [
-        Validators.required,
-      ]],
-      estadoActual: ['' , [
-        Validators.required,
-      ]],
-      calidadServicioPrestado: ['' , [
-        Validators.required,
-      ]],
-      inversionActividades: ['' , [
-        Validators.required,
-      ]],
-      inversionActividadesTiempo: ['' , [
-        
-      ]],
-      observacionesCapituloCuatro:['' , [
-        
-      ]]
-    })
-  });
+  antForm:any;
 
   private itemsCollection: AngularFirestoreCollection<Item>;
   items: Observable<any[]>;
@@ -251,20 +57,234 @@ export class HomePage implements OnInit {
     private afs: AngularFirestore,
     private fb: FormBuilder,
     public auth: AuthService,
-    private router: Router
+    private router: Router,
+    private storage: AngularFireStorage
     ) {
     }
     
     ngOnInit() {
+
+      this.antForm = this.fb.group({
+        user: [this.user],
+        soliciudEDP: this.fb.group({
+          numeroSolicitudEDP: ['',[
+            Validators.required,
+          ]]
+        }),
+        capituloUno: this.fb.group({
+          departamento: ['',[
+            Validators.required,
+          ]],
+          municipio: ['',[
+            Validators.required,
+          ]],
+          tipoTerritorio: ['',[
+            Validators.required,
+          ]],
+          tipoTerritorioOtroCual: [''],
+          zonaManejo:['',[
+            Validators.required,
+          ]],
+          zonaManejoOtraCual: [''],
+          nombreTerritorio: ['',[
+            Validators.required,
+          ]],
+          nombrePredio: ['',[
+            Validators.required,
+          ]],
+          latitud: ['',[
+            Validators.required,
+          ]],
+          longitud: ['',[
+            Validators.required,
+          ]],
+          observacionesCapituloUno: ['',[
+          ]],
+        }),
+        capituloDos: this.fb.group({
+          areaPredio: ['',[
+            Validators.required,
+          ]],
+          medida: ['',[
+            Validators.required,
+          ]],
+          norte: ['',[
+            Validators.required,
+          ]],
+          sur: ['',[
+            Validators.required,
+          ]],
+          este: ['',[
+            Validators.required,
+          ]],
+          oeste: ['',[
+            Validators.required,
+          ]],
+          documentoPropiedad:['',[
+            Validators.required,
+          ]],
+          numeroAjudicacionRegistrada: ['',[
+            
+          ]],
+          fechaAdjudicacionRegistrada:['',[
+            
+          ]],
+          numeroAjudicacionSinRegistrar: ['',[
+            
+          ]],
+          fechaAjudicacionSinRegistrar: ['',[
+            
+          ]],
+          resolucionAdjudicacionOtroCual: ['',[
+            
+          ]],
+          entidadAdjudicada: ['',[
+            Validators.required,
+          ]],
+          servicioActividad: ['',[
+            Validators.required,
+          ]],
+          tiempoActividad: ['',[
+            Validators.required,
+          ]],
+          actividadDiferente: ['',[
+            
+          ]],
+          actividadDiferenteCual: ['',[
+            
+          ]],
+          actividadDiferenteTiempo: ['',[
+            
+          ]],
+          personasBeneficiadas: ['',[
+            Validators.required,
+          ]],
+          poblacionBeneficiaria: ['',[
+            Validators.required,
+          ]],
+          grupoEtario: ['',[
+            Validators.required,
+          ]],
+          estadoAbandono: ['',[
+            
+          ]],
+          estadoAbandonoRazon: ['',[
+            
+          ]],
+          razonAbandonoOtroCual: ['',[
+            
+          ]],
+          ocupacionAdministracion: ['',[
+            
+          ]],
+          observacionesCapituloDos: ['',[
+            
+          ]],
+        }),
+        capituloTres: this.fb.group({
+          infraestructuraInstalada: ['' , [
+            Validators.required,
+          ]],
+          tipoInfraestructura: ['' , [
+                       
+          ]],
+          bateriasSanitarias:['' , [
+
+          ]],
+          estadoInfraestructura: ['' , [
+            Validators.required,
+          ]],
+          inversionInfraestructura: ['' , [
+            Validators.required,
+          ]],
+          inversionInfraestructuraValor: ['' , [
+            
+          ]],
+          energiaElectrica: ['' , [
+            Validators.required,
+          ]],
+          abasteciomientoAgua: ['' , [
+            Validators.required,
+          ]],
+          aguaPotable: ['' , [
+            
+          ]],
+          tanquesAlmacenamiento: ['' , [
+            
+          ]],
+          observacionesCapituloTres: ['' , [
+            
+          ]]
+        }),
+        capituloCuatro: this.fb.group({
+          nombre:['' , [
+            Validators.required,
+          ]],
+          tipoIdentificacion: ['' , [
+            Validators.required,
+          ]],
+          tipoIdentificacionOtroCual: ['' , [
+            
+          ]],
+          numeroIdentificacion:['' , [
+            Validators.required,
+          ]],
+          numeroCelular:['' , [
+            Validators.required,
+          ]],
+          tieneEmail: ['' , [
+            Validators.required,
+          ]],
+          correoElectronico: ['' , [
+            
+          ]],
+          institucion: ['' , [
+            Validators.required,
+          ]],
+          institucionOtroCual: ['' , [
+            
+          ]],
+          cargoInstitucion: ['' , [
+            
+          ]],
+          actividadAdjudicada: ['' , [
+            Validators.required,
+          ]],
+          estadoActual: ['' , [
+            Validators.required,
+          ]],
+          calidadServicioPrestado: ['' , [
+            Validators.required,
+          ]],
+          inversionActividades: ['' , [
+            Validators.required,
+          ]],
+          inversionActividadesTiempo: ['' , [
+            
+          ]],
+          observacionesCapituloCuatro:['' , [
+            
+          ]]
+        }),
+    
+        fotos: this.fb.array([])
+    
+      });
+
       this.antForm.valueChanges.subscribe( () => {
-        this.success = false;
+        this.success = false;        
       });    
+
+      
       
       this.auth.user$.subscribe( (user) => {
         this.antForm.controls.user.setValue(user.email);
       });
+
+
+      this.colombiaJson = colombia;
     
-  }
+  }  
 
   updateModel() {
     console.log(this.antForm.value);
@@ -276,10 +296,6 @@ export class HomePage implements OnInit {
 
   onLogin() {
     this.auth.emailSignin(this.loginForm.value.email, this.loginForm.value.password);
-  }
-
-  onSubmit() {
-    console.warn(this.antForm.value.chapterOne.name);
   }
 
   async submitHandler() {
@@ -306,5 +322,82 @@ export class HomePage implements OnInit {
     this.loading = false;
 
   }
+
+  updateSelect() {
+    colombia.forEach( (key) => {
+      if (key.departamento == this.antForm.value.capituloUno.departamento) {
+        this.cities = key.ciudades;
+      }
+    });
+  }
+
+  /*readFoto(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+  
+      reader.onload = (event: ProgressEvent) => {
+        this.imgFakeUrl = (<FileReader>event.target).result;
+      }
+  
+      reader.readAsDataURL(event.target.files[0]);
+      this.file = event.target.files[0];
+    }
+  }
+
+  getUrlFoto(ref) {
+    this.downloadURL = ref.getDownloadURL();
+    this.downloadURL.subscribe(url => {
+      if (url) {
+        
+      }
+    });
+  }*/
+
+  get fotoForms() {
+    return this.antForm.get('fotos') as FormArray;
+  }
+
+  addFoto() {
+    const foto = this.fb.group({
+      file: [],
+      url: [],
+      ref: []
+    });
+
+    this.fotoForms.push(foto);
+  }
+
+  deleteFoto(i) {
+    if (this.fotoForms.controls[i].get('ref').value) {
+      const filePath = this.fotoForms.controls[i].get('ref').value;    
+      const fileRef = this.storage.ref(filePath);
+      fileRef.delete();
+    }
+    this.fotoForms.removeAt(i);
+  }
+
+  uploadFoto(event:any, i) {   
+    const file = event.target.files[0]; 
+    const filePath = `formFotos/${new Date().getTime()}_${file.name}`;
+    this.fotoForms.controls[i].get('ref').setValue(filePath);
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+    task.snapshotChanges().pipe(
+      finalize(() => this.getUrl(fileRef, i))
+      ).subscribe((url) => {
+        console.log(url);        
+      });
+  }
+
+  getUrl(ref, i) {
+    this.downloadURL = ref.getDownloadURL();
+    this.downloadURL.subscribe(url => {
+      if (url) {
+        this.fotoForms.controls[i].get('url').setValue(url);            
+        //console.log(this.fotoForms.controls[i].get('url'));
+      }
+    })
+  }
+
 
 }
