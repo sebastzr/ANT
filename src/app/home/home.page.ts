@@ -175,7 +175,7 @@ export class HomePage implements OnInit {
             
           ]],
           ocupacionAdministracion: ['',[
-            Validators.required,
+            
           ]],
           observacionesCapituloDos: ['',[
             
@@ -186,10 +186,10 @@ export class HomePage implements OnInit {
             Validators.required,
           ]],
           tipoInfraestructura: ['' , [
-            
+                       
           ]],
           bateriasSanitarias:['' , [
-            Validators.required,
+
           ]],
           estadoInfraestructura: ['' , [
             Validators.required,
