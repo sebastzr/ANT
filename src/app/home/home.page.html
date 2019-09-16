@@ -15,14 +15,22 @@
 		
 		<div *ngIf="auth.user$ | async as user; else login">
 			
-			<ion-card-header [hidden]="success">
+			<ion-card-header [hidden]="success || loading">
 				<ion-card-title>FORMULARIO DE SEGUIMIENTO</ion-card-title>
 				<ion-card-subtitle>Adjudicaciones Entidades de Derecho Publico</ion-card-subtitle>
 			</ion-card-header>
 
         	<ion-card-content>
-          		<form [formGroup]="antForm" (ngSubmit)="submitHandler()" [hidden]="success">
-            		<mat-accordion>
+          		<form [formGroup]="antForm" (ngSubmit)="submitHandler()" [hidden]="success || loading">
+            		<mat-accordion>	
+						<!--	
+						<ion-row>
+							<mat-form-field>
+								<mat-label>Usuario</mat-label>
+								<input type="text" formControlName="user" matInput placeholder="Usuario" [value]="user">
+							</mat-form-field>
+						</ion-row>				
+						-->
 						<div formGroupName="soliciudEDP">
 							<mat-expansion-panel>
 								
@@ -35,8 +43,8 @@
 									</mat-panel-description>
 								</mat-expansion-panel-header>
 								
-								<ion-grid>
-									
+								<ion-grid>																		
+
 									<ion-row>
 										<mat-form-field>
 											<input type="text" formControlName="numeroSolicitudEDP" matInput placeholder="Numero de Solicitud EDP">
@@ -46,7 +54,7 @@
 									<!-- <ion-row>
 										<ion-button color="success" (click)="updateModel()">Guardar</ion-button>
 									</ion-row> -->
-
+									
 								</ion-grid>
 							</mat-expansion-panel>
 						</div>
@@ -443,9 +451,9 @@
 									<mat-panel-title>										
 										Capitulo 3. Infraestructura, Servicios y Estado del Predio
 									</mat-panel-title>
-									<!-- <mat-panel-description *ngIf="antForm.controls.capituloTres.valid">																			
+									<mat-panel-description *ngIf="antForm.controls.capituloTres.valid">																			
 										<ion-icon name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
-									</mat-panel-description> -->
+									</mat-panel-description>
 								</mat-expansion-panel-header>
 									
 								<ion-grid>
@@ -594,9 +602,14 @@
 						<br>
 
 						<div formGroupName="capituloCuatro">
-							<mat-expansion-panel>
+							<mat-expansion-panel>								
 								<mat-expansion-panel-header>
-									Capitulo 4. Datos y encuesta de quien administra
+									<mat-panel-title>										
+										Capitulo 4. Datos y encuesta de quien administra										
+									</mat-panel-title>
+									<mat-panel-description *ngIf="antForm.controls.capituloCuatro.valid">																			
+										<ion-icon name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
+									</mat-panel-description>
 								</mat-expansion-panel-header>
 										
 								<ion-grid>
@@ -773,8 +786,19 @@
 				<br>
 
 				<ion-button [disabled]="antForm.invalid" color="success" type="submit">Enviar Formulario</ion-button>
-		  	</form>        
+				<!--
+					<ion-button color="success" type="submit">Enviar Formulario (pruebas)</ion-button>
+				-->				
+			</form>        
 		  
+			<mat-spinner [hidden]="!loading"></mat-spinner>
+
+			<div *ngIf="error" class="notification is-success">
+				Error inesperado.
+
+				<ion-button color="danger" (click)="error=false">Nuevo Formulario</ion-button>
+			</div>
+
 		  
 			<div *ngIf="success" class="notification is-success">
 				Guardado correctamente.

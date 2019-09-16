@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { tap, first } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 export interface Item {
   name: string;
@@ -16,8 +17,11 @@ export interface Item {
 })
 export class HomePage implements OnInit {
 
+  user: string;
+
   loading = false;
   success = false;
+  error   = false;
 
   loginForm = this.fb.group({
     email: ['', [
@@ -30,6 +34,7 @@ export class HomePage implements OnInit {
   });
 
   antForm = this.fb.group({
+    user: [this.user],
     soliciudEDP: this.fb.group({
       numeroSolicitudEDP: ['',[
         Validators.required,
@@ -146,35 +151,89 @@ export class HomePage implements OnInit {
       ]],
     }),
     capituloTres: this.fb.group({
-      infraestructuraInstalada: [''],
-      tipoInfraestructura: [''],
-      bateriasSanitarias:[''],
-      estadoInfraestructura: [''],
-      inversionInfraestructura: [''],
-      inversionInfraestructuraValor: [''],
-      energiaElectrica: [''],
-      abasteciomientoAgua: [''],
-      aguaPotable: [''],
-      tanquesAlmacenamiento: [''],
-      observacionesCapituloTres: ['']
+      infraestructuraInstalada: ['' , [
+        Validators.required,
+      ]],
+      tipoInfraestructura: ['' , [
+        
+      ]],
+      bateriasSanitarias:['' , [
+        Validators.required,
+      ]],
+      estadoInfraestructura: ['' , [
+        Validators.required,
+      ]],
+      inversionInfraestructura: ['' , [
+        Validators.required,
+      ]],
+      inversionInfraestructuraValor: ['' , [
+        
+      ]],
+      energiaElectrica: ['' , [
+        Validators.required,
+      ]],
+      abasteciomientoAgua: ['' , [
+        Validators.required,
+      ]],
+      aguaPotable: ['' , [
+        
+      ]],
+      tanquesAlmacenamiento: ['' , [
+        
+      ]],
+      observacionesCapituloTres: ['' , [
+        
+      ]]
     }),
     capituloCuatro: this.fb.group({
-      nombre:[''],
-      tipoIdentificacion: [''],
-      tipoIdentificacionOtroCual: [''],
-      numeroIdentificacion:[''],
-      numeroCelular:[''],
-      tieneEmail: [''],
-      correoElectronico: [''],
-      institucion: [''],
-      institucionOtroCual: [''],
-      cargoInstitucion: [''],
-      actividadAdjudicada: [''],
-      estadoActual: [''],
-      calidadServicioPrestado: [''],
-      inversionActividades: [''],
-      inversionActividadesTiempo: [''],
-      observacionesCapituloCuatro:['']
+      nombre:['' , [
+        Validators.required,
+      ]],
+      tipoIdentificacion: ['' , [
+        Validators.required,
+      ]],
+      tipoIdentificacionOtroCual: ['' , [
+        
+      ]],
+      numeroIdentificacion:['' , [
+        Validators.required,
+      ]],
+      numeroCelular:['' , [
+        Validators.required,
+      ]],
+      tieneEmail: ['' , [
+        Validators.required,
+      ]],
+      correoElectronico: ['' , [
+        
+      ]],
+      institucion: ['' , [
+        Validators.required,
+      ]],
+      institucionOtroCual: ['' , [
+        
+      ]],
+      cargoInstitucion: ['' , [
+        
+      ]],
+      actividadAdjudicada: ['' , [
+        Validators.required,
+      ]],
+      estadoActual: ['' , [
+        Validators.required,
+      ]],
+      calidadServicioPrestado: ['' , [
+        Validators.required,
+      ]],
+      inversionActividades: ['' , [
+        Validators.required,
+      ]],
+      inversionActividadesTiempo: ['' , [
+        
+      ]],
+      observacionesCapituloCuatro:['' , [
+        
+      ]]
     })
   });
 
@@ -191,22 +250,28 @@ export class HomePage implements OnInit {
   constructor(
     private afs: AngularFirestore,
     private fb: FormBuilder,
-    public auth: AuthService
-  ) {}
-
-  ngOnInit() {
-    this.antForm.valueChanges.subscribe( () => {
-      this.success = false;
-    });    
-  }
-
-  create (item: Item) {
-    //this.itemsCollection.add(item);
+    public auth: AuthService,
+    private router: Router
+    ) {
+    }
+    
+    ngOnInit() {
+      this.antForm.valueChanges.subscribe( () => {
+        this.success = false;
+      });    
+      
+      this.auth.user$.subscribe( (user) => {
+        this.antForm.controls.user.setValue(user.email);
+      });
+    
   }
 
   updateModel() {
-    //this.antForm.setValue(this.antForm.value);
-    console.log(this.antForm.controls);
+    console.log(this.antForm.value);
+    this.auth.user$.subscribe( (user) => {
+      console.log(user.email);
+    });
+    console.log(this.user);    
   }
 
   onLogin() {
@@ -223,17 +288,23 @@ export class HomePage implements OnInit {
     this.loading = true;
     
     const antValue = this.antForm.value;
+    const id = antValue.soliciudEDP.numeroSolicitudEDP;
     
     console.log(antValue);
 
     try {
-      await this.afs.collection('forms').add(antValue);
+      //await this.afs.collection('forms').add(antValue);
+      await this.afs.collection('forms').doc(id).set(antValue);
+      this.antForm.reset();
+      
       this.success = true;
     } catch(err) {
+      this.success = false;
+      this.error = true;
       console.error(err);
     }
-
     this.loading = false;
+
   }
 
 }
