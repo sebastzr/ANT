@@ -170,6 +170,7 @@
 										<ion-button (click)="getGeolocation()">
 											Mi Localización
 										</ion-button>
+										<mat-spinner [hidden]="!loadingGeoposition"></mat-spinner>
 									</ion-row>
 
 									<ion-row *ngIf="geoLatitude">

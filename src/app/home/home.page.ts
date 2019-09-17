@@ -37,6 +37,7 @@ export class HomePage implements OnInit {
   geoLongitude: number;
   geoAccuracy:number;
   geoAddress: string;
+  loadingGeoposition = false;
 
   loginForm = this.fb.group({
     email: ['', [
@@ -71,11 +72,17 @@ export class HomePage implements OnInit {
     }
     
     //Get current coordinates of device
-    getGeolocation(){
-      this.geolocation.getCurrentPosition().then((resp) => {
+    getGeolocation(){      
+      this.loadingGeoposition = true;
+      this.geolocation.getCurrentPosition({
+        enableHighAccuracy : true,
+        timeout: 30000,
+        maximumAge: 30000
+      }).then((resp) => {
         this.geoLatitude = resp.coords.latitude;
         this.geoLongitude = resp.coords.longitude; 
         this.geoAccuracy = resp.coords.accuracy; 
+        this.loadingGeoposition = false;
        }).catch((error) => {
          alert('Error getting location'+ JSON.stringify(error));
        });
@@ -90,13 +97,6 @@ export class HomePage implements OnInit {
          console.log('Error getting location', error);
        });
        
-       let watch = this.geolocation.watchPosition();
-       watch.subscribe((data) => {
-        // data can be a set of coordinates, or an error (if an error occurred).
-        // data.coords.latitude
-        // data.coords.longitude
-       });
-
       this.antForm = this.fb.group({
         user: [this.user],
         soliciudEDP: this.fb.group({
