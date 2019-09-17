@@ -36,7 +36,7 @@
 								
 								<mat-expansion-panel-header>
 									<mat-panel-title>
-										Numero de Solicitud EDP										
+										Número de Solicitud EDP										
 									</mat-panel-title>
 									<mat-panel-description *ngIf="antForm.controls.soliciudEDP.valid">																			
 										<ion-icon name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
@@ -47,7 +47,7 @@
 
 									<ion-row>
 										<mat-form-field>
-											<input type="text" formControlName="numeroSolicitudEDP" matInput placeholder="Numero de Solicitud EDP">
+											<input type="text" formControlName="numeroSolicitudEDP" matInput placeholder="Número de Solicitud EDP">
 										</mat-form-field>
 									</ion-row>
 
@@ -125,7 +125,7 @@
 													<mat-option value=""></mat-option>
 													<mat-option value="pdet">PDET</mat-option>
 													<mat-option value="zrc">ZRC</mat-option>
-													<mat-option value="zvc">Zona Veredales de Concetración</mat-option>
+													<mat-option value="zvc">Zona Veredales de Concentración</mat-option>
 													<mat-option value="na">N/A</mat-option>
 													<mat-option value="otro">Otro</mat-option>
 												</mat-select>
@@ -195,11 +195,11 @@
 								
 								<ion-grid>
 									
-									<h3>2.1 - Area del predio</h3>
+									<h3>2.1 - Área del predio</h3>
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="number" formControlName="areaPredio" matInput placeholder="Area del predio">
+												<input type="number" formControlName="areaPredio" matInput placeholder="Área del predio">
 											</mat-form-field>
 										</ion-col>
 										<ion-col>
@@ -239,7 +239,7 @@
 										</ion-col>
 									</ion-row>
 
-									<h3>2.3 - ¿Que documento de propiedad posse del predio?</h3>
+									<h3>2.3 - ¿Qué documento de propiedad posee del predio?</h3>
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
@@ -289,11 +289,11 @@
 										</ion-row>
 									</div>
 
-									<span>2.4 - Entidad de Derecho Publico a la cual fue Adjudicado el predio</span>
+									<span>2.4 - Entidad de Derecho Público a la cual fue Adjudicado el predio</span>
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input formControlName="entidadAdjudicada" matInput placeholder="Entidad de Derecho Publico">
+												<input formControlName="entidadAdjudicada" matInput placeholder="Entidad de Derecho Público">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -307,7 +307,7 @@
 										</ion-col>
 									</ion-row>
 
-									<span>2.5.1 - Tiempo establecido en el acto administrativo de adjudicacion para el cumplimiento de la Actividad a desarrollar</span>
+									<span>2.5.1 - Tiempo establecido en el acto administrativo de adjudicación para el cumplimiento de la Actividad a desarrollar</span>
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
@@ -349,7 +349,7 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input formControlName="personasBeneficiadas" matInput placeholder="Numero de Personas">
+												<input formControlName="personasBeneficiadas" matInput placeholder="Número de Personas">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -363,7 +363,7 @@
 										</ion-col>
 									</ion-row>
 
-									<span>2.9 - Grupo etario beneficiado por la actividad desarollada en el predio</span>
+									<span>2.9 - Grupo etario beneficiado por la actividad desarrollada en el predio</span>
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
@@ -373,7 +373,7 @@
 													<mat-option value="primera infacia">Primera Infacia</mat-option>
 													<mat-option value="infancia">Infancia</mat-option>
 													<mat-option value="preadolescentes">Preadolescentes</mat-option>
-													<mat-option value="adolecentes">Adolecentes</mat-option>
+													<mat-option value="adolescentes">Adolescentes</mat-option>
 													<mat-option value="adultos">Adultos</mat-option>
 													<mat-option value="adultos mayores">Adultos Mayores</mat-option>
 													<mat-option value="todas anteriores">Todas las Anteriores</mat-option>
@@ -501,7 +501,7 @@
 														<mat-option value="bueno">Bueno</mat-option>
 														<mat-option value="regular">Regular</mat-option>
 														<mat-option value="malo">Malo</mat-option>
-														<mat-option value="pesimo">Pesimo</mat-option>
+														<mat-option value="pesimo">Pésimo</mat-option>
 												</mat-select>
 											</mat-form-field>
 										</ion-col>
@@ -642,17 +642,17 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input formControlName="numeroIdentificacion" matInput placeholder="4.2 - Numero de Identificacion">
+												<input formControlName="numeroIdentificacion" matInput placeholder="4.2 - Número de Identificación">
 											</mat-form-field>
 										</ion-col>
 										<ion-col>
 											<mat-form-field>
-												<input type="text" formControlName="numeroCelular" matInput placeholder="4.3 - Numero Celular">
+												<input type="text" formControlName="numeroCelular" matInput placeholder="4.3 - Número Celular">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
 
-									<span>4.4 - ¿Tiene correo electronico?</span>
+									<span>4.4 - ¿Tiene correo electrónico?</span>
 									<ion-row>
 										<ion-col>
 											<mat-radio-group formControlName="tieneEmail" aria-label="Selecciona">
@@ -662,12 +662,12 @@
 										</ion-col>
 										<ion-col *ngIf="antForm.value.capituloCuatro.tieneEmail == 'si'">
 											<mat-form-field>
-												<input type="email" formControlName="correoElectronico" matInput placeholder="Correo Electronico">
+												<input formControlName="correoElectronico" matInput placeholder="Correo Electronico">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
 
-									<span>4.5 - ¿A qué institucion pertenece?</span>
+									<span>4.5 - ¿A qué institución pertenece?</span>
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
@@ -675,7 +675,7 @@
 												<mat-select formControlName="institucion">
 													<mat-option value=""></mat-option>
 													<mat-option value="jac">JAC</mat-option>
-													<mat-option value="institucion educativa">Institucion Educativa</mat-option>
+													<mat-option value="institucion educativa">Institución Educativa</mat-option>
 													<mat-option value="comunidad territorio">Comunidad</mat-option>
 													<mat-option value="otro">Otro</mat-option>
 												</mat-select>
@@ -696,7 +696,7 @@
 										</ion-col>
 									</ion-row>
 
-									<span>4.7 - En su concepto, la actividad para la cual se adjudico este predio se esta desarrollando actualmente de la siguiente manera</span>
+									<span>4.7 - En su concepto, la actividad para la cual se adjudicó este predio se está desarrollando actualmente de la siguiente manera</span>
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
@@ -723,7 +723,7 @@
 													<mat-option value="bueno">Bueno</mat-option>
 													<mat-option value="regular">Regular</mat-option>
 													<mat-option value="malo">Malo</mat-option>
-													<mat-option value="pesimo">Pesimo</mat-option>
+													<mat-option value="pesimo">Pésimo</mat-option>
 												</mat-select>
 											</mat-form-field>
 										</ion-col>
@@ -741,7 +741,7 @@
 													<mat-option value="bueno">Bueno</mat-option>
 													<mat-option value="regular">Regular</mat-option>
 													<mat-option value="malo">Malo</mat-option>
-													<mat-option value="pesimo">Pesimo</mat-option>
+													<mat-option value="pesimo">Pésimo</mat-option>
 												</mat-select>
 											</mat-form-field>
 										</ion-col>
