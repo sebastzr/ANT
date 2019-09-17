@@ -155,17 +155,38 @@
 									<ion-row>                  
 										<ion-col>
 											<mat-form-field>
-												<input formControlName="latitud" matInput placeholder="Latitud">
+												<input formControlName="latitudPredio" matInput placeholder="Latitud Predio">
 											</mat-form-field>
 										</ion-col>
 										<ion-col>
 											<mat-form-field>
-												<input formControlName="longitud" matInput placeholder="Longitud">
+												<input formControlName="longitudPredio" matInput placeholder="Longitud Predio">
 											</mat-form-field>
 										</ion-col>
-									</ion-row>          
+									</ion-row>
 									
-									<h3>1.8 - Observaciones Capitulo 1</h3>
+									<h3>1.8 - Localización</h3>
+									<ion-row>
+										<ion-button (click)="getGeolocation()">
+											Mi Localización
+										</ion-button>
+										<mat-spinner [hidden]="!loadingGeoposition"></mat-spinner>
+									</ion-row>
+
+									<ion-row *ngIf="geoLatitude">
+										<ion-col>
+											<mat-form-field>
+												<input formControlName="latitud" matInput placeholder="Latitud" value="{{geoLatitude}}" readonly>
+											</mat-form-field>
+										</ion-col>
+										<ion-col>
+											<mat-form-field>
+												<input formControlName="longitud" matInput placeholder="Latitud" value="{{geoLongitude}}" readonly>
+											</mat-form-field>
+										</ion-col>
+									</ion-row>
+									
+									<h3>1.9 - Observaciones Capitulo 1</h3>
 									<ion-row>
 										<mat-form-field>
 											<textarea formControlName="observacionesCapituloUno" matInput placeholder="Observaciones Capitulo 1 "></textarea>
@@ -783,15 +804,40 @@
 						
 						<br>
 
-						<h3>Imágenes</h3>
 						<div formArrayName="fotos">
-							<div *ngFor="let foto of fotoForms.controls; let i=index" [formGroupName]="i">
-								<input type="file" placeholder="Foto" formControlName="file" (change)="uploadFoto($event, i)">
-								<ion-button color="danger" (click)="deleteFoto(i)">Eliminar</ion-button>
-							</div>
-						</div>
+							<mat-expansion-panel>
+									
+								<mat-expansion-panel-header>
+									<mat-panel-title>
+										Imagenes										
+									</mat-panel-title>
+								</mat-expansion-panel-header>
+									
+								<ion-grid>																		
+								
+								<div *ngFor="let foto of fotoForms.controls; let i=index" [formGroupName]="i">
+									<ion-row>
+										<ion-col>
+											<input type="file" placeholder="Foto" formControlName="file" (change)="uploadFoto($event, i)">
+										</ion-col>
+										<ion-col>
+											<ion-button color="danger" (click)="deleteFoto(i)">Eliminar</ion-button>
+										</ion-col>
+									</ion-row>
+								</div>
 
-						<ion-button color="primary" (click)="addFoto()">Añadir Imagen</ion-button>
+								<ion-row>
+									<ion-col>
+										<ion-button color="primary" (click)="addFoto()">Añadir Imagen</ion-button>
+									</ion-col>
+								</ion-row>
+										<!-- <ion-row>
+											<ion-button color="success" (click)="updateModel()">Guardar</ion-button>
+										</ion-row> -->
+										
+								</ion-grid>
+							</mat-expansion-panel>
+						</div>
 
 				</mat-accordion>
 			
@@ -799,8 +845,8 @@
 
 				<ion-button [disabled]="antForm.invalid" color="success" type="submit">Enviar Formulario</ion-button>
 				<!--
-					<ion-button color="success" type="submit">Enviar Formulario (pruebas)</ion-button>
 				-->				
+				<ion-button color="success" type="submit">Enviar Formulario (pruebas)</ion-button>
 			</form>        
 		  
 			<mat-spinner [hidden]="!loading"></mat-spinner>
@@ -820,16 +866,17 @@
 
 		  
 			<div *ngIf="success" class="notification is-success">
-				<ion-gri>
+				<ion-grid>
 					<ion-row>
 						<ion-col>
 							<ion-button color="primary">Guardado correctamente.</ion-button>
 						</ion-col>
 						<ion-col>
-							<ion-button color="success" (click)="success=false">Nuevo Formulario</ion-button>
+							<ion-button color="success" (click)="resetForm()">Nuevo Formulario</ion-button>
 						</ion-col>
 					</ion-row>
-				</ion-gri>
+				</ion-grid>
+
 			</div>
           
           <!--

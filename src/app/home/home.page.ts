@@ -7,6 +7,7 @@ import { tap, first, finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import colombia from './../../assets/colombia.json'; 
 import { AngularFireStorage } from '@angular/fire/storage';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 export interface Item {
   name: string;
@@ -19,6 +20,7 @@ export interface Item {
 })
 export class HomePage implements OnInit {
 
+
   user: string;
   imgFakeUrl: any;
   file: any;
@@ -30,6 +32,12 @@ export class HomePage implements OnInit {
 
   colombiaJson: any;
   cities: any;
+
+  geoLatitude: number;
+  geoLongitude: number;
+  geoAccuracy:number;
+  geoAddress: string;
+  loadingGeoposition = false;
 
   loginForm = this.fb.group({
     email: ['', [
@@ -58,12 +66,37 @@ export class HomePage implements OnInit {
     private fb: FormBuilder,
     public auth: AuthService,
     private router: Router,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private geolocation: Geolocation
     ) {
+    }
+    
+    //Get current coordinates of device
+    getGeolocation(){      
+      this.loadingGeoposition = true;
+      this.geolocation.getCurrentPosition({
+        enableHighAccuracy : true,
+        timeout: 30000,
+        maximumAge: 30000
+      }).then((resp) => {
+        this.geoLatitude = resp.coords.latitude;
+        this.geoLongitude = resp.coords.longitude; 
+        this.geoAccuracy = resp.coords.accuracy; 
+        this.loadingGeoposition = false;
+       }).catch((error) => {
+         alert('Error getting location'+ JSON.stringify(error));
+       });
     }
     
     ngOnInit() {
 
+      this.geolocation.getCurrentPosition().then((resp) => {
+        // resp.coords.latitude
+        // resp.coords.longitude
+       }).catch((error) => {
+         console.log('Error getting location', error);
+       });
+       
       this.antForm = this.fb.group({
         user: [this.user],
         soliciudEDP: this.fb.group({
@@ -92,11 +125,17 @@ export class HomePage implements OnInit {
           nombrePredio: ['',[
             Validators.required,
           ]],
-          latitud: ['',[
+          latitudPredio: ['',[
             Validators.required,
           ]],
-          longitud: ['',[
+          longitudPredio: ['',[
             Validators.required,
+          ]],
+          latitud: ['',[
+            
+          ]],
+          longitud: ['',[
+            
           ]],
           observacionesCapituloUno: ['',[
           ]],
@@ -272,7 +311,7 @@ export class HomePage implements OnInit {
       });
 
       this.antForm.valueChanges.subscribe( () => {
-        this.success = false;        
+        //this.success = false;        
       });    
 
       
@@ -301,25 +340,25 @@ export class HomePage implements OnInit {
   async submitHandler() {
 
     
-    this.loading = true;
+    //this.loading = true;
     
     const antValue = this.antForm.value;
     const id = antValue.soliciudEDP.numeroSolicitudEDP;
     
     console.log(antValue);
+    
+    this.success = true;
 
     try {
       //await this.afs.collection('forms').add(antValue);
-      await this.afs.collection('forms').doc(id).set(antValue);
-      this.antForm.reset();
-      
-      this.success = true;
+      await this.afs.collection('forms').doc(id).set(antValue);      
+      //this.success = true;
     } catch(err) {
-      this.success = false;
-      this.error = true;
+      //this.success = false;
+      //this.error = true;
       console.error(err);
     }
-    this.loading = false;
+    //this.loading = false;
 
   }
 
@@ -329,6 +368,11 @@ export class HomePage implements OnInit {
         this.cities = key.ciudades;
       }
     });
+  }
+
+  resetForm() {
+    this.antForm.reset();
+    this.success = false;
   }
 
   /*readFoto(event: any) {
