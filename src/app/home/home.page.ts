@@ -7,6 +7,7 @@ import { tap, first, finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import colombia from './../../assets/colombia.json'; 
 import { AngularFireStorage } from '@angular/fire/storage';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 export interface Item {
   name: string;
@@ -19,6 +20,7 @@ export interface Item {
 })
 export class HomePage implements OnInit {
 
+
   user: string;
   imgFakeUrl: any;
   file: any;
@@ -30,6 +32,11 @@ export class HomePage implements OnInit {
 
   colombiaJson: any;
   cities: any;
+
+  geoLatitude: number;
+  geoLongitude: number;
+  geoAccuracy:number;
+  geoAddress: string;
 
   loginForm = this.fb.group({
     email: ['', [
@@ -58,11 +65,37 @@ export class HomePage implements OnInit {
     private fb: FormBuilder,
     public auth: AuthService,
     private router: Router,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private geolocation: Geolocation
     ) {
     }
     
+    //Get current coordinates of device
+    getGeolocation(){
+      this.geolocation.getCurrentPosition().then((resp) => {
+        this.geoLatitude = resp.coords.latitude;
+        this.geoLongitude = resp.coords.longitude; 
+        this.geoAccuracy = resp.coords.accuracy; 
+       }).catch((error) => {
+         alert('Error getting location'+ JSON.stringify(error));
+       });
+    }
+    
     ngOnInit() {
+
+      this.geolocation.getCurrentPosition().then((resp) => {
+        // resp.coords.latitude
+        // resp.coords.longitude
+       }).catch((error) => {
+         console.log('Error getting location', error);
+       });
+       
+       let watch = this.geolocation.watchPosition();
+       watch.subscribe((data) => {
+        // data can be a set of coordinates, or an error (if an error occurred).
+        // data.coords.latitude
+        // data.coords.longitude
+       });
 
       this.antForm = this.fb.group({
         user: [this.user],
@@ -92,11 +125,17 @@ export class HomePage implements OnInit {
           nombrePredio: ['',[
             Validators.required,
           ]],
-          latitud: ['',[
+          latitudPredio: ['',[
             Validators.required,
           ]],
-          longitud: ['',[
+          longitudPredio: ['',[
             Validators.required,
+          ]],
+          latitud: ['',[
+            
+          ]],
+          longitud: ['',[
+            
           ]],
           observacionesCapituloUno: ['',[
           ]],
