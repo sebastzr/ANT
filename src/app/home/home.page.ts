@@ -311,7 +311,7 @@ export class HomePage implements OnInit {
       });
 
       this.antForm.valueChanges.subscribe( () => {
-        this.success = false;        
+        //this.success = false;        
       });    
 
       
@@ -346,16 +346,16 @@ export class HomePage implements OnInit {
     const id = antValue.soliciudEDP.numeroSolicitudEDP;
     
     console.log(antValue);
+    
+    this.success = true;
 
     try {
       //await this.afs.collection('forms').add(antValue);
-      await this.afs.collection('forms').doc(id).set(antValue);
-      this.antForm.reset();
-      
-      this.success = true;
+      await this.afs.collection('forms').doc(id).set(antValue);      
+      //this.success = true;
     } catch(err) {
-      this.success = false;
-      this.error = true;
+      //this.success = false;
+      //this.error = true;
       console.error(err);
     }
     //this.loading = false;
@@ -368,6 +368,11 @@ export class HomePage implements OnInit {
         this.cities = key.ciudades;
       }
     });
+  }
+
+  resetForm() {
+    this.antForm.reset();
+    this.success = false;
   }
 
   /*readFoto(event: any) {
