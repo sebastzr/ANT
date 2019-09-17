@@ -340,7 +340,7 @@ export class HomePage implements OnInit {
   async submitHandler() {
 
     
-    this.loading = true;
+    //this.loading = true;
     
     const antValue = this.antForm.value;
     const id = antValue.soliciudEDP.numeroSolicitudEDP;
@@ -358,7 +358,7 @@ export class HomePage implements OnInit {
       this.error = true;
       console.error(err);
     }
-    this.loading = false;
+    //this.loading = false;
 
   }
 
