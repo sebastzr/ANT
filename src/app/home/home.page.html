@@ -818,17 +818,23 @@
 								<div *ngFor="let foto of fotoForms.controls; let i=index" [formGroupName]="i">
 									<ion-row>
 										<ion-col>
-											<input type="file" placeholder="Foto" formControlName="file" (change)="uploadFoto($event, i)">
+											<!--
+												<input type="file" placeholder="Foto" formControlName="file" (change)="uploadFoto($event, i)">
+											-->
+											<input type="file" placeholder="Foto" formControlName="file" (change)="getImage($event, i)">
 										</ion-col>
 										<ion-col>
-											<ion-button color="danger" (click)="deleteFoto(i)">Eliminar</ion-button>
+											<!--
+												<ion-button color="danger" (click)="deleteFoto(i)">Eliminar</ion-button>
+											-->
+											<ion-button color="danger" (click)="deletePictureInput(i)">Eliminar</ion-button>
 										</ion-col>
 									</ion-row>
 								</div>
 
 								<ion-row>
 									<ion-col>
-										<ion-button color="primary" (click)="addFoto()">Añadir Imagen</ion-button>
+										<ion-button color="primary" (click)="addPictureInput()">Añadir Imagen</ion-button>
 									</ion-col>
 								</ion-row>
 										<!-- <ion-row>

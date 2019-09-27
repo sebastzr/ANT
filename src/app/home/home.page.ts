@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import colombia from './../../assets/colombia.json'; 
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import firebase from 'firebase';
 
 export interface Item {
   name: string;
@@ -20,47 +21,69 @@ export interface Item {
 })
 export class HomePage implements OnInit {
 
-
-  user: string;
-  imgFakeUrl: any;
-  file: any;
+  /**
+   * Images attributes
+   * 
+   */
   downloadURL: Observable<string>;
 
-  loading = false;
-  success = false;
-  error   = false;
-
+  /**
+   * Deparments and Cities Attributes
+   * 
+   */
   colombiaJson: any;
   cities: any;
 
+  /**
+   * Geoposition Attributes
+   * 
+   */
   geoLatitude: number;
   geoLongitude: number;
   geoAccuracy:number;
   geoAddress: string;
   loadingGeoposition = false;
 
-  loginForm = this.fb.group({
-    email: ['', [
-      Validators.required,
-      Validators.email
-    ]],
-    password: ['', [
-      Validators.required,
-    ]]
-  });
-
+  /**
+   * Front end manipulators
+   * 
+   */
+  loading = false;
+  success = false;
+  error   = false;
+  
+  /**
+   * Forms
+   * 
+   */
+  loginForm:any;
   antForm:any;
 
-  private itemsCollection: AngularFirestoreCollection<Item>;
-  items: Observable<any[]>;
+  /**
+   * Images attributes
+   * 
+   */
+  files = [];
 
-  isDirty$: Observable<boolean>;
-
+  /**
+   * Prevent leaving the page
+   * @param event 
+   * 
+   */
   @HostListener('window:beforeunload', ['$event'])
   onbeforeunload(event) {
     return confirm('Es posible que los cambios que implementaste no se puedan guardar.');
   }
 
+  /**
+   * Constructor
+   * @param afs 
+   * @param fb 
+   * @param auth 
+   * @param router 
+   * @param storage 
+   * @param geolocation 
+   */
   constructor(
     private afs: AngularFirestore,
     private fb: FormBuilder,
@@ -71,34 +94,30 @@ export class HomePage implements OnInit {
     ) {
     }
     
-    //Get current coordinates of device
-    getGeolocation(){      
-      this.loadingGeoposition = true;
-      this.geolocation.getCurrentPosition({
-        enableHighAccuracy : true,
-        timeout: 30000,
-        maximumAge: 30000
-      }).then((resp) => {
-        this.geoLatitude = resp.coords.latitude;
-        this.geoLongitude = resp.coords.longitude; 
-        this.geoAccuracy = resp.coords.accuracy; 
-        this.loadingGeoposition = false;
-       }).catch((error) => {
-         alert('Error getting location'+ JSON.stringify(error));
-       });
-    }
-    
+    /**
+     * Init app
+     * 
+     */
     ngOnInit() {
-
       this.geolocation.getCurrentPosition().then((resp) => {
         // resp.coords.latitude
         // resp.coords.longitude
-       }).catch((error) => {
-         console.log('Error getting location', error);
-       });
+        }).catch((error) => {
+          console.log('Error getting location', error);
+        });
+
+      this.loginForm = this.fb.group({
+        email: ['', [
+          Validators.required,
+          Validators.email
+        ]],
+        password: ['', [
+          Validators.required,
+        ]]
+      });
        
       this.antForm = this.fb.group({
-        user: [this.user],
+        user: [''],
         soliciudEDP: this.fb.group({
           numeroSolicitudEDP: ['',[
             Validators.required,
@@ -306,7 +325,9 @@ export class HomePage implements OnInit {
           ]]
         }),
     
-        fotos: this.fb.array([])
+        fotos: this.fb.array([]),
+
+        formularioModificadoEl: ['']
     
       });
 
@@ -314,44 +335,57 @@ export class HomePage implements OnInit {
         //this.success = false;        
       });    
 
-      
-      
       this.auth.user$.subscribe( (user) => {
         this.antForm.controls.user.setValue(user.email);
       });
-
 
       this.colombiaJson = colombia;
     
   }  
 
-  updateModel() {
-    console.log(this.antForm.value);
-    this.auth.user$.subscribe( (user) => {
-      console.log(user.email);
-    });
-    console.log(this.user);    
+  /**
+   * Get the current location of the device
+   * 
+   */
+  getGeolocation(){      
+    this.loadingGeoposition = true;
+    this.geolocation.getCurrentPosition({
+      enableHighAccuracy : true,
+      timeout: 30000,
+      maximumAge: 30000
+    }).then((resp) => {
+      this.geoLatitude = resp.coords.latitude;
+      this.geoLongitude = resp.coords.longitude; 
+      this.geoAccuracy = resp.coords.accuracy; 
+      this.loadingGeoposition = false;
+      }).catch((error) => {
+        alert('Error getting location'+ JSON.stringify(error));
+      });
   }
 
+  /**
+   * Login user
+   * 
+   */
   onLogin() {
     this.auth.emailSignin(this.loginForm.value.email, this.loginForm.value.password);
   }
 
+  /**
+   * Submit Handler
+   * 
+   */
   async submitHandler() {
-
-    
     //this.loading = true;
-    
+    //Create timestamp
+    this.antForm.controls.formularioModificadoEl.setValue(firebase.firestore.FieldValue.serverTimestamp());
     const antValue = this.antForm.value;
-    const id = antValue.soliciudEDP.numeroSolicitudEDP;
-    
-    console.log(antValue);
-    
+    const id = antValue.soliciudEDP.numeroSolicitudEDP; 
     this.success = true;
-
     try {
       //await this.afs.collection('forms').add(antValue);
-      await this.afs.collection('forms').doc(id).set(antValue);      
+      this.uploadPictures();
+      await this.afs.collection(id).add(antValue);
       //this.success = true;
     } catch(err) {
       //this.success = false;
@@ -359,9 +393,12 @@ export class HomePage implements OnInit {
       console.error(err);
     }
     //this.loading = false;
-
   }
 
+  /**
+   * Updates the selection for Deparment and city
+   * 
+   */
   updateSelect() {
     colombia.forEach( (key) => {
       if (key.departamento == this.antForm.value.capituloUno.departamento) {
@@ -370,47 +407,118 @@ export class HomePage implements OnInit {
     });
   }
 
+  /**
+   * Reset antForm
+   * 
+   */
   resetForm() {
+    this.fotoForms.clear();
     this.antForm.reset();
     this.success = false;
   }
 
-  /*readFoto(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-  
-      reader.onload = (event: ProgressEvent) => {
-        this.imgFakeUrl = (<FileReader>event.target).result;
-      }
-  
-      reader.readAsDataURL(event.target.files[0]);
-      this.file = event.target.files[0];
-    }
-  }
+  /**
+   * Managment upload photos
+   * 
+   */
 
-  getUrlFoto(ref) {
-    this.downloadURL = ref.getDownloadURL();
-    this.downloadURL.subscribe(url => {
-      if (url) {
-        
-      }
-    });
-  }*/
-
+  //Get photo group form
   get fotoForms() {
     return this.antForm.get('fotos') as FormArray;
   }
 
-  addFoto() {
+  addPictureInput() {
     const foto = this.fb.group({
-      file: [],
-      url: [],
-      ref: []
+      file: [''],
+      url: [''],
+      ref: ['']
     });
-
-    this.fotoForms.push(foto);
+    if (this.fotoForms.length == 0) {
+      this.fotoForms.push(foto);
+    } else if (this.fotoForms.controls[this.fotoForms.length - 1].get('file').value != '') {
+      this.fotoForms.push(foto);
+    } else {      
+      console.log('You need to insert a file first');
+    }
   }
 
+  deletePictureInput(i) {
+    this.fotoForms.removeAt(i);
+    if ( this.files[i] ) {
+      this.files.splice(i, 1);   
+    }
+  }
+
+  /**
+   * Prepare the image to be uploaded, get the file and appends to array this.files
+   * @param event 
+   * @param i 
+   */
+  getImage(event:any, i) {
+    if (this.files[i]) {
+      this.files.splice(i, 1, event.target.files[0])
+    } else {
+      this.files.push(event.target.files[0]);
+    }
+  }
+
+  //Upload array of pictures added
+  uploadPictures() {
+    var filePath: any;
+    var fileRef: any;
+    var task: any;
+    const antValue = this.antForm.value;
+    this.files.forEach( (file, i) => {
+      filePath = `formFotos/${antValue.soliciudEDP.numeroSolicitudEDP}/${new Date().getTime()}_${file.name}`;
+      this.fotoForms.controls[i].get('ref').setValue(filePath);
+      fileRef = this.storage.ref(filePath);
+      task = this.storage.upload(filePath, file);
+      /* See upload progress
+      task.snapshotChanges().pipe(
+        finalize( () => this.getUrl(fileRef, i)) 
+        ).subscribe( (url) => {
+          console.log(url);          
+        });
+      */
+    });
+  }
+
+  /**
+   * Get the url of the uploaded image
+   * @param ref 
+   * @param i 
+   */
+  getUrl(ref, i) {
+    this.downloadURL = ref.getDownloadURL();
+    this.downloadURL.subscribe(url => {
+      if (url) {
+        this.fotoForms.controls[i].get('url').setValue(url);            
+      }
+    })
+  }
+
+  /**
+   * Upload the images to firebase storage
+   * @param event 
+   * @param i 
+   */
+  /* !OLD UPLOAD!
+  uploadFoto(event:any, i) {   
+    const antValue = this.antForm.value;
+    const file = event.target.files[0]; 
+    const filePath = `formFotos/${antValue.soliciudEDP.numeroSolicitudEDP}/${new Date().getTime()}_${file.name}`;
+    this.fotoForms.controls[i].get('ref').setValue(filePath);
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+    task.snapshotChanges().pipe(
+      finalize(() => this.getUrl(fileRef, i))
+      ).subscribe((url) => {
+        console.log(url);
+      });
+  }
+  */
+
+    /* !OLD DELETE!
   deleteFoto(i) {
     if (this.fotoForms.controls[i].get('ref').value) {
       const filePath = this.fotoForms.controls[i].get('ref').value;    
@@ -419,29 +527,5 @@ export class HomePage implements OnInit {
     }
     this.fotoForms.removeAt(i);
   }
-
-  uploadFoto(event:any, i) {   
-    const file = event.target.files[0]; 
-    const filePath = `formFotos/${new Date().getTime()}_${file.name}`;
-    this.fotoForms.controls[i].get('ref').setValue(filePath);
-    const fileRef = this.storage.ref(filePath);
-    const task = this.storage.upload(filePath, file);
-    task.snapshotChanges().pipe(
-      finalize(() => this.getUrl(fileRef, i))
-      ).subscribe((url) => {
-        console.log(url);        
-      });
-  }
-
-  getUrl(ref, i) {
-    this.downloadURL = ref.getDownloadURL();
-    this.downloadURL.subscribe(url => {
-      if (url) {
-        this.fotoForms.controls[i].get('url').setValue(url);            
-        //console.log(this.fotoForms.controls[i].get('url'));
-      }
-    })
-  }
-
-
+  */
 }
