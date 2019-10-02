@@ -199,13 +199,19 @@ export class HomePage implements OnInit {
           resolucionAdjudicacionOtroCual: ['',[
             
           ]],
+          fechaAdjudicacionOtroCual: ['',[
+            
+          ]],
           entidadAdjudicada: ['',[
             Validators.required,
           ]],
           servicioActividad: ['',[
             Validators.required,
           ]],
-          tiempoActividad: ['',[
+          tiempoActividadAños: ['',[
+            Validators.required,
+          ]],
+          tiempoActividadMes: ['',[
             Validators.required,
           ]],
           actividadDiferente: ['',[
