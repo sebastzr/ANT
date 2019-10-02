@@ -45,6 +45,7 @@ exports.cssJsonReport = functions.https.onRequest( (request, response) => {
                 'attachment; filename=report.csv'
             )
             response.set('Content-type', 'text/csv');
+            response.set('Access-Control-Allow-Origin', '*');
             response.status(200).send(csv);                   
         }).catch( (error) => {
             console.log('Error gettin document: ', error);
