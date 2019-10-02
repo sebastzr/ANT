@@ -391,7 +391,9 @@ export class HomePage implements OnInit {
     try {
       //await this.afs.collection('forms').add(antValue);
       this.uploadPictures();
+      await this.afs.collection('_forms').doc(id).set(antValue);
       await this.afs.collection(id).add(antValue);
+      //await this.afs.collection('data').doc('forms').collection(id).add(antValue);
       //this.success = true;
     } catch(err) {
       //this.success = false;
@@ -501,6 +503,23 @@ export class HomePage implements OnInit {
         this.fotoForms.controls[i].get('url').setValue(url);            
       }
     })
+  }
+
+
+  //Test function()
+  test() {
+    let data = [];
+    this.afs.collection('_forms').get()
+      .subscribe( (querySnapshot) => {
+        querySnapshot.forEach( doc => {
+          for(let key in doc.data()) {
+            console.log(key);            
+          }
+          data.push(doc.data());
+        });
+        console.log(data);
+        console.log(JSON.parse(JSON.stringify(data)));        
+      })
   }
 
   /**
