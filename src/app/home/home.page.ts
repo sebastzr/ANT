@@ -9,10 +9,7 @@ import colombia from './../../assets/colombia.json';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import firebase from 'firebase';
-
-export interface Item {
-  name: string;
-}
+import { User } from '../services/user.model';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +17,12 @@ export interface Item {
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+
+  /**
+   * User
+   * 
+   */
+  user: User;
 
   /**
    * Images attributes
@@ -333,13 +336,13 @@ export class HomePage implements OnInit {
 
       this.antForm.valueChanges.subscribe( () => {
         //this.success = false;        
-      });    
-
-      this.auth.user$.subscribe( (user) => {
-        this.antForm.controls.user.setValue(user.email);
-      });
+      });          
 
       this.colombiaJson = colombia;
+      
+      this.auth.user$.subscribe( (user) => {
+        if (user) this.antForm.controls.user.setValue(user.email);
+      });
     
   }  
 
@@ -369,6 +372,9 @@ export class HomePage implements OnInit {
    */
   onLogin() {
     this.auth.emailSignin(this.loginForm.value.email, this.loginForm.value.password);
+    this.auth.user$.subscribe( (user) => {
+      this.antForm.controls.user.setValue(user.email);
+    });
   }
 
   /**
