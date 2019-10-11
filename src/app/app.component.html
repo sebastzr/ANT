@@ -1,5 +1,6 @@
 <ion-app>
-  <ion-split-pane>
+
+  <ion-split-pane *ngIf="auth.user$ | async as user; else login">
     <ion-menu type="overlay">
       <ion-header>
         <ion-toolbar>
@@ -18,7 +19,7 @@
               </ion-item>
             </div>
             <ion-item button *ngIf="userHasRole('admin')" (click)="downloadData()">
-              <ion-icon slot="start" name="document"></ion-icon>
+              <ion-icon slot="start" name="stats"></ion-icon>
               <ion-label>
                 Reporte de Datos
               </ion-label>
@@ -35,4 +36,9 @@
     </ion-menu>  
     <ion-router-outlet main></ion-router-outlet>
   </ion-split-pane>
+
+  <ng-template #login>
+    <app-login></app-login>
+  </ng-template>
+
 </ion-app>

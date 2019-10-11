@@ -58,8 +58,7 @@ export class HomePage implements OnInit {
   /**
    * Forms
    * 
-   */
-  loginForm:any;
+   */  
   antForm:any;
 
   /**
@@ -107,17 +106,7 @@ export class HomePage implements OnInit {
         // resp.coords.longitude
         }).catch((error) => {
           console.log('Error getting location', error);
-        });
-
-      this.loginForm = this.fb.group({
-        email: ['', [
-          Validators.required,
-          Validators.email
-        ]],
-        password: ['', [
-          Validators.required,
-        ]]
-      });
+        });      
        
       this.antForm = this.fb.group({
         user: [''],
@@ -371,18 +360,7 @@ export class HomePage implements OnInit {
         alert('Error getting location'+ JSON.stringify(error));
       });
   }
-
-  /**
-   * Login user
-   * 
-   */
-  onLogin() {
-    this.auth.emailSignin(this.loginForm.value.email, this.loginForm.value.password);
-    this.auth.user$.subscribe( (user) => {
-      this.antForm.controls.user.setValue(user.email);
-    });
-  }
-
+  
   /**
    * Submit Handler
    * 
