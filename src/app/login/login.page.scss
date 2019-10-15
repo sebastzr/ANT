@@ -22,5 +22,14 @@
   -moz-transform: translateX(-50%) translateY(-50%);
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
+  background: white;
+}
+
+.card-header {
+  --color: green;
+}
+
+.login-page {
+  --background: url(./../../assets/images/login-page.jpg) 0/100% 100% no-repeat;
 }
   

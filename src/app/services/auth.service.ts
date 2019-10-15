@@ -42,9 +42,10 @@ export class AuthService {
     });
   }
 
-  async signOut() {
-    await this.afAuth.auth.signOut();
-    return this.router.navigate(['']);
+  signOut() {
+    this.afAuth.auth.signOut().then( () => {
+      this.router.navigate(['/login']);
+    });
   }
 
   private updateUserData(user) {

@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule, StorageBucket } from '@angular/fire/storage';
@@ -23,17 +24,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material';
-import { MatCardModule } from '@angular/material/card';
-import { LoginComponent } from './components/login/login.component';
-
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
   ],
   entryComponents: [],
   imports: [
@@ -46,12 +40,9 @@ import { LoginComponent } from './components/login/login.component';
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     ReactiveFormsModule, BrowserAnimationsModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     HttpClientModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule
   ],
   providers: [
+    AngularFireAuthGuard,
     StatusBar,
     SplashScreen,
     Geolocation,

@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Iniciar Sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+  
+<ion-content class="login-page" [fullscreen]="true">
+  <span>
+    <ion-card class="screen-centered">
+      <ion-card-header>
+        <ion-card-title color="favorite" class="ion-text-center">INICIO DE SESIÓN</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <p>
+            <mat-form-field>
+              <input formControlName="email" matInput placeholder="Correo Electrónico" type="email">
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field>
+              <input formControlName="password" matInput placeholder="Contraseña" type="password">
+            </mat-form-field>
+          </p>
+          <p>
+            <ion-button expand="block" [disabled]="loginForm.invalid" type="submit" color="favorite">Iniciar Sesión</ion-button>
+          </p>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </span>
+</ion-content>
