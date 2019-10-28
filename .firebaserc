@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "ant-app-7ee04"
+    "default": "ant-app-7ee04",
+    "test": "ant-test-43d6f"
   }
 }
