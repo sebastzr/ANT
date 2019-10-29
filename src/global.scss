@@ -55,8 +55,24 @@
     --ion-tab-bar-color	: #069868;
     --ion-toolbar-background: #069868;
     --ion-toolbar-color: #ffffff;
+
+    .mat-expansion-indicator::after{
+      color: #F4AE2F; 
+    }
+
+    .mat-select-arrow{
+      color: #F4AE2F; 
+    }
   
   }
+
+  ion-menu {
+    --ion-tab-bar-color	: #00906F;
+    --ion-background-color: #00906F;
+    --ion-background-color-rgb: 0, 144, 111;
+    --ion-text-color:  #ffffff;
+    --ion-text-color-rgb: 255,255,255;
+  } 
 
   :root {
     --ion-color-favorite: #069868;

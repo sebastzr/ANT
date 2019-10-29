@@ -197,10 +197,10 @@ export class HomePage implements OnInit {
           servicioActividad: ['',[
             Validators.required,
           ]],
-          tiempoActividadAños: ['',[
+          fechaInicialTiempoEstablecido: ['',[
             Validators.required,
           ]],
-          tiempoActividadMes: ['',[
+          fechaFinalTiempoEstablecido: ['',[
             Validators.required,
           ]],
           actividadDiferente: ['',[

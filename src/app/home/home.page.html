@@ -16,9 +16,9 @@
 		<div>
 			
 			<ion-card-header [hidden]="success || loading">
-				<ion-card-title>FORMULARIO DE SEGUIMIENTO</ion-card-title>
+				<ion-card-title color="favorite">FORMULARIO DE SEGUIMIENTO</ion-card-title>
 				<ion-card-subtitle>Adjudicaciones Entidades de Derecho Publico</ion-card-subtitle>
-				<ion-card-subtitle>Usuario: {{antForm.controls.user.value}}</ion-card-subtitle>
+				<ion-card-subtitle>Usuario: <b>{{antForm.controls.user.value}}</b></ion-card-subtitle>
 			</ion-card-header>
 
         	<ion-card-content>
@@ -29,6 +29,7 @@
 							<mat-expansion-panel>
 								
 								<mat-expansion-panel-header>
+									<div class="test"></div>
 									<mat-panel-title>
 										Número de Solicitud EDP										
 									</mat-panel-title>
@@ -157,7 +158,7 @@
 									
 									<h3>1.8 - Localización</h3>
 									<ion-row>
-										<ion-button (click)="getGeolocation()">
+										<ion-button (click)="getGeolocation()" color="favorite">
 											Mi Localización
 										</ion-button>
 										<mat-spinner [hidden]="!loadingGeoposition"></mat-spinner>
@@ -351,12 +352,12 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="number" min="0" formControlName="tiempoActividadAños" matInput placeholder="Años">
+												<input formControlName="fechaInicialTiempoEstablecido" matInput placeholder="Fecha Inicial" type="date">
 											</mat-form-field>
 										</ion-col>
 										<ion-col>
 											<mat-form-field>
-												<input type="number" min="1" max="12 "formControlName="tiempoActividadMes" matInput placeholder="Meses">
+												<input formControlName="fechaFinalTiempoEstablecido" matInput placeholder="Fecha" type="date">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -911,7 +912,7 @@
 
 								<ion-row>
 									<ion-col>
-										<ion-button color="primary" (click)="addPictureInput()">Añadir Imagen</ion-button>
+										<ion-button color="favorite" (click)="addPictureInput()">Añadir Imagen</ion-button>
 									</ion-col>
 								</ion-row>										
 										
@@ -923,7 +924,7 @@
 			
 				<br>
 
-				<ion-button [disabled]="antForm.invalid" color="success" type="submit">Enviar Formulario</ion-button>
+				<ion-button [disabled]="antForm.invalid" color="favorite" type="submit">Enviar Formulario</ion-button>
 				<!--
 					<ion-button color="success" type="submit">Enviar Formulario (pruebas)</ion-button>
 				-->				
