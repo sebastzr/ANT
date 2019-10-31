@@ -171,7 +171,7 @@ export class HomePage implements OnInit {
             Validators.required,
           ]],
           documentoPropiedad:['',[
-            Validators.required,
+            
           ]],
           numeroAjudicacionRegistrada: ['',[
             
@@ -198,10 +198,10 @@ export class HomePage implements OnInit {
             Validators.required,
           ]],
           fechaInicialTiempoEstablecido: ['',[
-            Validators.required,
+            
           ]],
           fechaFinalTiempoEstablecido: ['',[
-            Validators.required,
+            
           ]],
           actividadDiferente: ['',[
             
@@ -277,7 +277,7 @@ export class HomePage implements OnInit {
             Validators.required,
           ]],
           tipoIdentificacion: ['' , [
-            Validators.required,
+            
           ]],
           tipoIdentificacionOtroCual: ['' , [
             
