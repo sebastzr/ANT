@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      <ion-title>
+        Agencia Nacional de Tierras
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="home-page">
+      <ion-card>
+      <img src="/assets/shapes.jpg" alt="" />
+      
+      <div>        
+        <ion-card-header>
+          <ion-card-title color="favorite">NUEVA SOLICITUD EDP</ion-card-title>
+          <ion-card-subtitle>Adjudicaciones Entidades de Derecho Publico</ion-card-subtitle>
+          <ion-card-subtitle>Usuario: <b>{{ user }}</b></ion-card-subtitle>
+        </ion-card-header>
+  
+          <ion-card-content>
+            <form [formGroup]="this.form.antForm" (ngSubmit)="submitHandler()">
+              <mat-form-field>
+                <input type="text" formControlName="solicitudEDP" pattern="(^[a-zA-Z0-9_]+$)" matTooltip="Solo puede contener numeros y letras" matInput placeholder="Número de Solicitud EDP">
+              </mat-form-field>
+
+              <br>
+              
+              <ion-button color="favorite" type="submit">Crear Solicitud</ion-button>
+            </form>                      
+          </ion-card-content>
+      </div>		
+      </ion-card>
+  </ion-content>
+  

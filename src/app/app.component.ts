@@ -20,6 +20,12 @@ export class AppComponent {
       icon: 'home',
       click: ''
     },
+    {
+      title: 'Nuevo',
+      url: '/new',
+      icon: 'add-circle',
+      click: ''
+    },
   ];
 
   user: User;

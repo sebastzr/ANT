@@ -10,6 +10,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import firebase from 'firebase';
 import { User } from '../services/user.model';
+import { FormService } from '../services/form.service';
 
 @Component({
   selector: 'app-home',
@@ -92,7 +93,8 @@ export class HomePage implements OnInit {
     public auth: AuthService,
     private router: Router,
     private storage: AngularFireStorage,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    private form: FormService
     ) {
     }
     
@@ -107,231 +109,8 @@ export class HomePage implements OnInit {
         }).catch((error) => {
           console.log('Error getting location', error);
         });      
-       
-      this.antForm = this.fb.group({
-        user: [''],
-        soliciudEDP: this.fb.group({
-          numeroSolicitudEDP: ['',[
-            Validators.required,
-          ]]
-        }),
-        capituloUno: this.fb.group({
-          departamento: ['',[
-            Validators.required,
-          ]],
-          municipio: ['',[
-            Validators.required,
-          ]],
-          tipoTerritorio: ['',[
-            Validators.required,
-          ]],
-          tipoTerritorioOtroCual: [''],
-          zonaManejo:['',[
-            Validators.required,
-          ]],
-          zonaManejoOtraCual: [''],
-          nombreTerritorio: ['',[
-            Validators.required,
-          ]],
-          nombrePredio: ['',[
-            Validators.required,
-          ]],
-          latitudPredio: ['',[
-            Validators.required,
-          ]],
-          longitudPredio: ['',[
-            Validators.required,
-          ]],
-          latitud: ['',[
-            
-          ]],
-          longitud: ['',[
-            
-          ]],
-          observacionesCapituloUno: ['',[
-          ]],
-        }),
-        capituloDos: this.fb.group({
-          areaPredio: ['',[
-            Validators.required,
-          ]],
-          medida: ['',[
-            Validators.required,
-          ]],
-          norte: ['',[
-            Validators.required,
-          ]],
-          sur: ['',[
-            Validators.required,
-          ]],
-          este: ['',[
-            Validators.required,
-          ]],
-          oeste: ['',[
-            Validators.required,
-          ]],
-          documentoPropiedad:['',[
-            
-          ]],
-          numeroAjudicacionRegistrada: ['',[
-            
-          ]],
-          fechaAdjudicacionRegistrada:['',[
-            
-          ]],
-          numeroAjudicacionSinRegistrar: ['',[
-            
-          ]],
-          fechaAjudicacionSinRegistrar: ['',[
-            
-          ]],
-          resolucionAdjudicacionOtroCual: ['',[
-            
-          ]],
-          fechaAdjudicacionOtroCual: ['',[
-            
-          ]],
-          entidadAdjudicada: ['',[
-            Validators.required,
-          ]],
-          servicioActividad: ['',[
-            Validators.required,
-          ]],
-          fechaInicialTiempoEstablecido: ['',[
-            
-          ]],
-          fechaFinalTiempoEstablecido: ['',[
-            
-          ]],
-          actividadDiferente: ['',[
-            
-          ]],
-          actividadDiferenteCual: ['',[
-            
-          ]],
-          actividadDiferenteTiempo: ['',[
-            
-          ]],
-          personasBeneficiadas: ['',[
-            Validators.required,
-          ]],
-          poblacionBeneficiaria: ['',[
-            Validators.required,
-          ]],
-          grupoEtario: ['',[
-            Validators.required,
-          ]],
-          estadoAbandono: ['',[
-            
-          ]],
-          estadoAbandonoRazon: ['',[
-            
-          ]],
-          razonAbandonoOtroCual: ['',[
-            
-          ]],
-          ocupacionAdministracion: ['',[
-            
-          ]],
-          observacionesCapituloDos: ['',[
-            
-          ]],
-        }),
-        capituloTres: this.fb.group({
-          infraestructuraInstalada: ['' , [
-            Validators.required,
-          ]],
-          tipoInfraestructura: ['' , [
-                       
-          ]],
-          bateriasSanitarias:['' , [
-
-          ]],
-          estadoInfraestructura: ['' , [
-            Validators.required,
-          ]],
-          inversionInfraestructura: ['' , [
-            Validators.required,
-          ]],
-          inversionInfraestructuraValor: ['' , [
-            
-          ]],
-          energiaElectrica: ['' , [
-            Validators.required,
-          ]],
-          abasteciomientoAgua: ['' , [
-            Validators.required,
-          ]],
-          aguaPotable: ['' , [
-            
-          ]],
-          tanquesAlmacenamiento: ['' , [
-            
-          ]],
-          observacionesCapituloTres: ['' , [
-            
-          ]]
-        }),
-        capituloCuatro: this.fb.group({
-          nombre:['' , [
-            Validators.required,
-          ]],
-          tipoIdentificacion: ['' , [
-            
-          ]],
-          tipoIdentificacionOtroCual: ['' , [
-            
-          ]],
-          numeroIdentificacion:['' , [
-            Validators.required,
-          ]],
-          numeroCelular:['' , [
-            Validators.required,
-          ]],
-          tieneEmail: ['' , [
-            Validators.required,
-          ]],
-          correoElectronico: ['' , [
-            
-          ]],
-          institucion: ['' , [
-            Validators.required,
-          ]],
-          institucionOtroCual: ['' , [
-            
-          ]],
-          cargoInstitucion: ['' , [
-            
-          ]],
-          actividadAdjudicada: ['' , [
-            Validators.required,
-          ]],
-          estadoActual: ['' , [
-            Validators.required,
-          ]],
-          calidadServicioPrestado: ['' , [
-            Validators.required,
-          ]],
-          inversionActividades: ['' , [
-            Validators.required,
-          ]],
-          inversionActividadesTiempo: ['' , [
-            
-          ]],
-          observacionesCapituloCuatro:['' , [
-            
-          ]]
-        }),
-    
-        fotos: this.fb.array([]),
-
-        formularioModificadoEl: ['']
-    
-      });
-
-      this.antForm.valueChanges.subscribe( () => {
-        //this.success = false;        
-      });          
+        
+      this.antForm = this.form.antForm;
 
       this.colombiaJson = colombia;
       
@@ -370,7 +149,7 @@ export class HomePage implements OnInit {
     //Create timestamp
     this.antForm.controls.formularioModificadoEl.setValue(firebase.firestore.FieldValue.serverTimestamp());
     const antValue = this.antForm.value;
-    const id = antValue.soliciudEDP.numeroSolicitudEDP; 
+    const id = antValue.solicitudEDP; 
     this.success = true;
     try {
       //await this.afs.collection('forms').add(antValue);
@@ -378,7 +157,7 @@ export class HomePage implements OnInit {
       await this.afs.collection('_forms').doc(id).set(antValue);
       await this.afs.collection(id).add(antValue);
       //await this.afs.collection('data').doc('forms').collection(id).add(antValue);
-      //this.success = true;
+      this.success = true;
     } catch(err) {
       //this.success = false;
       //this.error = true;
@@ -461,7 +240,7 @@ export class HomePage implements OnInit {
     var task: any;
     const antValue = this.antForm.value;
     this.files.forEach( (file, i) => {
-      filePath = `formFotos/${antValue.soliciudEDP.numeroSolicitudEDP}/${new Date().getTime()}_${file.name}`;
+      filePath = `formFotos/${antValue.solicitudEDP}/${new Date().getTime()}_${file.name}`;
       this.fotoForms.controls[i].get('ref').setValue(filePath);
       fileRef = this.storage.ref(filePath);
       task = this.storage.upload(filePath, file);

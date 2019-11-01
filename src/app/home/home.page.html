@@ -25,7 +25,6 @@
           		<form [formGroup]="antForm" (ngSubmit)="submitHandler()" [hidden]="success || loading">
             		<mat-accordion>	
 					
-						<div formGroupName="soliciudEDP">
 							<mat-expansion-panel>
 								
 								<mat-expansion-panel-header>
@@ -33,7 +32,7 @@
 									<mat-panel-title>
 										Número de Solicitud EDP										
 									</mat-panel-title>
-									<mat-panel-description *ngIf="antForm.controls.soliciudEDP.valid">																			
+									<mat-panel-description>																			
 										<ion-icon name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
 									</mat-panel-description>
 								</mat-expansion-panel-header>
@@ -42,13 +41,12 @@
 
 									<ion-row>
 										<mat-form-field>
-											<input type="text" formControlName="numeroSolicitudEDP" pattern="(^[a-zA-Z0-9_]+$)" matTooltip="Solo puede contener numeros y letras" matInput placeholder="Número de Solicitud EDP">
+											<input type="text" readonly formControlName="solicitudEDP" pattern="(^[a-zA-Z0-9_]+$)" matTooltip="Solo puede contener numeros y letras" matInput placeholder="Número de Solicitud EDP">
 										</mat-form-field>
 									</ion-row>
 									
 								</ion-grid>
 							</mat-expansion-panel>
-						</div>
 				
 						<br>
 
@@ -924,7 +922,7 @@
 			
 				<br>
 
-				<ion-button [disabled]="antForm.invalid" color="favorite" type="submit">Enviar Formulario</ion-button>
+				<ion-button [disabled]="antForm.invalid" color="favorite" type="submit">Guardar Datos</ion-button>
 				<!--
 					<ion-button color="success" type="submit">Enviar Formulario (pruebas)</ion-button>
 				-->				
@@ -953,7 +951,7 @@
 							<ion-button color="primary">Guardado correctamente.</ion-button>
 						</ion-col>
 						<ion-col>
-							<ion-button color="success" (click)="resetForm()">Nuevo Formulario</ion-button>
+							<ion-button color="success" (click)="success=false">Continuar</ion-button>
 						</ion-col>
 					</ion-row>
 				</ion-grid>

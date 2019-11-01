@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    <ion-title>
+      Inicio
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-page">
+  <ion-card>
+      <img src="/assets/shapes.jpg" alt="" />
+      
+      <div>
+        
+        <ion-card-header [hidden]="success || loading">
+          <ion-card-title color="favorite">Solicitudes EDP</ion-card-title>
+          <ion-card-subtitle>Usuario: <b>{{ user }}</b></ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngFor="let item of items | async">
+              {{ item.solicitudEDP }}
+              <ion-button slot="end" color="favorite" (click)="form.populateForm(item)">Editar</ion-button>
+              <!-- <ion-button color="danger">Eliminar</ion-button> -->
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </div>
+  </ion-card>
+</ion-content>
