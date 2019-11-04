@@ -1,0 +1,33 @@
+.welcome-card img {
+  max-height: 35vh;
+  overflow: hidden;
+}
+  
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+  
+ion-icon {
+  margin: auto 0;
+}
+
+ion-app {
+  background-color:  #069868 !important;
+}
+  
+.mat-spinner {
+  margin: 16px auto;
+}
+
+.screen-centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+div.toolbar-background {
+  background-color: black !important;
+}
