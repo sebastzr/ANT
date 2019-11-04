@@ -5,6 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
 import { User } from './services/user.model';
 import { HttpClient } from '@angular/common/http';
+import { Router, Route } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public auth: AuthService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {
     this.initializeApp();
     this.auth.user$.subscribe( user => this.user = user);
@@ -39,10 +41,6 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-  }
-
-  signout() {
-    this.auth.signOut();
   }
 
   userHasRole(role: string) {

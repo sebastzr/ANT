@@ -9,16 +9,16 @@
 	</ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="home-page">
     <ion-card>
-		<img src="/assets/shapes.svg" alt="" />
+		<img src="/assets/shapes.jpg" alt="" />
 		
 		<div>
 			
 			<ion-card-header [hidden]="success || loading">
-				<ion-card-title>FORMULARIO DE SEGUIMIENTO</ion-card-title>
+				<ion-card-title color="favorite">FORMULARIO DE SEGUIMIENTO</ion-card-title>
 				<ion-card-subtitle>Adjudicaciones Entidades de Derecho Publico</ion-card-subtitle>
-				<ion-card-subtitle>Usuario: {{antForm.controls.user.value}}</ion-card-subtitle>
+				<ion-card-subtitle>Usuario: <b>{{antForm.controls.user.value}}</b></ion-card-subtitle>
 			</ion-card-header>
 
         	<ion-card-content>
@@ -29,6 +29,7 @@
 							<mat-expansion-panel>
 								
 								<mat-expansion-panel-header>
+									<div class="test"></div>
 									<mat-panel-title>
 										Número de Solicitud EDP										
 									</mat-panel-title>
@@ -102,7 +103,7 @@
 										</ion-col>
 										<ion-col *ngIf="antForm.value.capituloUno.tipoTerritorio == 'otro'">
 											<mat-form-field>
-												<input type="text" formControlName="tipoTerritorioOtroCual" matInput placeholder="¿Cual?">
+												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="tipoTerritorioOtroCual" matInput placeholder="¿Cual?">
 											</mat-form-field>
 										</ion-col> 
 									</ion-row>
@@ -123,7 +124,7 @@
 										</ion-col>
 										<ion-col *ngIf="antForm.value.capituloUno.zonaManejo == 'otro'">
 											<mat-form-field>
-												<input type="text" formControlName="zonaManejoOtraCual" matInput placeholder="¿Cual?">
+												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="zonaManejoOtraCual" matInput placeholder="¿Cual?">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -131,12 +132,12 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="text" formControlName="nombreTerritorio" matInput placeholder="1.5 - Nombre de Territorio">
+												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="nombreTerritorio" matInput placeholder="1.5 - Nombre de Territorio">
 											</mat-form-field>
 										</ion-col>
 										<ion-col>
 											<mat-form-field>
-												<input type="text" formControlName="nombrePredio" matInput placeholder="1.6 - Nombre del predio">
+												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="nombrePredio" matInput placeholder="1.6 - Nombre del predio">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -157,7 +158,7 @@
 									
 									<h3>1.8 - Localización</h3>
 									<ion-row>
-										<ion-button (click)="getGeolocation()">
+										<ion-button (click)="getGeolocation()" color="favorite">
 											Mi Localización
 										</ion-button>
 										<mat-spinner [hidden]="!loadingGeoposition"></mat-spinner>
@@ -179,7 +180,7 @@
 									<h3>1.9 - Observaciones Capitulo 1</h3>
 									<ion-row>
 										<mat-form-field>
-											<textarea formControlName="observacionesCapituloUno" matInput placeholder="Observaciones Capitulo 1 "></textarea>
+											<textarea type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="observacionesCapituloUno" matInput placeholder="Observaciones Capitulo 1 "></textarea>
 										</mat-form-field>
 									</ion-row>
 				
@@ -206,7 +207,7 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="number" step="0.01" formControlName="areaPredio" matInput placeholder="Área del predio">
+												<input type="number" step="0.01" min="0" formControlName="areaPredio" matInput placeholder="Área del predio">
 											</mat-form-field>
 										</ion-col>
 										<ion-col>
@@ -270,12 +271,12 @@
 										<ion-row>
 											<ion-col>
 												<mat-form-field>
-													<input type="text" formControlName="resolucionAdjudicacionOtroCual" matInput placeholder="¿Cual?">
+													<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="resolucionAdjudicacionOtroCual" matInput placeholder="¿Cual?">
 												</mat-form-field>
 											</ion-col>
 											<ion-col>
 												<mat-form-field>
-													<input formControlName="fechaAdjudicacionOtroCual" matInput placeholder="Fecha" type="date">
+													<input type="date" formControlName="fechaAdjudicacionOtroCual" matInput placeholder="Fecha">
 												</mat-form-field>
 											</ion-col>
 										</ion-row>
@@ -297,7 +298,7 @@
 											</ion-col>
 											<ion-col>
 												<mat-form-field>
-													<input formControlName="fechaAdjudicacionRegistrada" matInput placeholder="Fecha" type="date">
+													<input type="date" formControlName="fechaAdjudicacionRegistrada" matInput placeholder="Fecha" >
 												</mat-form-field>
 											</ion-col> 
 										</ion-row>
@@ -318,7 +319,7 @@
 											</ion-col>
 											<ion-col>
 												<mat-form-field>
-													<input formControlName="fechaAjudicacionSinRegistrar" matInput placeholder="Fecha" type="date">
+													<input type="date" formControlName="fechaAjudicacionSinRegistrar" matInput placeholder="Fecha" >
 												</mat-form-field>
 											</ion-col>
 										</ion-row>
@@ -333,7 +334,7 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="text" formControlName="entidadAdjudicada" matInput placeholder="Entidad de Derecho Público">
+												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="entidadAdjudicada" matInput placeholder="Entidad de Derecho Público">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -351,12 +352,12 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="number" min="0" formControlName="tiempoActividadAños" matInput placeholder="Años">
+												<input type="date" formControlName="fechaInicialTiempoEstablecido" matInput placeholder="Fecha Inicial">
 											</mat-form-field>
 										</ion-col>
 										<ion-col>
 											<mat-form-field>
-												<input type="number" min="1" max="12 "formControlName="tiempoActividadMes" matInput placeholder="Meses">
+												<input type="date" formControlName="fechaFinalTiempoEstablecido" matInput placeholder="Fecha Final">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -380,7 +381,7 @@
 										<ion-row>
 											<ion-col>
 												<mat-form-field>
-													<textarea formControlName="actividadDiferenteCual" matInput placeholder="¿Cual?"></textarea>
+													<textarea pattern="(^[a-zA-Z0-9_]+$)" formControlName="actividadDiferenteCual" matInput placeholder="¿Cual?"></textarea>
 												</mat-form-field>
 											</ion-col>
 										</ion-row>
@@ -390,7 +391,7 @@
 											<ion-col>
 												<mat-form-field>
 													<mat-label>¿Desde hace cuanto tiempo?</mat-label>
-													<input formControlName="actividadDiferenteTiempo" matInput placeholder="Tiempo">
+													<input type="date" formControlName="actividadDiferenteTiempo" matInput placeholder="Fecha">
 												</mat-form-field>
 											</ion-col>
 										</ion-row>
@@ -405,7 +406,7 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="number" formControlName="personasBeneficiadas" matInput placeholder="Número de Personas">
+												<input type="number" min="0" formControlName="personasBeneficiadas" matInput placeholder="Número de Personas Beneficiadas">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -414,7 +415,7 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<textarea type="text" formControlName="poblacionBeneficiaria" matInput placeholder="Población Beneficiaria"></textarea>
+												<textarea type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="poblacionBeneficiaria" matInput placeholder="Tipo de Población Beneficiaria"></textarea>
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -472,7 +473,7 @@
 											</ion-col>
 											<ion-col *ngIf="antForm.value.capituloDos.estadoAbandonoRazon">
 												<mat-form-field>
-													<input type="text" formControlName="razonAbandonoOtroCual" matInput placeholder="¿Cual?">
+													<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="razonAbandonoOtroCual" matInput placeholder="¿Cual?">
 												</mat-form-field>
 											</ion-col> 
 										</ion-row>
@@ -481,7 +482,7 @@
 										<ion-row>
 											<ion-col>
 												<mat-form-field>
-													<input type="text" formControlName="ocupacionAdministracion" matInput placeholder="¿Quien ocupa o administra el predio?">
+													<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="ocupacionAdministracion" matInput placeholder="¿Quien ocupa o administra el predio?">
 												</mat-form-field>
 											</ion-col>
 										</ion-row>
@@ -495,7 +496,7 @@
 									<h3>2.11 - Observaciones Capitulo 2</h3>
 									<ion-row>
 										<mat-form-field>
-											<textarea type="text" formControlName="observacionesCapituloDos" matInput placeholder="Observaciones Capitulo 2"></textarea>
+											<textarea type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="observacionesCapituloDos" matInput placeholder="Observaciones Capitulo 2"></textarea>
 										</mat-form-field>
 									</ion-row>
 
@@ -541,7 +542,7 @@
 										<ion-row>
 											<ion-col>
 												<mat-form-field>
-													<textarea type="text" formControlName="tipoInfraestructura" matInput placeholder="Descripcion"></textarea>
+													<textarea type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="tipoInfraestructura" matInput placeholder="Descripcion"></textarea>
 												</mat-form-field>
 											</ion-col> 
 										</ion-row>
@@ -610,7 +611,7 @@
 										<ion-row>
 											<ion-col>
 												<mat-form-field>
-													<input type="text" formControlName="inversionInfraestructuraValor" matInput placeholder="Cuantificación en pesos de estas mejoras">
+													<input type="number" step="0.01" min="0" formControlName="inversionInfraestructuraValor" matInput placeholder="Cuantificación en pesos de estas mejoras">
 												</mat-form-field>
 											</ion-col>
 										</ion-row>
@@ -678,7 +679,7 @@
 									<h3>3.7 - Observaciones Capitulo 3</h3>
 									<ion-row>
 										<mat-form-field>
-											<textarea type="text" formControlName="observacionesCapituloTres" matInput placeholder="Observaciones Capitulo 3"></textarea>
+											<textarea type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="observacionesCapituloTres" matInput placeholder="Observaciones Capitulo 3"></textarea>
 										</mat-form-field>
 									</ion-row>
 	
@@ -707,7 +708,7 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="text" formControlName="nombre" matInput placeholder="Nombre del Encuestado">
+												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="nombre" matInput placeholder="Nombre del Encuestado">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -727,7 +728,7 @@
 									<ion-row *ngIf="antForm.value.capituloCuatro.tipoIdentificacion == 'otro'">
 										<ion-col>
 											<mat-form-field>
-												<input type="text" formControlName="tipoIdentificacionOtroCual" matInput placeholder="¿Cual?">
+												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="tipoIdentificacionOtroCual" matInput placeholder="¿Cual?">
 											</mat-form-field>
 										</ion-col> 
 									</ion-row>
@@ -735,12 +736,12 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="number" formControlName="numeroIdentificacion" matInput placeholder="4.2 - Número de Identificación">
+												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="numeroIdentificacion" matInput placeholder="4.2 - Número de Identificación">
 											</mat-form-field>
 										</ion-col>
 										<ion-col>
 											<mat-form-field>
-												<input type="number" formControlName="numeroCelular" matInput placeholder="4.3 - Número Celular">
+												<input type="number" min="0" formControlName="numeroCelular" matInput placeholder="4.3 - Número Celular">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -776,7 +777,7 @@
 										</ion-col>
 										<ion-col *ngIf="antForm.value.capituloCuatro.institucion == 'otro'">
 											<mat-form-field>
-												<input type="text" formControlName="institucionOtroCual" matInput placeholder="¿Cual?">
+												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="institucionOtroCual" matInput placeholder="¿Cual?">
 											</mat-form-field>
 										</ion-col> 
 									</ion-row>
@@ -785,7 +786,7 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="text" formControlName="cargoInstitucion" matInput placeholder="Cargo">
+												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="cargoInstitucion" matInput placeholder="Cargo">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -862,7 +863,7 @@
 										<ion-row>
 											<ion-col>
 												<mat-form-field>
-													<input type="text" formControlName="inversionActividadesTiempo" matInput placeholder="Hace cuánto tiempo se realizó la inversión">
+													<input type="date" formControlName="inversionActividadesTiempo" matInput placeholder="Hace cuánto tiempo se realizó la inversión">
 												</mat-form-field>
 											</ion-col>
 										</ion-row>
@@ -876,7 +877,7 @@
 									<h3>4.11 - Observaciones Capitulo 4</h3>
 									<ion-row>
 										<mat-form-field>
-											<textarea type="text" formControlName="observacionesCapituloCuatro" matInput placeholder="Observaciones Capitulo 4"></textarea>
+											<textarea type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="observacionesCapituloCuatro" matInput placeholder="Observaciones Capitulo 4"></textarea>
 										</mat-form-field>
 									</ion-row>
 									
@@ -911,7 +912,7 @@
 
 								<ion-row>
 									<ion-col>
-										<ion-button color="primary" (click)="addPictureInput()">Añadir Imagen</ion-button>
+										<ion-button color="favorite" (click)="addPictureInput()">Añadir Imagen</ion-button>
 									</ion-col>
 								</ion-row>										
 										
@@ -923,10 +924,10 @@
 			
 				<br>
 
-				<ion-button [disabled]="antForm.invalid" color="success" type="submit">Enviar Formulario</ion-button>
+				<ion-button [disabled]="antForm.invalid" color="favorite" type="submit">Enviar Formulario</ion-button>
 				<!--
+					<ion-button color="success" type="submit">Enviar Formulario (pruebas)</ion-button>
 				-->				
-				<ion-button color="success" type="submit">Enviar Formulario (pruebas)</ion-button>
 			</form>        
 		  
 			<mat-spinner [hidden]="!loading"></mat-spinner>
