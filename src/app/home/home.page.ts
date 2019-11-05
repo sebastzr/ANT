@@ -365,16 +365,15 @@ export class HomePage implements OnInit {
    * Submit Handler
    * 
    */
-  async submitHandler() {
-    //this.loading = true;
+  submitHandler() {
     //Create timestamp
     this.antForm.controls.formularioModificadoEl.setValue(firebase.firestore.FieldValue.serverTimestamp());
     const antValue = this.antForm.value;
     const id = antValue.soliciudEDP.numeroSolicitudEDP; 
     this.success = true;
     this.uploadPictures();
-    this.afs.collection('_forms').doc(id).set(antValue);
     this.afs.collection(id).add(antValue);
+    this.afs.collection('_forms').doc(id).set(antValue);
   }
 
   /**
@@ -420,7 +419,7 @@ export class HomePage implements OnInit {
     } else if (this.fotoForms.controls[this.fotoForms.length - 1].get('file').value != '') {
       this.fotoForms.push(foto);
     } else {      
-      console.log('You need to insert a file first');
+      console.log('You need to insert a file first');      
     }
   }
 
@@ -441,7 +440,7 @@ export class HomePage implements OnInit {
       this.files.splice(i, 1, event.target.files[0])
     } else {
       this.files.push(event.target.files[0]);
-    }
+    }    
   }
 
   //Upload array of pictures added
@@ -455,7 +454,7 @@ export class HomePage implements OnInit {
       this.fotoForms.controls[i].get('ref').setValue(filePath);
       fileRef = this.storage.ref(filePath);
       task = this.storage.upload(filePath, file);
-      /* See upload progress
+      /*
       task.snapshotChanges().pipe(
         finalize( () => this.getUrl(fileRef, i)) 
         ).subscribe( (url) => {
