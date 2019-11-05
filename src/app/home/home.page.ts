@@ -372,19 +372,9 @@ export class HomePage implements OnInit {
     const antValue = this.antForm.value;
     const id = antValue.soliciudEDP.numeroSolicitudEDP; 
     this.success = true;
-    try {
-      //await this.afs.collection('forms').add(antValue);
-      this.uploadPictures();
-      await this.afs.collection('_forms').doc(id).set(antValue);
-      await this.afs.collection(id).add(antValue);
-      //await this.afs.collection('data').doc('forms').collection(id).add(antValue);
-      //this.success = true;
-    } catch(err) {
-      //this.success = false;
-      //this.error = true;
-      console.error(err);
-    }
-    //this.loading = false;
+    this.uploadPictures();
+    this.afs.collection('_forms').doc(id).set(antValue);
+    this.afs.collection(id).add(antValue);
   }
 
   /**

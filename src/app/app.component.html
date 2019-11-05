@@ -24,7 +24,7 @@
                 Reporte de Datos
               </ion-label>
             </ion-item>
-            <ion-item button *ngIf="auth.user$ | async as user" (click)="auth.signOut()">
+            <ion-item button *ngIf="auth.user$ | async as user" (click)="logOutAlert()">
               <ion-icon slot="start" name="log-out" color="light"></ion-icon>
               <ion-label>
                 Cerrar Sesión
