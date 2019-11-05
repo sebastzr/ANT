@@ -736,7 +736,7 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="text" pattern="(^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ]+$)" formControlName="numeroIdentificacion" matInput placeholder="4.2 - Número de Identificación">
+												<input type="number" formControlName="numeroIdentificacion" matInput placeholder="4.2 - Número de Identificación">
 											</mat-form-field>
 										</ion-col>
 										<ion-col>
@@ -939,7 +939,7 @@
 							<ion-button color="danger">Error inesperado.</ion-button>
 						</ion-col>
 						<ion-col>
-							<ion-button color="danger" (click)="error=false">Nuevo Formulario</ion-button>
+							<ion-button color="favorite" (click)="error=false">Nuevo Formulario</ion-button>
 						</ion-col>
 					</ion-row>
 				</ion-grid>
@@ -953,7 +953,7 @@
 							<ion-button color="primary">Guardado correctamente.</ion-button>
 						</ion-col>
 						<ion-col>
-							<ion-button color="success" (click)="resetForm()">Nuevo Formulario</ion-button>
+							<ion-button color="favorite" (click)="resetForm()">Nuevo Formulario</ion-button>
 						</ion-col>
 					</ion-row>
 				</ion-grid>
