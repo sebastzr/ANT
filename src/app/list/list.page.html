@@ -17,14 +17,14 @@
         
         <ion-card-header>
           <ion-card-title color="favorite">Solicitudes EDP</ion-card-title>
-          <ion-card-subtitle>Usuario: <b>{{ user }}</b></ion-card-subtitle>
+          <ion-card-subtitle color="gris">Usuario: <b>{{ user }}</b></ion-card-subtitle>
         </ion-card-header>
 
         <ion-card-content>
           <ion-list>
             <ion-item *ngFor="let item of items | async">
-              {{ item.solicitudEDP }}
-              <ion-button slot="end" color="primary" (click)="form.populateImages(item)">Imágenes</ion-button>
+              <ion-label color="gris">{{ item.solicitudEDP }}</ion-label>
+              <ion-button slot="end" color="amarillo" (click)="form.populateImages(item)">Imágenes</ion-button>
               <ion-button slot="end" color="favorite" (click)="form.populateForm(item)">Editar</ion-button>
               <!-- <ion-button color="danger">Eliminar</ion-button> -->
             </ion-item>
