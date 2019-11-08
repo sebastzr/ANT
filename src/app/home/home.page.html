@@ -162,15 +162,15 @@
 										<mat-spinner [hidden]="!loadingGeoposition"></mat-spinner>
 									</ion-row>
 
-									<ion-row *ngIf="geoLatitude">
+									<ion-row *ngIf="antForm.value.capituloUno.latitud">
 										<ion-col>
 											<mat-form-field>
-												<input formControlName="latitud" matInput placeholder="Latitud" value="{{geoLatitude}}" readonly>
+												<input formControlName="latitud" matInput placeholder="Latitud" readonly>
 											</mat-form-field>
 										</ion-col>
 										<ion-col>
 											<mat-form-field>
-												<input formControlName="longitud" matInput placeholder="Latitud" value="{{geoLongitude}}" readonly>
+												<input formControlName="longitud" matInput placeholder="Longitud" readonly>
 											</mat-form-field>
 										</ion-col>
 									</ion-row>

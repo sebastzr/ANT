@@ -110,22 +110,30 @@ export class HomePage implements OnInit {
       this.auth.user$.subscribe( (user) => {
         if (user) this.antForm.controls.user.setValue(user.email);
       });
-    
+
+      if (this.antForm.value.capituloUno.departamento !== '') {
+        colombia.forEach( (key) => {
+          if (key.departamento == this.antForm.value.capituloUno.departamento) {
+            this.cities = key.ciudades;
+          }
+        });
+      }
   }  
 
   /**
    * Get the current location of the device
    * 
    */
-  getGeolocation(){      
+  getGeolocation(){
+    console.log(this.antForm.controls.capituloUno.get('latitud')); 
     this.loadingGeoposition = true;
     this.geolocation.getCurrentPosition({
       enableHighAccuracy : true,
       timeout: 30000,
       maximumAge: 30000
     }).then((resp) => {
-      this.geoLatitude = resp.coords.latitude;
-      this.geoLongitude = resp.coords.longitude; 
+      this.antForm.controls.capituloUno.get('latitud').setValue(resp.coords.latitude);
+      this.antForm.controls.capituloUno.get('longitud').setValue(resp.coords.longitude);
       this.geoAccuracy = resp.coords.accuracy; 
       this.loadingGeoposition = false;
       }).catch((error) => {
