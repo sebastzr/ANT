@@ -21,6 +21,7 @@ export class ImagesPage implements OnInit {
   downloadURL: Observable<string>;
   loading: boolean = false;
   images: any;
+  observations: any = [];
 
   constructor(
     private afs: AngularFirestore,
@@ -34,6 +35,9 @@ export class ImagesPage implements OnInit {
   ngOnInit() {
     this.antForm = this.form.antForm;
     this.fotoForms = this.form.fotoForms;
+    for(let foto of this.antForm.value.fotos) {
+      this.observations.push(foto.observation);
+    }
   }
 
   /**
@@ -73,14 +77,26 @@ export class ImagesPage implements OnInit {
     this.downloadURL = ref.getDownloadURL();
     this.downloadURL.subscribe(url => {
       if (url) {
-        this.antForm.controls.fotos.value.push({'url' : url, 'path' : path});
+        this.antForm.controls.fotos.value.push({'url' : url, 'path' : path, observation: ''});
         this.afs.collection(this.antForm.controls.solicitudEDP.value).add(this.antForm.value);
         this.afs.collection('_forms').doc(this.antForm.controls.solicitudEDP.value).set(this.antForm.value);
-        console.log(this.antForm.controls.fotos);
-        console.log(this.antForm.value);
+        this.observations.push('');
         this.loading = false;
       }
     });
+  }
+
+  async saveObservation(i) {
+    const alert = await this.alertController.create({
+      header: 'Guardado',
+      buttons: [{text: 'Ok', role: 'cancel'}]
+    });
+    var temp = this.antForm.value.fotos
+    temp[i] = {'url': this.antForm.value.fotos[i].url, 'path': this.antForm.value.fotos[i].url, 'observation': this.observations[i]}
+    this.antForm.controls.fotos.setValue(temp);
+    this.afs.collection(this.antForm.controls.solicitudEDP.value).add(this.antForm.value);
+    this.afs.collection('_forms').doc(this.antForm.controls.solicitudEDP.value).set(this.antForm.value);
+    await alert.present();
   }
 
   async deleteAlert(i) {

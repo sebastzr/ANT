@@ -32,9 +32,7 @@
 									<mat-panel-title>
 										Número de Solicitud EDP										
 									</mat-panel-title>
-									<mat-panel-description>																			
-										<ion-icon name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
-									</mat-panel-description>
+									<ion-icon *ngIf="antForm.controls.solicitudEDP.valid" slot="end" class="mr-3" name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
 								</mat-expansion-panel-header>
 								
 								<ion-grid>																		
@@ -57,9 +55,7 @@
 									<mat-panel-title>
 										Capitulo 1. Identificación del Predio
 									</mat-panel-title>
-									<mat-panel-description *ngIf="antForm.controls.capituloUno.valid">																			
-										<ion-icon name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
-									</mat-panel-description>
+									<ion-icon *ngIf="antForm.controls.capituloUno.valid" slot="end" class="mr-3" name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
 								</mat-expansion-panel-header>
 				
 								<ion-grid>
@@ -194,9 +190,7 @@
 									<mat-panel-title>										
 										Capitulo 2. Información del Predio
 									</mat-panel-title>
-									<mat-panel-description *ngIf="antForm.controls.capituloDos.valid">																			
-										<ion-icon name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
-									</mat-panel-description>
+									<ion-icon *ngIf="antForm.controls.capituloDos.valid" slot="end" class="mr-3" name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
 								</mat-expansion-panel-header>
 								
 								<ion-grid>
@@ -512,9 +506,7 @@
 									<mat-panel-title>										
 										Capitulo 3. Infraestructura, Servicios y Estado del Predio
 									</mat-panel-title>
-									<mat-panel-description *ngIf="antForm.controls.capituloTres.valid">																			
-										<ion-icon name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
-									</mat-panel-description>
+									<ion-icon *ngIf="antForm.controls.capituloTres.valid" slot="end" class="mr-3" name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
 								</mat-expansion-panel-header>
 									
 								<ion-grid>
@@ -695,9 +687,7 @@
 									<mat-panel-title>										
 										Capitulo 4. Testimonios
 									</mat-panel-title>
-									<mat-panel-description *ngIf="antForm.controls.capituloCuatro.valid">																			
-										<ion-icon name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
-									</mat-panel-description>
+									<ion-icon *ngIf="antForm.controls.capituloCuatro.valid" slot="end" class="mr-3" name="checkmark-circle-outline" color="success" size="large"></ion-icon>								
 								</mat-expansion-panel-header>
 										
 								<ion-grid>

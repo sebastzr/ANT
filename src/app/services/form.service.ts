@@ -36,33 +36,35 @@ export class FormService {
       
       this.antForm = this.fb.group({
         user: [''],
-        solicitudEDP: [''],
+        solicitudEDP: ['', [
+          Validators.required
+        ]],
         capituloUno: this.fb.group({
-          departamento: ['',[
-            
+          departamento: ['', [
+            Validators.required
           ]],
           municipio: ['',[
-            
+            Validators.required
           ]],
           tipoTerritorio: ['',[
-            
+            Validators.required
           ]],
           tipoTerritorioOtroCual: [''],
           zonaManejo:['',[
-            
+            Validators.required
           ]],
           zonaManejoOtraCual: [''],
           nombreTerritorio: ['',[
-            
+            Validators.required
           ]],
           nombrePredio: ['',[
-            
+            Validators.required
           ]],
           latitudPredio: ['',[
-            
+            Validators.required
           ]],
           longitudPredio: ['',[
-            
+            Validators.required
           ]],
           latitud: ['',[
             
@@ -75,22 +77,22 @@ export class FormService {
         }),
         capituloDos: this.fb.group({
           areaPredio: ['',[
-            
+            Validators.required
           ]],
           medida: ['',[
-            
+            Validators.required
           ]],
           norte: ['',[
-            
+            Validators.required
           ]],
           sur: ['',[
-            
+            Validators.required
           ]],
           este: ['',[
-            
+            Validators.required
           ]],
           oeste: ['',[
-            
+            Validators.required
           ]],
           documentoPropiedad:['',[
             
@@ -114,10 +116,10 @@ export class FormService {
             
           ]],
           entidadAdjudicada: ['',[
-            
+            Validators.required
           ]],
           servicioActividad: ['',[
-            
+            Validators.required
           ]],
           fechaInicialTiempoEstablecido: ['',[
             
@@ -135,13 +137,13 @@ export class FormService {
             
           ]],
           personasBeneficiadas: ['',[
-            
+            Validators.required
           ]],
           poblacionBeneficiaria: ['',[
-            
+            Validators.required
           ]],
           grupoEtario: ['',[
-            
+            Validators.required
           ]],
           estadoAbandono: ['',[
             
@@ -161,7 +163,7 @@ export class FormService {
         }),
         capituloTres: this.fb.group({
           infraestructuraInstalada: ['' , [
-            
+            Validators.required
           ]],
           tipoInfraestructura: ['' , [
                        
@@ -170,19 +172,19 @@ export class FormService {
 
           ]],
           estadoInfraestructura: ['' , [
-            
+            Validators.required
           ]],
           inversionInfraestructura: ['' , [
-            
+            Validators.required
           ]],
           inversionInfraestructuraValor: ['' , [
             
           ]],
           energiaElectrica: ['' , [
-            
+            Validators.required
           ]],
           abasteciomientoAgua: ['' , [
-            
+            Validators.required
           ]],
           aguaPotable: ['' , [
             
@@ -196,7 +198,7 @@ export class FormService {
         }),
         capituloCuatro: this.fb.group({
           nombre:['' , [
-            
+            Validators.required
           ]],
           tipoIdentificacion: ['' , [
             
@@ -205,19 +207,19 @@ export class FormService {
             
           ]],
           numeroIdentificacion:['' , [
-            
+            Validators.required
           ]],
           numeroCelular:['' , [
-            
+            Validators.required
           ]],
           tieneEmail: ['' , [
-            
+            Validators.required
           ]],
           correoElectronico: ['' , [
             
           ]],
           institucion: ['' , [
-            
+            Validators.required
           ]],
           institucionOtroCual: ['' , [
             
@@ -226,16 +228,16 @@ export class FormService {
             
           ]],
           actividadAdjudicada: ['' , [
-            
+            Validators.required
           ]],
           estadoActual: ['' , [
-            
+            Validators.required
           ]],
           calidadServicioPrestado: ['' , [
-            
+            Validators.required
           ]],
           inversionActividades: ['' , [
-            
+            Validators.required
           ]],
           inversionActividadesTiempo: ['' , [
             
