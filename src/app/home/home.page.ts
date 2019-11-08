@@ -96,6 +96,9 @@ export class HomePage implements OnInit {
     private geolocation: Geolocation,
     private form: FormService
     ) {
+      if (this.form.antForm.value.solicitudEDP == "") {
+        this.router.navigate(['/home']);
+      }
     }
     
     /**
@@ -103,20 +106,24 @@ export class HomePage implements OnInit {
      * 
      */
     ngOnInit() {
-      this.antForm = this.form.antForm;
-
-      this.colombiaJson = colombia;
-      
-      this.auth.user$.subscribe( (user) => {
-        if (user) this.antForm.controls.user.setValue(user.email);
-      });
-
-      if (this.antForm.value.capituloUno.departamento !== '') {
-        colombia.forEach( (key) => {
-          if (key.departamento == this.antForm.value.capituloUno.departamento) {
-            this.cities = key.ciudades;
-          }
+      if (this.form.antForm.value.solicitudEDP == "") {
+        this.router.navigate(['/home']);
+      } else {
+        this.antForm = this.form.antForm;
+  
+        this.colombiaJson = colombia;
+        
+        this.auth.user$.subscribe( (user) => {
+          if (user) this.antForm.controls.user.setValue(user.email);
         });
+  
+        if (this.antForm.value.capituloUno.departamento !== '') {
+          colombia.forEach( (key) => {
+            if (key.departamento == this.antForm.value.capituloUno.departamento) {
+              this.cities = key.ciudades;
+            }
+          });
+        }
       }
   }  
 

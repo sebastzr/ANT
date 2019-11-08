@@ -7,6 +7,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-images',
@@ -29,15 +30,24 @@ export class ImagesPage implements OnInit {
     private fb: FormBuilder,
     private form: FormService,
     private storage: AngularFireStorage,
-    public alertController: AlertController
-  ) { }
+    public alertController: AlertController,
+    private router: Router
+  ) { 
+    if (this.form.antForm.value.solicitudEDP == "") {
+      this.router.navigate(['/home']);
+    }
+  }
 
-  ngOnInit() {
+  ngOnInit() {    
     this.antForm = this.form.antForm;
-    this.fotoForms = this.form.fotoForms;
-    if (this.antForm.value.fotos) {
-      for(let foto of this.antForm.value.fotos) {
-        this.observations.push(foto.observation);
+    if (this.antForm.value.solicitudEDP == "") {
+      this.router.navigate(['/home']);
+    } else {
+      this.fotoForms = this.form.fotoForms;
+      if (this.antForm.value.fotos) {
+        for(let foto of this.antForm.value.fotos) {
+          this.observations.push(foto.observation);
+        }
       }
     }
   }
