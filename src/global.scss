@@ -86,6 +86,8 @@
     --ion-color-amarillo-rgb: 244,174,47;
     --ion-color-amarillo-contrast: #ffffff;
     --ion-color-amarillo-contrast-rgb: 255,255,255;
+    --ion-color-amarillo-shade: #F4AE2F;
+    --ion-color-amarillo-tint: #F4AE2F;
 
     --ion-color-gris: #6E6F72;
     --ion-color-gris-rgb: 110,111,114;
@@ -108,6 +110,8 @@
     --ion-color-base-rgb:     var(--ion-color-amarillo-rgb);
     --ion-color-contrast:     var(--ion-color-amarillo-contrast);
     --ion-color-contrast-rgb: var(--ion-color-amarillo-contrast-rgb);
+    --ion-color-shade:        var(--ion-color-amarillo-shade);
+    --ion-color-tint:         var(--ion-color-amarillo-tint);
   }
 
   .ion-color-gris {

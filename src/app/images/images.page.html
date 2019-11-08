@@ -17,7 +17,7 @@
       
       <ion-card-header>
         <ion-card-title color="favorite">Solicitud EDP: {{ this.antForm.controls.solicitudEDP.value }}</ion-card-title>
-        <ion-card-subtitle><b>Subir Imágenes: Es necesaria una conexión a internet para subir las imágenes</b></ion-card-subtitle>      
+        <ion-card-subtitle color="danger"><b>Subir Imágenes: Es necesaria una conexión a internet para subir las imágenes</b></ion-card-subtitle>      
       </ion-card-header>
 
       <ion-card-content>                                      
@@ -25,7 +25,8 @@
           <ion-list>
 
             <ion-item class="ion-margin-bottom">
-              <input type="file" placeholder="Foto" (change)="uploadPhoto($event)">
+              <ion-button type="button" color="amarillo" mat-raised-button (click)="fileInput.click()">Subir Imagen</ion-button>
+              <input hidden #fileInput type="file" placeholder="Foto" (change)="uploadPhoto($event)">
             </ion-item>
 
             <div *ngFor="let foto of antForm.value.fotos; let i = index">
@@ -36,10 +37,10 @@
 
               <ion-item>
                 <mat-form-field>
-                  <mat-label>Observación</mat-label>
-                  <textarea [(ngModel)]="observations[i]" type="text" pattern="(^[a-zA-Z0-9_]+$)" matInput placeholder="Escribe...">{{ foto.observation }}</textarea>
+                  <mat-label>Descripción</mat-label>
+                  <textarea [(ngModel)]="observations[i]" type="text" pattern="(^[a-zA-Z0-9_]+$)" matInput placeholder="Escribe una descripción u observación...">{{ foto.observation }}</textarea>
                 </mat-form-field>
-                <ion-button slot="end" color="success" (click)="saveObservation(i)">Guardar</ion-button>
+                <ion-button slot="end" color="favorite" (click)="saveObservation(i)">Guardar</ion-button>
               </ion-item>
             </div>
 
