@@ -25,6 +25,7 @@ export class NewPage implements OnInit {
     this.auth.user$.subscribe((user) => {
       this.user = user.email;
     });
+    this.form.antForm.reset();
   }
 
   /**

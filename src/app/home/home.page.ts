@@ -103,13 +103,6 @@ export class HomePage implements OnInit {
      * 
      */
     ngOnInit() {
-      this.geolocation.getCurrentPosition().then((resp) => {
-        // resp.coords.latitude
-        // resp.coords.longitude
-        }).catch((error) => {
-          console.log('Error getting location', error);
-        });      
-        
       this.antForm = this.form.antForm;
 
       this.colombiaJson = colombia;
@@ -144,26 +137,15 @@ export class HomePage implements OnInit {
    * Submit Handler
    * 
    */
-  async submitHandler() {
-    //this.loading = true;
-    //Create timestamp
+  submitHandler() {
     this.antForm.controls.formularioModificadoEl.setValue(firebase.firestore.FieldValue.serverTimestamp());
     const antValue = this.antForm.value;
     const id = antValue.solicitudEDP; 
     this.success = true;
-    try {
-      //await this.afs.collection('forms').add(antValue);
-      this.uploadPictures();
-      await this.afs.collection('_forms').doc(id).set(antValue);
-      await this.afs.collection(id).add(antValue);
-      //await this.afs.collection('data').doc('forms').collection(id).add(antValue);
-      this.success = true;
-    } catch(err) {
-      //this.success = false;
-      //this.error = true;
-      console.error(err);
-    }
-    //this.loading = false;
+    this.afs.collection(id).add(antValue);
+    this.afs.collection('_forms').doc(id).set(antValue);
+    //await this.afs.collection('data').doc('forms').collection(id).add(antValue);
+    this.success = true;
   }
 
   /**
@@ -177,97 +159,6 @@ export class HomePage implements OnInit {
       }
     });
   }
-
-  /**
-   * Reset antForm
-   * 
-   */
-  resetForm() {
-    this.fotoForms.clear();
-    this.antForm.reset();
-    this.success = false;
-  }
-
-  /**
-   * Managment upload photos
-   * 
-   */
-
-  //Get photo group form
-  get fotoForms() {
-    return this.antForm.get('fotos') as FormArray;
-  }
-
-  addPictureInput() {
-    const foto = this.fb.group({
-      file: [''],
-      url: [''],
-      ref: ['']
-    });
-    if (this.fotoForms.length == 0) {
-      this.fotoForms.push(foto);
-    } else if (this.fotoForms.controls[this.fotoForms.length - 1].get('file').value != '') {
-      this.fotoForms.push(foto);
-    } else {      
-      console.log('You need to insert a file first');
-    }
-  }
-
-  deletePictureInput(i) {
-    this.fotoForms.removeAt(i);
-    if ( this.files[i] ) {
-      this.files.splice(i, 1);   
-    }
-  }
-
-  /**
-   * Prepare the image to be uploaded, get the file and appends to array this.files
-   * @param event 
-   * @param i 
-   */
-  getImage(event:any, i) {
-    if (this.files[i]) {
-      this.files.splice(i, 1, event.target.files[0])
-    } else {
-      this.files.push(event.target.files[0]);
-    }
-  }
-
-  //Upload array of pictures added
-  uploadPictures() {
-    var filePath: any;
-    var fileRef: any;
-    var task: any;
-    const antValue = this.antForm.value;
-    this.files.forEach( (file, i) => {
-      filePath = `formFotos/${antValue.solicitudEDP}/${new Date().getTime()}_${file.name}`;
-      this.fotoForms.controls[i].get('ref').setValue(filePath);
-      fileRef = this.storage.ref(filePath);
-      task = this.storage.upload(filePath, file);
-      /* See upload progress
-      task.snapshotChanges().pipe(
-        finalize( () => this.getUrl(fileRef, i)) 
-        ).subscribe( (url) => {
-          console.log(url);          
-        });
-      */
-    });
-  }
-
-  /**
-   * Get the url of the uploaded image
-   * @param ref 
-   * @param i 
-   */
-  getUrl(ref, i) {
-    this.downloadURL = ref.getDownloadURL();
-    this.downloadURL.subscribe(url => {
-      if (url) {
-        this.fotoForms.controls[i].get('url').setValue(url);            
-      }
-    })
-  }
-
 
   //Test function()
   test() {
@@ -285,35 +176,4 @@ export class HomePage implements OnInit {
       })
   }
 
-  /**
-   * Upload the images to firebase storage
-   * @param event 
-   * @param i 
-   */
-  /* !OLD UPLOAD!
-  uploadFoto(event:any, i) {   
-    const antValue = this.antForm.value;
-    const file = event.target.files[0]; 
-    const filePath = `formFotos/${antValue.soliciudEDP.numeroSolicitudEDP}/${new Date().getTime()}_${file.name}`;
-    this.fotoForms.controls[i].get('ref').setValue(filePath);
-    const fileRef = this.storage.ref(filePath);
-    const task = this.storage.upload(filePath, file);
-    task.snapshotChanges().pipe(
-      finalize(() => this.getUrl(fileRef, i))
-      ).subscribe((url) => {
-        console.log(url);
-      });
-  }
-  */
-
-    /* !OLD DELETE!
-  deleteFoto(i) {
-    if (this.fotoForms.controls[i].get('ref').value) {
-      const filePath = this.fotoForms.controls[i].get('ref').value;    
-      const fileRef = this.storage.ref(filePath);
-      fileRef.delete();
-    }
-    this.fotoForms.removeAt(i);
-  }
-  */
 }

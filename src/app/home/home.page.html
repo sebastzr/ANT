@@ -884,39 +884,7 @@
 							</mat-expansion-panel>
 						</div>   
 						
-						<br>
-
-						<div formArrayName="fotos">
-							<mat-expansion-panel>
-									
-								<mat-expansion-panel-header>
-									<mat-panel-title>
-										Imagenes										
-									</mat-panel-title>
-								</mat-expansion-panel-header>
-									
-								<ion-grid>																		
-								
-								<div *ngFor="let foto of fotoForms.controls; let i=index" [formGroupName]="i">
-									<ion-row>
-										<ion-col>
-											<input type="file" placeholder="Foto" formControlName="file" (change)="getImage($event, i)">
-										</ion-col>
-										<ion-col>
-											<ion-button color="danger" (click)="deletePictureInput(i)">Eliminar</ion-button>
-										</ion-col>
-									</ion-row>
-								</div>
-
-								<ion-row>
-									<ion-col>
-										<ion-button color="favorite" (click)="addPictureInput()">Añadir Imagen</ion-button>
-									</ion-col>
-								</ion-row>										
-										
-								</ion-grid>
-							</mat-expansion-panel>
-						</div>
+						<br>						
 
 				</mat-accordion>
 			

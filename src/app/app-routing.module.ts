@@ -33,6 +33,11 @@ const routes: Routes = [
     loadChildren: () => import('./new/new.module').then(m => m.NewPageModule),
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin }
+  },
+  { path: 'images',
+    loadChildren: () => import('./images/images.module').then(m => m.ImagesPageModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
   }
 ];
 

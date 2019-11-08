@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -245,15 +245,25 @@ export class FormService {
           ]]
         }),
     
-        fotos: this.fb.array([]),
+        fotos: [[]],
 
         formularioModificadoEl: ['']
     
       });
   }  
 
+  //Get photo group form
+  get fotoForms() {
+    return this.antForm.get('fotos') as FormArray;
+  }
+
   populateForm(form) {
-    this.router.navigate(['/form']);
     this.antForm.setValue(form);
+    this.router.navigate(['/form']);
+  }
+
+  populateImages(form) {
+    this.antForm.setValue(form);
+    this.router.navigate(['/images']);
   }
 }
