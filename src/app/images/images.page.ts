@@ -35,8 +35,10 @@ export class ImagesPage implements OnInit {
   ngOnInit() {
     this.antForm = this.form.antForm;
     this.fotoForms = this.form.fotoForms;
-    for(let foto of this.antForm.value.fotos) {
-      this.observations.push(foto.observation);
+    if (this.antForm.value.fotos) {
+      for(let foto of this.antForm.value.fotos) {
+        this.observations.push(foto.observation);
+      }
     }
   }
 
