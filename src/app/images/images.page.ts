@@ -48,6 +48,8 @@ export class ImagesPage implements OnInit {
         for(let foto of this.antForm.value.fotos) {
           this.observations.push(foto.observation);
         }
+      } else {
+        this.antForm.controls.fotos.setValue([]);
       }
     }
   }
@@ -94,6 +96,7 @@ export class ImagesPage implements OnInit {
         this.afs.collection('_forms').doc(this.antForm.controls.solicitudEDP.value).set(this.antForm.value);
         this.observations.push('');
         this.loading = false;
+        this.uploadedImage();
       }
     });
   }
@@ -125,6 +128,19 @@ export class ImagesPage implements OnInit {
             this.deletePhoto(i);
           }
         }
+      ]
+    });
+    await alert.present();
+  }
+
+  async uploadedImage() {
+    const alert = await this.alertController.create({
+      header: 'Imagen Subida con Éxito',      
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel'  
+        },
       ]
     });
     await alert.present();

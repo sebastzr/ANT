@@ -880,28 +880,14 @@
 			
 				<br>
 
-				<ion-button [disabled]="antForm.invalid" color="favorite" type="submit">Guardar Datos</ion-button>
+				<ion-button color="favorite" type="submit">Guardar Datos</ion-button>
 				<!--
 					<ion-button color="success" type="submit">Enviar Formulario (pruebas)</ion-button>
 				-->				
 			</form>        
 		  
 			<mat-spinner [hidden]="!loading"></mat-spinner>
-
-			<div *ngIf="error" class="notification is-success">
-				<ion-grid>
-					<ion-row>
-						<ion-col>
-							<ion-button color="danger">Error inesperado.</ion-button>
-						</ion-col>
-						<ion-col>
-							<ion-button color="favorite" (click)="error=false">Nuevo Formulario</ion-button>
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-			</div>
-
-		  
+	  
 			<div *ngIf="success" class="notification is-success">
 				<ion-grid>
 					<ion-row>
