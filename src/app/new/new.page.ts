@@ -39,16 +39,10 @@ export class NewPage implements OnInit {
     this.form.antForm.controls.user.setValue(this.user);
     const antValue = this.form.antForm.value;
     const id = antValue.solicitudEDP; 
-    try {
+    this.afs.collection(id).add(antValue);
+    this.afs.collection('_forms').doc(id).set(antValue);
 
-      await this.afs.collection('_forms').doc(id).set(antValue);
-      await this.afs.collection(id).add(antValue);
-
-      this.router.navigate(['/form']);
-    } catch(err) {
-      console.error(err);
-    }
-
+    this.router.navigate(['/form']);
 
     //this.loading = false;
   }
