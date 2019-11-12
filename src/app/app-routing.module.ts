@@ -12,7 +12,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'home',
+    path: 'form',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin }
@@ -23,6 +23,22 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectLoggedInToHome }
   },
+  {
+    path: 'home', 
+    loadChildren: () => import('./list/list.module').then(m => m.ListPageModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
+  },
+  { path: 'new',
+    loadChildren: () => import('./new/new.module').then(m => m.NewPageModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
+  },
+  { path: 'images',
+    loadChildren: () => import('./images/images.module').then(m => m.ImagesPageModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
+  }
 ];
 
 @NgModule({
