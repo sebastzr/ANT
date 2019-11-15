@@ -23,6 +23,7 @@ export class ImagesPage implements OnInit {
   loading: boolean = false;
   images: any;
   observations: any = [];
+  user: any;
 
   constructor(
     private afs: AngularFirestore,
@@ -32,11 +33,7 @@ export class ImagesPage implements OnInit {
     private storage: AngularFireStorage,
     public alertController: AlertController,
     private router: Router
-  ) { 
-    if (this.form.antForm.value.solicitudEDP == "") {
-      this.router.navigate(['/home']);
-    }
-  }
+  ) { }
 
   ngOnInit() {    
     this.antForm = this.form.antForm;
@@ -44,6 +41,14 @@ export class ImagesPage implements OnInit {
       this.router.navigate(['/home']);
     } else {
       this.fotoForms = this.form.fotoForms;
+      
+      this.auth.user$.subscribe( (user) => {
+        if (user) this.user = user.email;
+        if (this.antForm.value.user != this.user) {
+          this.antForm.disable();
+        }
+      });
+      
       if (this.antForm.value.fotos) {
         for(let foto of this.antForm.value.fotos) {
           this.observations.push(foto.observation);

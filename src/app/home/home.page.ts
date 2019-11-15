@@ -23,7 +23,7 @@ export class HomePage implements OnInit {
    * User
    * 
    */
-  user: User;
+  user: any;
 
   /**
    * Images attributes
@@ -95,10 +95,7 @@ export class HomePage implements OnInit {
     private storage: AngularFireStorage,
     private geolocation: Geolocation,
     private form: FormService
-    ) {
-      if (this.form.antForm.value.solicitudEDP == "") {
-        this.router.navigate(['/home']);
-      }
+    ) {    
     }
     
     /**
@@ -106,15 +103,18 @@ export class HomePage implements OnInit {
      * 
      */
     ngOnInit() {
-      if (this.form.antForm.value.solicitudEDP == "") {
+      this.antForm = this.form.antForm;
+      this.colombiaJson = colombia;
+      if (this.form.antForm.value.solicitudEDP === "") {
         this.router.navigate(['/home']);
       } else {
-        this.antForm = this.form.antForm;
-  
-        this.colombiaJson = colombia;
+        this.antForm = this.form.antForm;        
         
         this.auth.user$.subscribe( (user) => {
-          if (user) this.antForm.controls.user.setValue(user.email);
+          if (user) this.user = user.email;
+          if (this.antForm.value.user != this.user) {
+            this.antForm.disable();
+          }
         });
   
         if (this.antForm.value.capituloUno.departamento !== '') {
@@ -123,7 +123,7 @@ export class HomePage implements OnInit {
               this.cities = key.ciudades;
             }
           });
-        }
+        }        
       }
   }  
 
@@ -153,13 +153,14 @@ export class HomePage implements OnInit {
    * 
    */
   submitHandler() {
+    if (!this.antForm.value.creadoEl || this.antForm.value.creadoEl === "") {
+      this.antForm.controls.creadoEl.setValue(firebase.firestore.FieldValue.serverTimestamp());
+    }
     this.antForm.controls.formularioModificadoEl.setValue(firebase.firestore.FieldValue.serverTimestamp());
     const antValue = this.antForm.value;
     const id = antValue.solicitudEDP; 
-    this.success = true;
     this.afs.collection(id).add(antValue);
     this.afs.collection('_forms').doc(id).set(antValue);
-    //await this.afs.collection('data').doc('forms').collection(id).add(antValue);
     this.success = true;
   }
 
