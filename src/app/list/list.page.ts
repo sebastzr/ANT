@@ -24,12 +24,13 @@ export class ListPage implements OnInit {
   ngOnInit() {    
     this.auth.user$.subscribe((user) => {
       this.user = user.email;
+      console.log(user.roles.admin)
       if (user.roles.admin) {
         this.items = this.afs.collection('_forms', 
         ref => ref.orderBy('formularioModificadoEl', 'desc')).valueChanges();
       } else {
         this.items = this.afs.collection('_forms', 
-        ref => ref.where('user', '==', user.email).orderBy('formularioModificadoEl', 'desc')).valueChanges();
+        ref => ref.where('user', '==', user.email)).valueChanges();
       }  
     });
   }
