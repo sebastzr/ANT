@@ -112,7 +112,7 @@ export class ImagesPage implements OnInit {
       buttons: [{text: 'Ok', role: 'cancel'}]
     });
     var temp = this.antForm.value.fotos
-    temp[i] = {'url': this.antForm.value.fotos[i].url, 'path': this.antForm.value.fotos[i].url, 'observation': this.observations[i]}
+    temp[i] = {'url': this.antForm.value.fotos[i].url, 'path': this.antForm.value.fotos[i].path, 'observation': this.observations[i]}
     this.antForm.controls.fotos.setValue(temp);
     this.afs.collection(this.antForm.controls.solicitudEDP.value).add(this.antForm.value);
     this.afs.collection('_forms').doc(this.antForm.controls.solicitudEDP.value).set(this.antForm.value);
