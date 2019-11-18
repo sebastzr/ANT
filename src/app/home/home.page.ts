@@ -94,7 +94,7 @@ export class HomePage implements OnInit {
     private router: Router,
     private storage: AngularFireStorage,
     private geolocation: Geolocation,
-    private form: FormService
+    private form: FormService,
     ) {    
     }
     
@@ -176,6 +176,8 @@ export class HomePage implements OnInit {
     });
   }
 
+  currentDate = new Date();
+  
   //Test function()
   test() {
     let data = [];

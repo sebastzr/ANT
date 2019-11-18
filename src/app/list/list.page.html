@@ -22,27 +22,33 @@
 
         <ion-card-content>
           <ion-list>
-            <ion-item *ngFor="let item of items | async">
-              <ion-label color="favorite">{{ item.solicitudEDP }}</ion-label>
-              <ion-label class="timestamps" position="stacked" color="gris">Modificado el: {{ item.formularioModificadoEl.seconds * 1000 | date:'yyyy-MM-dd hh:mm:ss' }}</ion-label>
-              <ion-label *ngIf="item.creadoEl; else notCreated" class="timestamps" position="stacked" color="gris">Creado el: {{ item.creadoEl.seconds * 1000 | date:'yyyy-MM-dd hh:mm:ss' }}</ion-label>
-              <ng-template #notCreated>
-                <ion-label class="timestamps" position="stacked" color="gris">Creado el: {{ item.formularioModificadoEl.seconds * 1000 | date:'yyyy-MM-dd hh:mm:ss' }}</ion-label>
-              </ng-template>
-              <ion-label class="timestamps" position="stacked" color="gris"></ion-label>
-              
-              <ion-button *ngIf="user == item.user; else showImages" slot="end" color="amarillo" (click)="form.populateImages(item)">Imágenes</ion-button>
-              <ion-button *ngIf="user == item.user; else show" slot="end" color="favorite" (click)="form.populateForm(item)">Editar</ion-button>
-              
-              <ng-template #showImages>
-                  <ion-button slot="end" color="amarillo" (click)="form.populateImages(item)">Ver</ion-button>
-              </ng-template>
-
-              <ng-template #show>
-                  <ion-button slot="end" color="favorite" (click)="form.populateForm(item)">Ver</ion-button>
-              </ng-template>
-              <!-- <ion-button color="danger">Eliminar</ion-button> -->
-            </ion-item>
+            <div *ngIf="items; else notInfo">
+              <ion-item *ngFor="let item of items | async">
+                <ion-label color="favorite">{{ item.solicitudEDP }}</ion-label>
+                <ion-label position="stacked" color="gris">Creado Por: {{ item.user }}</ion-label>
+                <ion-label class="timestamps" position="stacked" color="gris">Modificado el: {{ item.formularioModificadoEl.seconds * 1000 | date:'yyyy-MM-dd hh:mm:ss' }}</ion-label>
+                <ion-label *ngIf="item.creadoEl; else notCreated" class="timestamps" position="stacked" color="gris">Creado el: {{ item.creadoEl.seconds * 1000 | date:'yyyy-MM-dd hh:mm:ss' }}</ion-label>
+                <ng-template #notCreated>
+                  <ion-label class="timestamps" position="stacked" color="gris">Creado el: {{ item.formularioModificadoEl.seconds * 1000 | date:'yyyy-MM-dd hh:mm:ss' }}</ion-label>
+                </ng-template>
+                <ion-label class="timestamps" position="stacked" color="gris"></ion-label>
+                
+                <ion-button *ngIf="user == item.user; else showImages" slot="end" color="amarillo" (click)="form.populateImages(item)">Agregar Imágenes</ion-button>
+                <ion-button *ngIf="user == item.user; else show" slot="end" color="favorite" (click)="form.populateForm(item)">Editar Formulario</ion-button>
+                
+                <ng-template #showImages>
+                    <ion-button slot="end" color="amarillo" (click)="form.populateImages(item)">Ver Imagenes</ion-button>
+                </ng-template>
+  
+                <ng-template #show>
+                    <ion-button slot="end" color="favorite" (click)="form.populateForm(item)">Ver Formulario</ion-button>
+                </ng-template>
+                <!-- <ion-button color="danger">Eliminar</ion-button> -->
+              </ion-item>
+            </div>
+            <ng-template #notInfo>
+                <ion-card-subtitle color="danger"><b>No hay informacion que mostrar</b></ion-card-subtitle>
+            </ng-template>
           </ion-list>
         </ion-card-content>
         

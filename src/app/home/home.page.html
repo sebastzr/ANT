@@ -892,22 +892,19 @@
 			</form>        
 		  
 			<mat-spinner [hidden]="!loading"></mat-spinner>
-	  
-			<div *ngIf="success" class="notification is-success">
-				<ion-grid>
-					<ion-row>
-						<ion-col>
-							<ion-button color="primary">Guardado correctamente.</ion-button>
-						</ion-col>
-						<ion-col>
-							<ion-button color="favorite" (click)="success=false">Continuar</ion-button>
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-
-			</div>
   
-        </ion-card-content>
+		</ion-card-content>
+		<div *ngIf="success" class="notification is-success">
+			<ion-card-header>
+				<ion-card-title color="favorite">FORMULARIO DE SEGUIMIENTO</ion-card-title>
+				<ion-card-subtitle>Adjudicaciones Entidades de Derecho Publico</ion-card-subtitle>
+				<ion-card-subtitle color="danger">El formulario se creo exitosamente</ion-card-subtitle>
+				<ion-card-subtitle>Usuario: <b>{{antForm.controls.user.value}}</b></ion-card-subtitle>
+				<ion-card-subtitle>Creado el: <b>{{ currentDate | date:'yyyy-MM-dd hh:mm:ss' }}</b></ion-card-subtitle>
+				<ion-button color="favorite" (click)="router.navigate(['/home']);">Continuar</ion-button>
+			</ion-card-header>
+				
+		</div>
     </div>		
     </ion-card>
 </ion-content>
