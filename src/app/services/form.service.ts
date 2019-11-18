@@ -4,6 +4,8 @@ import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { switchMap, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -249,7 +251,8 @@ export class FormService {
     
         fotos: [[]],
 
-        formularioModificadoEl: ['']
+        formularioModificadoEl: [''],
+        creadoEl: ['']
     
       });
   }  
@@ -260,12 +263,30 @@ export class FormService {
   }
 
   populateForm(form) {
+    if (!form.creadoEl) {
+      form['creadoEl'] = form.formularioModificadoEl;
+    }
     this.antForm.setValue(form);
     this.router.navigate(['/form']);
   }
 
   populateImages(form) {
+    if (!form.creadoEl) {
+      form['creadoEl'] = form.formularioModificadoEl;
+    }
     this.antForm.setValue(form);
     this.router.navigate(['/images']);
+  }
+
+  getCreatedAt(edp): Observable<any> {
+    return this.afs.collection(edp, ref => ref.orderBy('formularioModificadoEl', 'asc').limit(1))
+    .snapshotChanges()
+      .pipe(
+        map(actions => actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return {id, ...data };
+        }))
+      );
   }
 }

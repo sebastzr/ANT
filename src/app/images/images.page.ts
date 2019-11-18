@@ -7,6 +7,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-images',
@@ -22,6 +23,7 @@ export class ImagesPage implements OnInit {
   loading: boolean = false;
   images: any;
   observations: any = [];
+  user: any;
 
   constructor(
     private afs: AngularFirestore,
@@ -29,15 +31,30 @@ export class ImagesPage implements OnInit {
     private fb: FormBuilder,
     private form: FormService,
     private storage: AngularFireStorage,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private router: Router
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {    
     this.antForm = this.form.antForm;
-    this.fotoForms = this.form.fotoForms;
-    if (this.antForm.value.fotos) {
-      for(let foto of this.antForm.value.fotos) {
-        this.observations.push(foto.observation);
+    if (this.antForm.value.solicitudEDP == "") {
+      this.router.navigate(['/home']);
+    } else {
+      this.fotoForms = this.form.fotoForms;
+      
+      this.auth.user$.subscribe( (user) => {
+        if (user) this.user = user.email;
+        if (this.antForm.value.user != this.user) {
+          this.antForm.disable();
+        }
+      });
+      
+      if (this.antForm.value.fotos) {
+        for(let foto of this.antForm.value.fotos) {
+          this.observations.push(foto.observation);
+        }
+      } else {
+        this.antForm.controls.fotos.setValue([]);
       }
     }
   }
@@ -84,6 +101,7 @@ export class ImagesPage implements OnInit {
         this.afs.collection('_forms').doc(this.antForm.controls.solicitudEDP.value).set(this.antForm.value);
         this.observations.push('');
         this.loading = false;
+        this.uploadedImage();
       }
     });
   }
@@ -115,6 +133,19 @@ export class ImagesPage implements OnInit {
             this.deletePhoto(i);
           }
         }
+      ]
+    });
+    await alert.present();
+  }
+
+  async uploadedImage() {
+    const alert = await this.alertController.create({
+      header: 'Imagen Subida con Éxito',      
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel'  
+        },
       ]
     });
     await alert.present();

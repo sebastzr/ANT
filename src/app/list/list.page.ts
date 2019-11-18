@@ -14,17 +14,24 @@ export class ListPage implements OnInit {
   items: Observable<any>;
 
   user: any;
+
   constructor(
     private afs: AngularFirestore,
     public auth: AuthService,
-    private form: FormService
+    public form: FormService
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {    
     this.auth.user$.subscribe((user) => {
       this.user = user.email;
-      this.items = this.afs.collection('_forms', 
-      ref => ref.where('user', '==', user.email)).valueChanges();
+      console.log(user.roles.admin)
+      if (user.roles.admin) {
+        this.items = this.afs.collection('_forms', 
+        ref => ref.orderBy('formularioModificadoEl', 'desc')).valueChanges();
+      } else {
+        this.items = this.afs.collection('_forms', 
+        ref => ref.where('user', '==', user.email)).valueChanges();
+      }  
     });
   }
 

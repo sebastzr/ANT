@@ -19,6 +19,11 @@
 				<ion-card-title color="favorite">FORMULARIO DE SEGUIMIENTO</ion-card-title>
 				<ion-card-subtitle>Adjudicaciones Entidades de Derecho Publico</ion-card-subtitle>
 				<ion-card-subtitle>Usuario: <b>{{antForm.controls.user.value}}</b></ion-card-subtitle>
+				<ion-card-subtitle>Modificado el: <b>{{ antForm.controls.formularioModificadoEl.value.seconds * 1000 | date:'yyyy-MM-dd hh:mm:ss' }}</b></ion-card-subtitle>
+				<ion-card-subtitle *ngIf="antForm.value.creadoEl; else notCreated">Creado el: <b>{{ antForm.controls.creadoEl.value.seconds * 1000 | date:'yyyy-MM-dd hh:mm:ss' }}</b></ion-card-subtitle>
+				<ng-template>
+					<ion-card-subtitle>Creado el: <b>{{ antForm.controls.formularioModificadoEl.value.seconds * 1000 | date:'yyyy-MM-dd hh:mm:ss' }}</b></ion-card-subtitle>
+				</ng-template>
 			</ion-card-header>
 
         	<ion-card-content>
@@ -97,7 +102,7 @@
 										</ion-col>
 										<ion-col *ngIf="antForm.value.capituloUno.tipoTerritorio == 'otro'">
 											<mat-form-field>
-												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="tipoTerritorioOtroCual" matInput placeholder="¿Cual?">
+												<input type="text" formControlName="tipoTerritorioOtroCual" matInput placeholder="¿Cual?">
 											</mat-form-field>
 										</ion-col> 
 									</ion-row>
@@ -118,7 +123,7 @@
 										</ion-col>
 										<ion-col *ngIf="antForm.value.capituloUno.zonaManejo == 'otro'">
 											<mat-form-field>
-												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="zonaManejoOtraCual" matInput placeholder="¿Cual?">
+												<input type="text" formControlName="zonaManejoOtraCual" matInput placeholder="¿Cual?">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -126,12 +131,12 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="nombreTerritorio" matInput placeholder="1.5 - Nombre de Territorio">
+												<input type="text" formControlName="nombreTerritorio" matInput placeholder="1.5 - Nombre de Territorio">
 											</mat-form-field>
 										</ion-col>
 										<ion-col>
 											<mat-form-field>
-												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="nombrePredio" matInput placeholder="1.6 - Nombre del predio">
+												<input type="text" formControlName="nombrePredio" matInput placeholder="1.6 - Nombre del predio">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -174,7 +179,7 @@
 									<h3>1.9 - Observaciones Capitulo 1</h3>
 									<ion-row>
 										<mat-form-field>
-											<textarea type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="observacionesCapituloUno" matInput placeholder="Observaciones Capitulo 1 "></textarea>
+											<textarea type="text" formControlName="observacionesCapituloUno" matInput placeholder="Observaciones Capitulo 1 "></textarea>
 										</mat-form-field>
 									</ion-row>
 				
@@ -263,7 +268,7 @@
 										<ion-row>
 											<ion-col>
 												<mat-form-field>
-													<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="resolucionAdjudicacionOtroCual" matInput placeholder="¿Cual?">
+													<input type="text" formControlName="resolucionAdjudicacionOtroCual" matInput placeholder="¿Cual?">
 												</mat-form-field>
 											</ion-col>
 											<ion-col>
@@ -326,7 +331,7 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="entidadAdjudicada" matInput placeholder="Entidad de Derecho Público">
+												<input type="text" formControlName="entidadAdjudicada" matInput placeholder="Entidad de Derecho Público">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -373,7 +378,7 @@
 										<ion-row>
 											<ion-col>
 												<mat-form-field>
-													<textarea pattern="(^[a-zA-Z0-9_]+$)" formControlName="actividadDiferenteCual" matInput placeholder="¿Cual?"></textarea>
+													<textarea formControlName="actividadDiferenteCual" matInput placeholder="¿Cual?"></textarea>
 												</mat-form-field>
 											</ion-col>
 										</ion-row>
@@ -407,7 +412,7 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<textarea type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="poblacionBeneficiaria" matInput placeholder="Tipo de Población Beneficiaria"></textarea>
+												<textarea type="text" formControlName="poblacionBeneficiaria" matInput placeholder="Tipo de Población Beneficiaria"></textarea>
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -465,7 +470,7 @@
 											</ion-col>
 											<ion-col *ngIf="antForm.value.capituloDos.estadoAbandonoRazon">
 												<mat-form-field>
-													<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="razonAbandonoOtroCual" matInput placeholder="¿Cual?">
+													<input type="text" formControlName="razonAbandonoOtroCual" matInput placeholder="¿Cual?">
 												</mat-form-field>
 											</ion-col> 
 										</ion-row>
@@ -474,7 +479,7 @@
 										<ion-row>
 											<ion-col>
 												<mat-form-field>
-													<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="ocupacionAdministracion" matInput placeholder="¿Quien ocupa o administra el predio?">
+													<input type="text" formControlName="ocupacionAdministracion" matInput placeholder="¿Quien ocupa o administra el predio?">
 												</mat-form-field>
 											</ion-col>
 										</ion-row>
@@ -488,7 +493,7 @@
 									<h3>2.11 - Observaciones Capitulo 2</h3>
 									<ion-row>
 										<mat-form-field>
-											<textarea type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="observacionesCapituloDos" matInput placeholder="Observaciones Capitulo 2"></textarea>
+											<textarea type="text" formControlName="observacionesCapituloDos" matInput placeholder="Observaciones Capitulo 2"></textarea>
 										</mat-form-field>
 									</ion-row>
 
@@ -532,7 +537,7 @@
 										<ion-row>
 											<ion-col>
 												<mat-form-field>
-													<textarea type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="tipoInfraestructura" matInput placeholder="Descripcion"></textarea>
+													<textarea type="text" formControlName="tipoInfraestructura" matInput placeholder="Descripcion"></textarea>
 												</mat-form-field>
 											</ion-col> 
 										</ion-row>
@@ -669,7 +674,7 @@
 									<h3>3.7 - Observaciones Capitulo 3</h3>
 									<ion-row>
 										<mat-form-field>
-											<textarea type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="observacionesCapituloTres" matInput placeholder="Observaciones Capitulo 3"></textarea>
+											<textarea type="text" formControlName="observacionesCapituloTres" matInput placeholder="Observaciones Capitulo 3"></textarea>
 										</mat-form-field>
 									</ion-row>
 	
@@ -696,7 +701,7 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="nombre" matInput placeholder="Nombre del Encuestado">
+												<input type="text" formControlName="nombre" matInput placeholder="Nombre del Encuestado">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -716,7 +721,7 @@
 									<ion-row *ngIf="antForm.value.capituloCuatro.tipoIdentificacion == 'otro'">
 										<ion-col>
 											<mat-form-field>
-												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="tipoIdentificacionOtroCual" matInput placeholder="¿Cual?">
+												<input type="text" formControlName="tipoIdentificacionOtroCual" matInput placeholder="¿Cual?">
 											</mat-form-field>
 										</ion-col> 
 									</ion-row>
@@ -724,7 +729,7 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="numeroIdentificacion" matInput placeholder="4.2 - Número de Identificación">
+												<input type="number" formControlName="numeroIdentificacion" matInput placeholder="4.2 - Número de Identificación">
 											</mat-form-field>
 										</ion-col>
 										<ion-col>
@@ -765,7 +770,7 @@
 										</ion-col>
 										<ion-col *ngIf="antForm.value.capituloCuatro.institucion == 'otro'">
 											<mat-form-field>
-												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="institucionOtroCual" matInput placeholder="¿Cual?">
+												<input type="text" formControlName="institucionOtroCual" matInput placeholder="¿Cual?">
 											</mat-form-field>
 										</ion-col> 
 									</ion-row>
@@ -774,7 +779,7 @@
 									<ion-row>
 										<ion-col>
 											<mat-form-field>
-												<input type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="cargoInstitucion" matInput placeholder="Cargo">
+												<input type="text" formControlName="cargoInstitucion" matInput placeholder="Cargo">
 											</mat-form-field>
 										</ion-col>
 									</ion-row>
@@ -865,7 +870,7 @@
 									<h3>4.11 - Observaciones Capitulo 4</h3>
 									<ion-row>
 										<mat-form-field>
-											<textarea type="text" pattern="(^[a-zA-Z0-9_]+$)" formControlName="observacionesCapituloCuatro" matInput placeholder="Observaciones Capitulo 4"></textarea>
+											<textarea type="text" formControlName="observacionesCapituloCuatro" matInput placeholder="Observaciones Capitulo 4"></textarea>
 										</mat-form-field>
 									</ion-row>
 									
@@ -880,43 +885,26 @@
 			
 				<br>
 
-				<ion-button [disabled]="antForm.invalid" color="favorite" type="submit">Guardar Datos</ion-button>
+				<ion-button *ngIf="user == antForm.value.user" color="favorite" type="submit">Guardar Datos</ion-button>
 				<!--
 					<ion-button color="success" type="submit">Enviar Formulario (pruebas)</ion-button>
 				-->				
 			</form>        
 		  
 			<mat-spinner [hidden]="!loading"></mat-spinner>
-
-			<div *ngIf="error" class="notification is-success">
-				<ion-grid>
-					<ion-row>
-						<ion-col>
-							<ion-button color="danger">Error inesperado.</ion-button>
-						</ion-col>
-						<ion-col>
-							<ion-button color="danger" (click)="error=false">Nuevo Formulario</ion-button>
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-			</div>
-
-		  
-			<div *ngIf="success" class="notification is-success">
-				<ion-grid>
-					<ion-row>
-						<ion-col>
-							<ion-button color="primary">Guardado correctamente.</ion-button>
-						</ion-col>
-						<ion-col>
-							<ion-button color="success" (click)="success=false">Continuar</ion-button>
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-
-			</div>
   
-        </ion-card-content>
+		</ion-card-content>
+		<div *ngIf="success" class="notification is-success">
+			<ion-card-header>
+				<ion-card-title color="favorite">FORMULARIO DE SEGUIMIENTO</ion-card-title>
+				<ion-card-subtitle>Adjudicaciones Entidades de Derecho Publico</ion-card-subtitle>
+				<ion-card-subtitle color="danger">El formulario se creo exitosamente</ion-card-subtitle>
+				<ion-card-subtitle>Usuario: <b>{{antForm.controls.user.value}}</b></ion-card-subtitle>
+				<ion-card-subtitle>Creado el: <b>{{ currentDate | date:'yyyy-MM-dd hh:mm:ss' }}</b></ion-card-subtitle>
+				<ion-button color="favorite" (click)="router.navigate(['/home']);">Continuar</ion-button>
+			</ion-card-header>
+				
+		</div>
     </div>		
     </ion-card>
 </ion-content>

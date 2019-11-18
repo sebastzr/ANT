@@ -35,20 +35,15 @@ export class NewPage implements OnInit {
   async submitHandler() {
     //this.loading = true;
     //Create timestamp
+    this.form.antForm.controls.creadoEl.setValue(firebase.firestore.FieldValue.serverTimestamp());
     this.form.antForm.controls.formularioModificadoEl.setValue(firebase.firestore.FieldValue.serverTimestamp());
     this.form.antForm.controls.user.setValue(this.user);
     const antValue = this.form.antForm.value;
     const id = antValue.solicitudEDP; 
-    try {
+    this.afs.collection(id).add(antValue);
+    this.afs.collection('_forms').doc(id).set(antValue);
 
-      await this.afs.collection('_forms').doc(id).set(antValue);
-      await this.afs.collection(id).add(antValue);
-
-      this.router.navigate(['/form']);
-    } catch(err) {
-      console.error(err);
-    }
-
+    this.router.navigate(['/form']);
 
     //this.loading = false;
   }

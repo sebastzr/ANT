@@ -23,7 +23,7 @@ export class HomePage implements OnInit {
    * User
    * 
    */
-  user: User;
+  user: any;
 
   /**
    * Images attributes
@@ -94,8 +94,8 @@ export class HomePage implements OnInit {
     private router: Router,
     private storage: AngularFireStorage,
     private geolocation: Geolocation,
-    private form: FormService
-    ) {
+    private form: FormService,
+    ) {    
     }
     
     /**
@@ -104,19 +104,26 @@ export class HomePage implements OnInit {
      */
     ngOnInit() {
       this.antForm = this.form.antForm;
-
       this.colombiaJson = colombia;
-      
-      this.auth.user$.subscribe( (user) => {
-        if (user) this.antForm.controls.user.setValue(user.email);
-      });
-
-      if (this.antForm.value.capituloUno.departamento !== '') {
-        colombia.forEach( (key) => {
-          if (key.departamento == this.antForm.value.capituloUno.departamento) {
-            this.cities = key.ciudades;
+      if (this.form.antForm.value.solicitudEDP === "") {
+        this.router.navigate(['/home']);
+      } else {
+        this.antForm = this.form.antForm;        
+        
+        this.auth.user$.subscribe( (user) => {
+          if (user) this.user = user.email;
+          if (this.antForm.value.user != this.user) {
+            this.antForm.disable();
           }
         });
+  
+        if (this.antForm.value.capituloUno.departamento !== '') {
+          colombia.forEach( (key) => {
+            if (key.departamento == this.antForm.value.capituloUno.departamento) {
+              this.cities = key.ciudades;
+            }
+          });
+        }        
       }
   }  
 
@@ -146,13 +153,14 @@ export class HomePage implements OnInit {
    * 
    */
   submitHandler() {
+    if (!this.antForm.value.creadoEl || this.antForm.value.creadoEl === "") {
+      this.antForm.controls.creadoEl.setValue(firebase.firestore.FieldValue.serverTimestamp());
+    }
     this.antForm.controls.formularioModificadoEl.setValue(firebase.firestore.FieldValue.serverTimestamp());
     const antValue = this.antForm.value;
     const id = antValue.solicitudEDP; 
-    this.success = true;
     this.afs.collection(id).add(antValue);
     this.afs.collection('_forms').doc(id).set(antValue);
-    //await this.afs.collection('data').doc('forms').collection(id).add(antValue);
     this.success = true;
   }
 
@@ -168,6 +176,8 @@ export class HomePage implements OnInit {
     });
   }
 
+  currentDate = new Date();
+  
   //Test function()
   test() {
     let data = [];

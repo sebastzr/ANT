@@ -16,7 +16,8 @@
     <div [hidden]="loading">
       
       <ion-card-header>
-        <ion-card-title color="favorite">Solicitud EDP: {{ this.antForm.controls.solicitudEDP.value }}</ion-card-title>
+        <ion-card-title color="favorite">Solicitud EDP: {{ antForm.controls.solicitudEDP.value }}</ion-card-title>
+        <ion-card-subtitle><b>Usuario:</b> {{ user }}</ion-card-subtitle>      
         <ion-card-subtitle color="danger"><b>Subir Imágenes: Es necesaria una conexión a internet para subir las imágenes</b></ion-card-subtitle>      
       </ion-card-header>
 
@@ -24,7 +25,7 @@
         
           <ion-list>
 
-            <ion-item class="ion-margin-bottom">
+            <ion-item *ngIf="user == antForm.value.user" class="ion-margin-bottom">
               <ion-button type="button" color="amarillo" mat-raised-button (click)="fileInput.click()">Subir Imagen</ion-button>
               <input hidden #fileInput type="file" placeholder="Foto" (change)="uploadPhoto($event)">
             </ion-item>
@@ -32,7 +33,7 @@
             <div *ngFor="let foto of antForm.value.fotos; let i = index">
               <ion-item class="ion-margin-bottom">
                 <ion-img [src]="foto.url" [alt]="foto.url"></ion-img> 
-                <ion-button slot="end" color="danger" (click)="deleteAlert(i)">Eliminar</ion-button>
+                <ion-button *ngIf="user == antForm.value.user" slot="end" color="danger" (click)="deleteAlert(i)">Eliminar</ion-button>
               </ion-item>
 
               <ion-item>
@@ -40,7 +41,7 @@
                   <mat-label>Descripción</mat-label>
                   <textarea [(ngModel)]="observations[i]" type="text" pattern="(^[a-zA-Z0-9_]+$)" matInput placeholder="Escribe una descripción u observación...">{{ foto.observation }}</textarea>
                 </mat-form-field>
-                <ion-button slot="end" color="favorite" (click)="saveObservation(i)">Guardar</ion-button>
+                <ion-button *ngIf="user == antForm.value.user" slot="end" color="favorite" (click)="saveObservation(i)">Guardar</ion-button>
               </ion-item>
             </div>
 
