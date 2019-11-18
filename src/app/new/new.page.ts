@@ -35,6 +35,7 @@ export class NewPage implements OnInit {
   async submitHandler() {
     //this.loading = true;
     //Create timestamp
+    this.form.antForm.controls.creadoEl.setValue(firebase.firestore.FieldValue.serverTimestamp());
     this.form.antForm.controls.formularioModificadoEl.setValue(firebase.firestore.FieldValue.serverTimestamp());
     this.form.antForm.controls.user.setValue(this.user);
     const antValue = this.form.antForm.value;

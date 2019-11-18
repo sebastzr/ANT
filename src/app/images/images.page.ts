@@ -23,6 +23,7 @@ export class ImagesPage implements OnInit {
   loading: boolean = false;
   images: any;
   observations: any = [];
+  user: any;
 
   constructor(
     private afs: AngularFirestore,
@@ -32,11 +33,7 @@ export class ImagesPage implements OnInit {
     private storage: AngularFireStorage,
     public alertController: AlertController,
     private router: Router
-  ) { 
-    if (this.form.antForm.value.solicitudEDP == "") {
-      this.router.navigate(['/home']);
-    }
-  }
+  ) { }
 
   ngOnInit() {    
     this.antForm = this.form.antForm;
@@ -44,10 +41,20 @@ export class ImagesPage implements OnInit {
       this.router.navigate(['/home']);
     } else {
       this.fotoForms = this.form.fotoForms;
+      
+      this.auth.user$.subscribe( (user) => {
+        if (user) this.user = user.email;
+        if (this.antForm.value.user != this.user) {
+          this.antForm.disable();
+        }
+      });
+      
       if (this.antForm.value.fotos) {
         for(let foto of this.antForm.value.fotos) {
           this.observations.push(foto.observation);
         }
+      } else {
+        this.antForm.controls.fotos.setValue([]);
       }
     }
   }
@@ -94,6 +101,7 @@ export class ImagesPage implements OnInit {
         this.afs.collection('_forms').doc(this.antForm.controls.solicitudEDP.value).set(this.antForm.value);
         this.observations.push('');
         this.loading = false;
+        this.uploadedImage();
       }
     });
   }
@@ -125,6 +133,19 @@ export class ImagesPage implements OnInit {
             this.deletePhoto(i);
           }
         }
+      ]
+    });
+    await alert.present();
+  }
+
+  async uploadedImage() {
+    const alert = await this.alertController.create({
+      header: 'Imagen Subida con Éxito',      
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel'  
+        },
       ]
     });
     await alert.present();

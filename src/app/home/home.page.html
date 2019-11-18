@@ -19,6 +19,11 @@
 				<ion-card-title color="favorite">FORMULARIO DE SEGUIMIENTO</ion-card-title>
 				<ion-card-subtitle>Adjudicaciones Entidades de Derecho Publico</ion-card-subtitle>
 				<ion-card-subtitle>Usuario: <b>{{antForm.controls.user.value}}</b></ion-card-subtitle>
+				<ion-card-subtitle>Modificado el: <b>{{ antForm.controls.formularioModificadoEl.value.seconds * 1000 | date:'yyyy-MM-dd hh:mm:ss' }}</b></ion-card-subtitle>
+				<ion-card-subtitle *ngIf="antForm.value.creadoEl; else notCreated">Creado el: <b>{{ antForm.controls.creadoEl.value.seconds * 1000 | date:'yyyy-MM-dd hh:mm:ss' }}</b></ion-card-subtitle>
+				<ng-template>
+					<ion-card-subtitle>Creado el: <b>{{ antForm.controls.formularioModificadoEl.value.seconds * 1000 | date:'yyyy-MM-dd hh:mm:ss' }}</b></ion-card-subtitle>
+				</ng-template>
 			</ion-card-header>
 
         	<ion-card-content>
@@ -880,28 +885,14 @@
 			
 				<br>
 
-				<ion-button [disabled]="antForm.invalid" color="favorite" type="submit">Guardar Datos</ion-button>
+				<ion-button *ngIf="user == antForm.value.user" color="favorite" type="submit">Guardar Datos</ion-button>
 				<!--
 					<ion-button color="success" type="submit">Enviar Formulario (pruebas)</ion-button>
 				-->				
 			</form>        
 		  
 			<mat-spinner [hidden]="!loading"></mat-spinner>
-
-			<div *ngIf="error" class="notification is-success">
-				<ion-grid>
-					<ion-row>
-						<ion-col>
-							<ion-button color="danger">Error inesperado.</ion-button>
-						</ion-col>
-						<ion-col>
-							<ion-button color="favorite" (click)="error=false">Nuevo Formulario</ion-button>
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-			</div>
-
-		  
+	  
 			<div *ngIf="success" class="notification is-success">
 				<ion-grid>
 					<ion-row>
