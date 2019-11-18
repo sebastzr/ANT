@@ -60,8 +60,7 @@ export class AppComponent {
 
   userHasRole(role: string) {
     if (this.user) {
-      if (role in this.user.roles) return true;
-      else return false;
+      if (role === 'admin') return this.user.roles.admin;
     }
   }
 

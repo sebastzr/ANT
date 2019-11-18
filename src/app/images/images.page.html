@@ -33,7 +33,7 @@
             <div *ngFor="let foto of antForm.value.fotos; let i = index">
               <ion-item class="ion-margin-bottom">
                 <ion-img [src]="foto.url" [alt]="foto.url"></ion-img> 
-                <ion-button slot="end" color="danger" (click)="deleteAlert(i)">Eliminar</ion-button>
+                <ion-button *ngIf="user == antForm.value.user" slot="end" color="danger" (click)="deleteAlert(i)">Eliminar</ion-button>
               </ion-item>
 
               <ion-item>
@@ -41,7 +41,7 @@
                   <mat-label>Descripción</mat-label>
                   <textarea [(ngModel)]="observations[i]" type="text" pattern="(^[a-zA-Z0-9_]+$)" matInput placeholder="Escribe una descripción u observación...">{{ foto.observation }}</textarea>
                 </mat-form-field>
-                <ion-button slot="end" color="favorite" (click)="saveObservation(i)">Guardar</ion-button>
+                <ion-button *ngIf="user == antForm.value.user" slot="end" color="favorite" (click)="saveObservation(i)">Guardar</ion-button>
               </ion-item>
             </div>
 
