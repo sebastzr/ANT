@@ -168,7 +168,10 @@ export class FormService {
             Validators.required
           ]],
           tipoInfraestructura: ['' , [
-                       
+            Validators.required
+          ]],
+          tipoInfraestructuraDescripcion: ['' , [
+                
           ]],
           bateriasSanitarias:['' , [
 

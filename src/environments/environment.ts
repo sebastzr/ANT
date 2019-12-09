@@ -11,7 +11,7 @@ export const environment = {
     projectId: "ant-app-7ee04",
     storageBucket: "ant-app-7ee04.appspot.com",
     messagingSenderId: "593354332989",
-    appId: "1:593354332989:web:7d7408657cce6b84"
+    appId: "1:593354332989:web:bd02e483fa949110888354"
   }
 };
 
