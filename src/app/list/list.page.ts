@@ -33,7 +33,6 @@ export class ListPage implements OnInit {
         ref => ref.where('user', '==', user.email)).valueChanges();
       }  
     });
-    this.test();
   }
 
   //Test function()
