@@ -178,20 +178,6 @@ export class HomePage implements OnInit {
 
   currentDate = new Date();
   
-  //Test function()
-  test() {
-    let data = [];
-    this.afs.collection('_forms').get()
-      .subscribe( (querySnapshot) => {
-        querySnapshot.forEach( doc => {
-          for(let key in doc.data()) {
-            console.log(key);            
-          }
-          data.push(doc.data());
-        });
-        console.log(data);
-        console.log(JSON.parse(JSON.stringify(data)));        
-      })
-  }
+  
 
 }
