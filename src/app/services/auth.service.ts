@@ -35,9 +35,11 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(email, pass)
       .then(userData => {
-        this.updateUserData(userData.user);
-        resolve(userData);
-        this.router.navigate(['']);
+        this.afs.doc<User>(`users/${userData.user.uid}`).valueChanges().subscribe((user: any) => {
+          this.updateUserData(user);
+          resolve(userData);
+          this.router.navigate(['']);
+        });
       }, err => reject(err));
     });
   }
@@ -50,13 +52,26 @@ export class AuthService {
 
   private updateUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    const data = {
-      uid: user.uid,
-      email: user.email,
-      roles: {
-        user: true,
-      }
-    };
+    let data: any;
+    if (user.roles.admin) {
+      data = {
+        uid: user.uid,
+        email: user.email,
+        roles: {
+          user: true,
+          admin: true,
+        }
+      };
+    } else {
+      data = {
+        uid: user.uid,
+        email: user.email,
+        roles: {
+          user: true,
+          admin: false,
+        }
+      };
+    }
     return userRef.set(data, {merge: true});
   }
 

@@ -9,6 +9,7 @@ import { FormService } from '../services/form.service';
   templateUrl: './list.page.html',
   styleUrls: ['./list.page.scss'],
 })
+
 export class ListPage implements OnInit {
 
   items: Observable<any>;
@@ -24,7 +25,6 @@ export class ListPage implements OnInit {
   ngOnInit() {    
     this.auth.user$.subscribe((user) => {
       this.user = user.email;
-      console.log(user.roles.admin)
       if (user.roles.admin) {
         this.items = this.afs.collection('_forms', 
         ref => ref.orderBy('formularioModificadoEl', 'desc')).valueChanges();
@@ -33,6 +33,28 @@ export class ListPage implements OnInit {
         ref => ref.where('user', '==', user.email)).valueChanges();
       }  
     });
+  }
+
+  //Test function()
+  test() {
+    let data = [];
+    let iterDoc: any;
+    this.afs.collection('_forms').get()
+      .subscribe( (querySnapshot) => {
+        querySnapshot.forEach( doc => {
+          iterDoc = doc.data();
+          if (iterDoc.fotos) {
+            iterDoc.fotos.forEach(element => {
+              console.log(element)
+            });     
+          }
+          data.push({
+            'EDP':  iterDoc.solicitudEDP,
+            '1.1 Departamento': iterDoc.capituloUno.departamento,
+          });
+        });
+        console.log(data);      
+      })
   }
 
 }
