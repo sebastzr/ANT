@@ -36,7 +36,11 @@ export class AuthService {
       this.afAuth.auth.signInWithEmailAndPassword(email, pass)
       .then(userData => {
         this.afs.doc<User>(`users/${userData.user.uid}`).valueChanges().subscribe((user: any) => {
-          this.updateUserData(user);
+          if (user) {
+            this.updateUserData(user);
+          } else {
+            this.updateUserData(userData.user);
+          }
           resolve(userData);
           this.router.navigate(['']);
         });
@@ -53,15 +57,26 @@ export class AuthService {
   private updateUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     let data: any;
-    if (user.roles.admin) {
-      data = {
-        uid: user.uid,
-        email: user.email,
-        roles: {
-          user: true,
-          admin: true,
-        }
-      };
+    if (user.roles) {
+      if (user.roles.admin) {
+        data = {
+          uid: user.uid,
+          email: user.email,
+          roles: {
+            user: true,
+            admin: true,
+          }
+        };
+      } else {
+        data = {
+          uid: user.uid,
+          email: user.email,
+          roles: {
+            user: true,
+            admin: false,
+          }
+        };
+      }
     } else {
       data = {
         uid: user.uid,
