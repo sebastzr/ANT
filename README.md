@@ -6,6 +6,6 @@ This application is to record data from rural fields in Colombia, it has the abi
 
 ## Authors
 
-Sebastian Zapata Ruiz - [a sebastz](https://github.com/sebastzr)
+Sebastian Zapata Ruiz - [sebastzr](https://github.com/sebastzr)
 
-Andres Felipe López - [a Anubiz0411](https://github.com/Anubiz0411)
+Andres Felipe López - [Anubiz0411](https://github.com/Anubiz0411)
