@@ -1,6 +1,6 @@
 # ANT 
 
-Ionic 4 - Angular 8 application 
+Ionic 4 - Angular 8 application - Firebase
 
 This application is to record data from rural fields in Colombia, it has the ability to function without an internet connection, once it is connected the data is synchronized with the database
 
